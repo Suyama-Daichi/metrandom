@@ -5,6 +5,7 @@
     <loc>https://metrandom.com/</loc>
     <xhtml:link rel="alternate" hreflang="ja" href="https://metrandom.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://metrandom.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://metrandom.com/zh/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://metrandom.com/en/"/>
     <lastmod>2026-06-06</lastmod>
     <changefreq>monthly</changefreq>
@@ -14,6 +15,17 @@
     <loc>https://metrandom.com/en/</loc>
     <xhtml:link rel="alternate" hreflang="ja" href="https://metrandom.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://metrandom.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://metrandom.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://metrandom.com/en/"/>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://metrandom.com/zh/</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://metrandom.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://metrandom.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://metrandom.com/zh/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://metrandom.com/en/"/>
     <lastmod>2026-06-06</lastmod>
     <changefreq>monthly</changefreq>

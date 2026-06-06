@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,11 +21,11 @@
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7001458737801425"
      crossorigin="anonymous"></script>
-<title>Metro Station Gacha | Random Tokyo Metro Station Picker</title>
-<meta name="description" content="Picks one random station from the 180 stations across all 9 Tokyo Metro lines — Ginza, Marunouchi, Hibiya, Tozai, Chiyoda, Yurakucho, Hanzomon, Namboku and Fukutoshin. Spin the gacha to find your next spot to explore in Tokyo.">
-<meta name="keywords" content="Tokyo Metro,random station,station picker,roulette,Tokyo sightseeing,Tokyo exploration,Ginza Line,Marunouchi Line,Hibiya Line,Tozai Line,Chiyoda Line,Yurakucho Line,Hanzomon Line,Namboku Line,Fukutoshin Line">
+<title>地铁站扭蛋 | 从东京地铁9条线路随机抽选车站</title>
+<meta name="description" content="只需按一下按钮，即可从东京地铁全部9条线路、180个车站中随机抽选1站——银座线、丸之内线、日比谷线、东西线、千代田线、有乐町线、半藏门线、南北线、副都心线。东京自由行、随性下车、城市漫步的好帮手。">
+<meta name="keywords" content="东京地铁,随机车站,扭蛋,东京自由行,东京观光,银座线,丸之内线,日比谷线,东西线,千代田线,有乐町线,半藏门线,南北线,副都心线">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://metrandom.com/en/">
+<link rel="canonical" href="https://metrandom.com/zh/">
 <link rel="alternate" hreflang="ja" href="https://metrandom.com/">
 <link rel="alternate" hreflang="en" href="https://metrandom.com/en/">
 <link rel="alternate" hreflang="zh" href="https://metrandom.com/zh/">
@@ -33,19 +33,19 @@
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Metro Station Gacha">
-<meta property="og:title" content="Metro Station Gacha | Random Tokyo Metro Station Picker">
-<meta property="og:description" content="Picks one random station from the 180 stations across all 9 Tokyo Metro lines. Filter by line. Perfect for spontaneous stopovers, walks, and finding your next spot to explore in Tokyo.">
-<meta property="og:url" content="https://metrandom.com/en/">
+<meta property="og:site_name" content="地铁站扭蛋">
+<meta property="og:title" content="地铁站扭蛋 | 从东京地铁9条线路随机抽选车站">
+<meta property="og:description" content="只需按一下按钮，即可从东京地铁全部9条线路、180个车站中随机抽选1站。可按线路筛选。东京自由行、随性下车、城市漫步的好帮手。">
+<meta property="og:url" content="https://metrandom.com/zh/">
 <meta property="og:image" content="https://metrandom.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Metro Station Gacha | Random Tokyo Metro Station Picker">
-<meta name="twitter:description" content="Picks one random station from the 180 stations across all 9 Tokyo Metro lines. Perfect for stopovers, walks, and exploring Tokyo.">
+<meta name="twitter:title" content="地铁站扭蛋 | 从东京地铁9条线路随机抽选车站">
+<meta name="twitter:description" content="从东京地铁全部9条线路、180个车站中随机抽选1站。东京自由行、城市漫步的好帮手。">
 <meta name="twitter:image" content="https://metrandom.com/og-image.png">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -59,12 +59,12 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Metro Station Gacha",
-  "url": "https://metrandom.com/en/",
-  "description": "Picks one random station from the 180 stations across all 9 Tokyo Metro lines.",
+  "name": "地铁站扭蛋",
+  "url": "https://metrandom.com/zh/",
+  "description": "从东京地铁全部9条线路、180个车站中随机抽选1站。",
   "applicationCategory": "TravelApplication",
   "operatingSystem": "Any",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "browserRequirements": "Requires JavaScript",
   "offers": {
     "@type": "Offer",
@@ -211,8 +211,8 @@
 </style>
 </head>
 <body>
-  <h1 id="appTitle">🚇 Metro Station Gacha</h1>
-  <div class="sub" id="appSub">Press the button to spin for a random line and station</div>
+  <h1 id="appTitle">🚇 地铁站扭蛋</h1>
+  <div class="sub" id="appSub">按下按钮，随机抽选线路和车站</div>
 
   <div class="langs" id="langs">
     <button type="button" data-lang="ja">日本語</button>
@@ -223,72 +223,72 @@
   <div class="lines" id="lines"></div>
 
   <div class="card" id="card">
-    <div class="placeholder" id="placeholder">Press the button below to start</div>
+    <div class="placeholder" id="placeholder">点击下方按钮开始</div>
   </div>
 
-  <button class="go" id="go">Spin the Gacha</button>
+  <button class="go" id="go">转扭蛋</button>
 
   <div class="share" id="share" hidden>
-    <span class="share-label" id="shareLabel">Share this result</span>
+    <span class="share-label" id="shareLabel">分享这个结果</span>
     <div class="share-btns">
       <a class="x" id="shareX" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        <span id="shareXLabel">Post</span>
+        <span id="shareXLabel">发布</span>
       </a>
       <a class="line" id="shareLine">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63h-1.752v1.125h1.752c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.383c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.38c.347 0 .63.285.63.63 0 .349-.283.63-.63.63h-1.752v1.125h1.752zm-3.855 3.016c0 .27-.174.51-.432.596a.62.62 0 0 1-.199.034c-.197 0-.381-.099-.495-.255l-2.42-3.293v2.918a.626.626 0 0 1-.629.628.625.625 0 0 1-.628-.628V8.108c0-.27.173-.51.43-.595a.643.643 0 0 1 .199-.033c.195 0 .375.104.495.254l2.42 3.291V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0a.63.63 0 0 1-.631.628.625.625 0 0 1-.626-.628V8.108c0-.345.282-.63.63-.63.346 0 .627.285.627.63v4.771zm-2.466.628H4.917a.63.63 0 0 1-.63-.628V8.108c0-.345.282-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63a.63.63 0 0 1-.629.628M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.072 9.436-6.974C23.176 14.393 24 12.458 24 10.314"/></svg>
         LINE
       </a>
-      <button class="copy" id="shareCopy" type="button">Copy link</button>
+      <button class="copy" id="shareCopy" type="button">复制链接</button>
     </div>
   </div>
 
   <div class="hist">
     <div class="hist-head" id="histHead" hidden>
-      <h2 id="histTitle">History</h2>
-      <button class="hist-clear" id="histClear" type="button">Clear all</button>
+      <h2 id="histTitle">历史记录</h2>
+      <button class="hist-clear" id="histClear" type="button">全部删除</button>
     </div>
     <div id="hist"></div>
   </div>
 
   <!-- 広告: 楽天アフィリエイトリンク -->
   <section class="pr">
-    <div class="pr-head"><span id="prHeadLabel">For your outing</span> <span class="pr-badge">PR</span></div>
+    <div class="pr-head"><span id="prHeadLabel">出行好物</span> <span class="pr-badge">PR</span></div>
     <a class="pr-item" href="https://a.r10.to/hFBRMP" target="_blank" rel="sponsored nofollow noopener">
       <span class="pr-emoji">🌂</span>
-      <span>Fully light-blocking UV parasol — 100% shading, UV cut, heat shield<br>Sun protection for walks from the station</span>
-      <span class="pr-shop">Rakuten</span>
+      <span>完全遮光防晒伞——100%遮光・防UV・隔热<br>从车站步行时的防晒利器</span>
+      <span class="pr-shop">乐天市场</span>
     </a>
     <a class="pr-item" href="https://a.r10.to/hRMlLZ" target="_blank" rel="sponsored nofollow noopener">
       <span class="pr-emoji">🧴</span>
-      <span>Nivea UV Deep Protect &amp; Care Gel (80g × 2)<br>UV care before exploring the city</span>
-      <span class="pr-shop">Rakuten</span>
+      <span>妮维雅UV防晒凝胶（80g×2）<br>城市漫步前的防晒护理</span>
+      <span class="pr-shop">乐天市场</span>
     </a>
   </section>
 
   <section class="about">
-    <h2 id="aboutTitle">About Metro Station Gacha</h2>
-    <p id="aboutP1">Picks one random station from the 180 stations across all 9 Tokyo Metro lines at the press of a button. Great for spontaneous stopovers, weekend walks, mini trips, choosing your next place to explore in Tokyo — even YouTube video ideas. Filter by line to draw stations only from the lines you select.</p>
-    <h2 id="aboutLinesTitle">Supported lines</h2>
+    <h2 id="aboutTitle">关于地铁站扭蛋</h2>
+    <p id="aboutP1">只需按一下按钮，即可从东京地铁全部9条线路、180个车站中随机抽选1站。适合随性下车、周末散步、近郊小旅行、为城市漫步挑选目的地，也可用于YouTube企划等。还可以按线路筛选，只从特定线路中抽选车站。</p>
+    <h2 id="aboutLinesTitle">支持的线路</h2>
     <ul id="aboutLines">
-      <li>Ginza Line (G)</li>
-      <li>Marunouchi Line (M)</li>
-      <li>Hibiya Line (H)</li>
-      <li>Tozai Line (T)</li>
-      <li>Chiyoda Line (C)</li>
-      <li>Yurakucho Line (Y)</li>
-      <li>Hanzomon Line (Z)</li>
-      <li>Namboku Line (N)</li>
-      <li>Fukutoshin Line (F)</li>
+      <li>银座线（G）</li>
+      <li>丸之内线（M）</li>
+      <li>日比谷线（H）</li>
+      <li>东西线（T）</li>
+      <li>千代田线（C）</li>
+      <li>有乐町线（Y）</li>
+      <li>半藏门线（Z）</li>
+      <li>南北线（N）</li>
+      <li>副都心线（F）</li>
     </ul>
-    <h2 id="howTitle">How to use</h2>
-    <p id="howP">Press the "Spin the Gacha" button and the roulette will cycle through lines and stations before landing on one. Tap the line chips at the top to toggle lines on or off. Your recent results are kept in the history.</p>
+    <h2 id="howTitle">使用方法</h2>
+    <p id="howP">按下「转扭蛋」按钮，线路和车站会像轮盘一样旋转，最终确定1站。点击上方的线路标签可切换线路的开/关。最近的结果会保存在历史记录中。</p>
   </section>
 
   <footer>
-    <p style="margin-bottom:8px">This is an unofficial fan site and is not affiliated with Tokyo Metro Co., Ltd.</p>
-    Metro Station Gacha ・
-    <a href="/en/privacy/">Privacy Policy</a> ・
+    <p style="margin-bottom:8px">本网站为非官方粉丝网站，与东京地下铁株式会社（东京Metro）无任何关联。</p>
+    地铁站扭蛋 ・
+    <a href="/en/privacy/">隐私政策</a> ・
     <a href="https://github.com/Suyama-Daichi/metro-random" rel="noopener">GitHub</a>
   </footer>
 
@@ -406,7 +406,7 @@ const LANG_KEY = 'metroGachaLang';
 let lang = localStorage.getItem(LANG_KEY);
 if (!['ja','en','zh'].includes(lang)) {
   const nav = (navigator.language || 'ja').toLowerCase();
-  lang = nav.startsWith('ja') ? 'ja' : nav.startsWith('zh') ? 'zh' : 'en';
+  lang = nav.startsWith('ja') ? 'ja' : nav.startsWith('en') ? 'en' : 'zh';
 }
 
 function t(key){ return T[lang][key]; }
@@ -485,7 +485,7 @@ histClear.onclick = ()=>{
   renderHist();
 };
 
-const SITE_URL = 'https://metrandom.com/en/';
+const SITE_URL = 'https://metrandom.com/zh/';
 const shareEl = document.getElementById('share');
 const shareX = document.getElementById('shareX');
 const shareLine = document.getElementById('shareLine');
