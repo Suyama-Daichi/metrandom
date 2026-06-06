@@ -129,6 +129,12 @@
   .station-en { color: #9aa6c4; font-size: .95rem; letter-spacing: .05em; }
   .num { color: #c8d2ee; font-size: .85rem; margin-top: 10px; }
   .placeholder { color: #6b769a; font-size: 1.1rem; }
+  .map-link {
+    display: inline-block; margin-top: 16px; padding: 9px 20px;
+    border: 1px solid rgba(255,255,255,.25); border-radius: 999px;
+    color: #d4dcf0; font-size: .85rem; text-decoration: none; transition: background .15s;
+  }
+  .map-link:hover { background: rgba(255,255,255,.1); }
 
   .spinning .station { animation: blur .08s linear infinite; }
   @keyframes blur { 0%{opacity:.4} 50%{opacity:1} 100%{opacity:.4} }
@@ -339,6 +345,7 @@ const T = {
     post: 'ポスト',
     copy: 'リンクをコピー',
     copied: 'コピーしました ✓',
+    mapLink: 'Googleマップで見る',
     hist: '履歴',
     clearAll: 'すべて削除',
     prHead: 'お出かけのおともに',
@@ -359,6 +366,7 @@ const T = {
     post: 'Post',
     copy: 'Copy link',
     copied: 'Copied ✓',
+    mapLink: 'View on Google Maps',
     hist: 'History',
     clearAll: 'Clear all',
     prHead: 'For your outing',
@@ -379,6 +387,7 @@ const T = {
     post: '发布',
     copy: '复制链接',
     copied: '已复制 ✓',
+    mapLink: '在谷歌地图中查看',
     hist: '历史记录',
     clearAll: '全部删除',
     prHead: '出行好物',
@@ -518,7 +527,8 @@ function render(r, spinning){
     </div>
     <div class="station">${r.st[0]}</div>
     <div class="station-en">${r.st[1]}</div>
-    <div class="num">${lineName(r.line)} ${r.line.sym}${num}</div>`;
+    <div class="num">${lineName(r.line)} ${r.line.sym}${num}</div>
+    ${spinning ? '' : `<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.st[0]+'駅 '+r.line.name)}" target="_blank" rel="noopener">📍 ${t('mapLink')}</a>`}`;
 }
 
 go.onclick = ()=>{
