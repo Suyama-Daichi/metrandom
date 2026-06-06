@@ -21,7 +21,7 @@
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7001458737801425"
      crossorigin="anonymous"></script>
-<title>Tokyo Metro Station Gacha | Random Station Picker for All 9 Lines</title>
+<title>Metro Station Gacha | Random Tokyo Metro Station Picker</title>
 <meta name="description" content="Picks one random station from the 180 stations across all 9 Tokyo Metro lines — Ginza, Marunouchi, Hibiya, Tozai, Chiyoda, Yurakucho, Hanzomon, Namboku and Fukutoshin. Spin the gacha to find your next spot to explore in Tokyo.">
 <meta name="keywords" content="Tokyo Metro,random station,station picker,roulette,Tokyo sightseeing,Tokyo exploration,Ginza Line,Marunouchi Line,Hibiya Line,Tozai Line,Chiyoda Line,Yurakucho Line,Hanzomon Line,Namboku Line,Fukutoshin Line">
 <meta name="robots" content="index, follow">
@@ -32,8 +32,8 @@
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Tokyo Metro Station Gacha">
-<meta property="og:title" content="Tokyo Metro Station Gacha | Random Station Picker for All 9 Lines">
+<meta property="og:site_name" content="Metro Station Gacha">
+<meta property="og:title" content="Metro Station Gacha | Random Tokyo Metro Station Picker">
 <meta property="og:description" content="Picks one random station from the 180 stations across all 9 Tokyo Metro lines. Filter by line. Perfect for spontaneous stopovers, walks, and finding your next spot to explore in Tokyo.">
 <meta property="og:url" content="https://metrandom.com/en/">
 <meta property="og:image" content="https://metrandom.com/og-image.png">
@@ -43,7 +43,7 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tokyo Metro Station Gacha | Random Station Picker for All 9 Lines">
+<meta name="twitter:title" content="Metro Station Gacha | Random Tokyo Metro Station Picker">
 <meta name="twitter:description" content="Picks one random station from the 180 stations across all 9 Tokyo Metro lines. Perfect for stopovers, walks, and exploring Tokyo.">
 <meta name="twitter:image" content="https://metrandom.com/og-image.png">
 
@@ -57,7 +57,7 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Tokyo Metro Station Gacha",
+  "name": "Metro Station Gacha",
   "url": "https://metrandom.com/en/",
   "description": "Picks one random station from the 180 stations across all 9 Tokyo Metro lines.",
   "applicationCategory": "TravelApplication",
@@ -203,7 +203,7 @@
 </style>
 </head>
 <body>
-  <h1 id="appTitle">🚇 Tokyo Metro Station Gacha</h1>
+  <h1 id="appTitle">🚇 Metro Station Gacha</h1>
   <div class="sub" id="appSub">Press the button to spin for a random line and station</div>
 
   <div class="langs" id="langs">
@@ -259,7 +259,7 @@
   </section>
 
   <section class="about">
-    <h2 id="aboutTitle">About Tokyo Metro Station Gacha</h2>
+    <h2 id="aboutTitle">About Metro Station Gacha</h2>
     <p id="aboutP1">Picks one random station from the 180 stations across all 9 Tokyo Metro lines at the press of a button. Great for spontaneous stopovers, weekend walks, mini trips, choosing your next place to explore in Tokyo — even YouTube video ideas. Filter by line to draw stations only from the lines you select.</p>
     <h2 id="aboutLinesTitle">Supported lines</h2>
     <ul id="aboutLines">
@@ -279,7 +279,7 @@
 
   <footer>
     <p style="margin-bottom:8px">This is an unofficial fan site and is not affiliated with Tokyo Metro Co., Ltd.</p>
-    Tokyo Metro Station Gacha ・
+    Metro Station Gacha ・
     <a href="/en/privacy/">Privacy Policy</a> ・
     <a href="https://github.com/Suyama-Daichi/metro-random" rel="noopener">GitHub</a>
   </footer>
@@ -330,8 +330,8 @@ const LINE_I18N = {
 
 const T = {
   ja: {
-    docTitle: '東京メトロ駅ガチャ | 9路線からランダムに駅を選ぶ',
-    h1: '🚇 東京メトロ駅ガチャ',
+    docTitle: 'メトロ駅ガチャ | 東京メトロ9路線からランダムに駅を選ぶ',
+    h1: '🚇 メトロ駅ガチャ',
     sub: 'ボタンを押すと路線と駅のガチャを回せます',
     placeholder: '下のボタンを押してスタート',
     go: 'ガチャを回す',
@@ -342,16 +342,16 @@ const T = {
     hist: '履歴',
     clearAll: 'すべて削除',
     prHead: 'お出かけのおともに',
-    aboutTitle: '東京メトロ駅ガチャとは',
+    aboutTitle: 'メトロ駅ガチャとは',
     aboutP1: '東京メトロの全9路線・180駅の中から、ボタンひとつでランダムに1駅を選んでくれます。行き先に迷ったときの途中下車、休日のお散歩コース選び、近場の小旅行、街歩きの目的地決め、YouTubeの企画などに使えます。路線を絞り込めば、特定の沿線からだけ駅を選ぶこともできます。',
     aboutLinesTitle: '対応している路線',
     howTitle: '使い方',
     howP: '「ガチャを回す」ボタンを押すと、ルーレットのように路線と駅が回転し、最終的に1駅が決まります。上部の路線チップをタップすると、対象路線のオン・オフを切り替えられます。直近の結果は履歴として表示されます。',
-    share: r => `東京メトロ駅ガチャの結果は「${lineName(r.line)} ${r.st[0]}駅（${r.line.sym}${num2(r.idx)}）」でした！🚇 #東京メトロ駅ガチャ`
+    share: r => `メトロ駅ガチャの結果は「${lineName(r.line)} ${r.st[0]}駅（${r.line.sym}${num2(r.idx)}）」でした！🚇 #メトロ駅ガチャ`
   },
   en: {
-    docTitle: 'Tokyo Metro Station Gacha | Random station picker across 9 lines',
-    h1: '🚇 Tokyo Metro Station Gacha',
+    docTitle: 'Metro Station Gacha | Random station picker across all 9 Tokyo Metro lines',
+    h1: '🚇 Metro Station Gacha',
     sub: 'Press the button to spin for a random line and station',
     placeholder: 'Press the button below to start',
     go: 'Spin the Gacha',
@@ -362,16 +362,16 @@ const T = {
     hist: 'History',
     clearAll: 'Clear all',
     prHead: 'For your outing',
-    aboutTitle: 'About Tokyo Metro Station Gacha',
+    aboutTitle: 'About Metro Station Gacha',
     aboutP1: 'Picks one random station from the 180 stations across all 9 Tokyo Metro lines at the press of a button. Great for spontaneous stopovers, weekend walks, mini trips, choosing your next place to explore in Tokyo — even YouTube video ideas. Filter by line to draw stations only from the lines you select.',
     aboutLinesTitle: 'Supported lines',
     howTitle: 'How to use',
     howP: 'Press the "Spin the Gacha" button and the roulette will cycle through lines and stations before landing on one. Tap the line chips at the top to toggle lines on or off. Your recent results are kept in the history.',
-    share: r => `I spun the Tokyo Metro Station Gacha and got "${r.st[1]} Station (${lineName(r.line)}, ${r.line.sym}${num2(r.idx)})"! 🚇 #TokyoMetroStationGacha`
+    share: r => `I spun the Metro Station Gacha and got "${r.st[1]} Station (${lineName(r.line)}, ${r.line.sym}${num2(r.idx)})"! 🚇 #MetroStationGacha`
   },
   zh: {
-    docTitle: '东京地铁站扭蛋 | 从9条线路随机抽选车站',
-    h1: '🚇 东京地铁站扭蛋',
+    docTitle: '地铁站扭蛋 | 从东京地铁9条线路随机抽选车站',
+    h1: '🚇 地铁站扭蛋',
     sub: '按下按钮，随机抽选线路和车站',
     placeholder: '点击下方按钮开始',
     go: '转扭蛋',
@@ -382,12 +382,12 @@ const T = {
     hist: '历史记录',
     clearAll: '全部删除',
     prHead: '出行好物',
-    aboutTitle: '关于东京地铁站扭蛋',
+    aboutTitle: '关于地铁站扭蛋',
     aboutP1: '只需按一下按钮，即可从东京地铁全部9条线路、180个车站中随机抽选1站。适合随性下车、周末散步、近郊小旅行、为城市漫步挑选目的地，也可用于YouTube企划等。还可以按线路筛选，只从特定线路中抽选车站。',
     aboutLinesTitle: '支持的线路',
     howTitle: '使用方法',
     howP: '按下「转扭蛋」按钮，线路和车站会像轮盘一样旋转，最终确定1站。点击上方的线路标签可切换线路的开/关。最近的结果会保存在历史记录中。',
-    share: r => `东京地铁站扭蛋抽到了「${r.st[0]}站（${lineName(r.line)} ${r.line.sym}${num2(r.idx)}）」！🚇 #东京地铁站扭蛋`
+    share: r => `地铁站扭蛋抽到了「${r.st[0]}站（${lineName(r.line)} ${r.line.sym}${num2(r.idx)}）」！🚇 #地铁站扭蛋`
   }
 };
 
