@@ -2,7 +2,7 @@
 
 東京メトロの全9路線・約180駅の中から、ボタンひとつでランダムに1駅を選ぶ Web アプリです。行き先に迷ったときの途中下車、休日のお散歩コース選び、近場の小旅行、街歩きの目的地決めなどに使えます。
 
-🔗 公開URL: https://suyama-daichi.github.io/metro-random/
+🔗 公開URL: https://metrandom.com/
 
 ## 特徴
 
@@ -29,7 +29,7 @@
 
 ## 使い方
 
-1. [公開ページ](https://suyama-daichi.github.io/metro-random/) を開く
+1. [公開ページ](https://metrandom.com/) を開く
 2. （任意）上部の路線チップをタップして対象路線を絞り込む
 3. 「ランダムに選ぶ」ボタンを押す
 4. 表示された駅を確認する（直近の結果は履歴に残ります）
@@ -56,7 +56,7 @@ python3 -m http.server 8000
 このサイトは **GitHub Pages** でホスティングしています。
 
 - 公開元: `main` ブランチのルート（`/`）
-- 公開URL: https://suyama-daichi.github.io/metro-random/
+- 公開URL: https://metrandom.com/
 - エントリーポイント: `index.html`（GitHub Pages が自動配信）
 
 ### デプロイ方法

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://suyama-daichi.github.io/metro-random/sitemap.xml
+Sitemap: https://metrandom.com/sitemap.xml
