@@ -23,6 +23,10 @@
 <meta name="description" content="メトロ駅ガチャの結果は「日比谷線 霞ケ関駅（H16）」でした。全9路線・180駅からランダムに1駅を選ぶ無料Webアプリ。あなたも回してみよう！">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://metrandom.com/s/H16/">
+<link rel="alternate" hreflang="ja" href="https://metrandom.com/s/H16/">
+<link rel="alternate" hreflang="en" href="https://metrandom.com/en/s/H16/">
+<link rel="alternate" hreflang="zh" href="https://metrandom.com/zh/s/H16/">
+<link rel="alternate" hreflang="x-default" href="https://metrandom.com/en/s/H16/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="メトロ駅ガチャ">
 <meta property="og:title" content="霞ケ関駅が出ました！｜メトロ駅ガチャ">
@@ -34,7 +38,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="霞ケ関駅が出ました！｜メトロ駅ガチャ">
-<meta name="twitter:description" content="ガチャ結果:「日比谷線 霞ケ関駅（H16）」。あなたも回してみよう！">
+<meta name="twitter:description" content="ガチャ結果:「日比谷線 霞ケ関駅（H16）」。全9路線・180駅からランダムに1駅。あなたも回してみよう！">
 <meta name="twitter:image" content="https://metrandom.com/og/H16.jpg">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -67,56 +71,20 @@
 </head>
 <body>
   <h1>🚇 メトロ駅ガチャ</h1>
-  <div class="label" id="lbl">ガチャ結果</div>
+  <div class="label">ガチャ結果</div>
   <div class="card">
     <div class="line-badge" style="background:#B5B5AC">
-      <span class="sym" style="color:#B5B5AC">H16</span><span id="lineName">日比谷線</span>
+      <span class="sym" style="color:#B5B5AC">H16</span>日比谷線
     </div>
     <div class="station">霞ケ関</div>
     <div class="station-en">Kasumigaseki</div>
-    <div class="guide" id="guide">中央省庁が集まる日本の行政の中心。</div>
+    <div class="guide">中央省庁が集まる日本の行政の中心。</div>
   </div>
-  <a class="map" id="mapBtn" href="https://www.google.com/maps/search/?api=1&query=%E9%9C%9E%E3%82%B1%E9%96%A2%E9%A7%85%20%E6%97%A5%E6%AF%94%E8%B0%B7%E7%B7%9A" target="_blank" rel="noopener">📍 Googleマップで見る</a>
-  <a class="go" id="cta" href="/">自分もガチャを回す 🎲</a>
+  <a class="map" href="https://www.google.com/maps/search/?api=1&query=%E9%9C%9E%E3%82%B1%E9%96%A2%E9%A7%85%20%E6%97%A5%E6%AF%94%E8%B0%B7%E7%B7%9A" target="_blank" rel="noopener">📍 Googleマップで見る</a>
+  <a class="go" href="/">自分もガチャを回す 🎲</a>
   <footer>
-    <p style="margin-bottom:8px" id="disc">本サイトは非公式のファンサイトであり、東京地下鉄株式会社（東京メトロ）とは一切関係ありません。</p>
-    <a href="/" id="brandLink">メトロ駅ガチャ</a> ・ <a href="/privacy/" id="privLink">プライバシーポリシー</a> ・ <a href="/en/">English</a>
+    <p style="margin-bottom:8px">本サイトは非公式のファンサイトであり、東京地下鉄株式会社（東京メトロ）とは一切関係ありません。</p>
+    <a href="/">メトロ駅ガチャ</a> ・ <a href="/privacy/">プライバシーポリシー</a>
   </footer>
-<script>
-(function() {
-  var T = {
-    ja: { lbl: "ガチャ結果", map: "📍 Googleマップで見る", cta: "自分もガチャを回す 🎲",
-          disc: "本サイトは非公式のファンサイトであり、東京地下鉄株式会社（東京メトロ）とは一切関係ありません。",
-          priv: "プライバシーポリシー", line: "日比谷線",
-          title: "霞ケ関駅（日比谷線 H16）が出ました！ | メトロ駅ガチャ", guide: "中央省庁が集まる日本の行政の中心。", cta_href: "/" },
-    en: { lbl: "Gacha result", map: "📍 View on Google Maps", cta: "Spin the Gacha yourself 🎲",
-          disc: "This is an unofficial fan site and is not affiliated with Tokyo Metro Co., Ltd.",
-          priv: "Privacy Policy", line: "Hibiya Line",
-          title: "You got Kasumigaseki Station (Hibiya Line, H16)! | Metro Station Gacha", guide: "Japan's central government ministries district.", cta_href: "/en/" },
-    zh: { lbl: "抽选结果", map: "📍 在谷歌地图中查看", cta: "我也要转扭蛋 🎲",
-          disc: "本网站为非官方粉丝网站，与东京地下铁株式会社（东京Metro）无任何关联。",
-          priv: "隐私政策", line: "日比谷线",
-          title: "抽到了霞ケ関站（日比谷线 H16）！ | 地铁站扭蛋", guide: "Japan's central government ministries district.", cta_href: "/zh/" }
-  };
-  var lang = null;
-  try { lang = localStorage.getItem("metroGachaLang"); } catch(e) {}
-  if (["ja","en","zh"].indexOf(lang) < 0) {
-    var nav = (navigator.language || "ja").toLowerCase();
-    lang = nav.indexOf("ja") === 0 ? "ja" : nav.indexOf("zh") === 0 ? "zh" : "en";
-  }
-  if (lang === "ja") return;
-  var t = T[lang];
-  document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
-  document.title = t.title;
-  document.getElementById("lbl").textContent = t.lbl;
-  document.getElementById("lineName").textContent = t.line;
-  document.getElementById("guide").textContent = t.guide;
-  document.getElementById("mapBtn").textContent = t.map;
-  document.getElementById("cta").textContent = t.cta;
-  document.getElementById("cta").href = t.cta_href;
-  document.getElementById("disc").textContent = t.disc;
-  document.getElementById("privLink").textContent = t.priv;
-})();
-</script>
 </body>
 </html>

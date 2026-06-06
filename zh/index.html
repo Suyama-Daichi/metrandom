@@ -496,7 +496,7 @@ const shareCopy = document.getElementById('shareCopy');
 
 function updateShare(r){
   const text = T[lang].share(r);
-  const resultUrl = `https://metrandom.com/s/${r.line.sym}${num2(r.idx)}/`;
+  const resultUrl = `https://metrandom.com/${lang === 'ja' ? '' : lang + '/'}s/${r.line.sym}${num2(r.idx)}/`;
   const full = text + ' ' + resultUrl;
   shareX.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(resultUrl)}`;
   shareLine.href = `https://line.me/R/share?text=${encodeURIComponent(full)}`;
