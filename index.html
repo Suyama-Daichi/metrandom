@@ -115,12 +115,23 @@
   button.go:disabled { opacity: .6; cursor: default; }
 
   .hist { margin-top: 22px; max-width: 420px; width: 100%; }
-  .hist h2 { font-size: .8rem; color: #9aa6c4; margin-bottom: 8px; font-weight: 600; }
+  .hist-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .hist h2 { font-size: .8rem; color: #9aa6c4; font-weight: 600; }
+  .hist-clear {
+    background: none; border: none; color: #9aa6c4; font-size: .75rem;
+    cursor: pointer; text-decoration: underline; padding: 2px 4px;
+  }
+  .hist-clear:hover { color: #fff; }
   .hist-item {
     display: flex; align-items: center; gap: 8px; font-size: .85rem;
     padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.06); color: #d4dcf0;
   }
   .hist-item .d { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .hist-del {
+    margin-left: auto; background: none; border: none; color: #6b769a;
+    cursor: pointer; font-size: .85rem; padding: 2px 8px; border-radius: 6px;
+  }
+  .hist-del:hover { color: #fff; background: rgba(255,255,255,.08); }
 
   .about { max-width: 560px; margin: 36px auto 0; color: #b6c0db; font-size: .9rem; line-height: 1.8; }
   .about h2 { font-size: 1rem; color: #fff; margin: 22px 0 8px; }
@@ -172,7 +183,10 @@
   </div>
 
   <div class="hist">
-    <h2 id="histTitle" style="display:none">履歴</h2>
+    <div class="hist-head" id="histHead" hidden>
+      <h2>履歴</h2>
+      <button class="hist-clear" id="histClear" type="button">すべて削除</button>
+    </div>
     <div id="hist"></div>
   </div>
 
@@ -249,8 +263,50 @@ LINES.forEach(l=>{
 const card = document.getElementById('card');
 const go = document.getElementById('go');
 const histEl = document.getElementById('hist');
-const histTitle = document.getElementById('histTitle');
-const history = [];
+const histHead = document.getElementById('histHead');
+const histClear = document.getElementById('histClear');
+
+const LINE_MAP = Object.fromEntries(LINES.map(l=>[l.key, l]));
+const HIST_KEY = 'metroGachaHistory';
+const HIST_MAX = 10;
+let history = [];
+try {
+  const saved = JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
+  if (Array.isArray(saved)) {
+    history = saved.filter(h => h && LINE_MAP[h.k] && LINE_MAP[h.k].stations[h.i]).slice(0, HIST_MAX);
+  }
+} catch(e) { history = []; }
+
+function saveHist(){
+  try {
+    if (history.length) localStorage.setItem(HIST_KEY, JSON.stringify(history));
+    else localStorage.removeItem(HIST_KEY);
+  } catch(e) { /* プライベートモード等で保存できない場合は無視 */ }
+}
+
+function renderHist(){
+  histHead.hidden = history.length === 0;
+  histEl.innerHTML = history.map((h, i)=>{
+    const line = LINE_MAP[h.k];
+    const st = line.stations[h.i];
+    const n = String(h.i+1).padStart(2,'0');
+    return `<div class="hist-item"><span class="d" style="background:${line.color}"></span>${st[0]} <span style="color:#8a96b8">（${line.name} ${line.sym}${n}）</span><button class="hist-del" data-i="${i}" type="button" aria-label="この履歴を削除">✕</button></div>`;
+  }).join('');
+}
+
+histEl.addEventListener('click', e=>{
+  const btn = e.target.closest('.hist-del');
+  if(!btn) return;
+  history.splice(Number(btn.dataset.i), 1);
+  saveHist();
+  renderHist();
+});
+
+histClear.onclick = ()=>{
+  history = [];
+  saveHist();
+  renderHist();
+};
 
 const SITE_URL = 'https://metrandom.com/';
 const shareEl = document.getElementById('share');
@@ -319,15 +375,13 @@ go.onclick = ()=>{
 };
 
 function addHist(r){
-  const num = String(r.idx+1).padStart(2,'0');
-  history.unshift(r);
-  if(history.length>5) history.pop();
-  histTitle.style.display = 'block';
-  histEl.innerHTML = history.map(h=>{
-    const n = String(h.idx+1).padStart(2,'0');
-    return `<div class="hist-item"><span class="d" style="background:${h.line.color}"></span>${h.st[0]} <span style="color:#8a96b8">（${h.line.name} ${h.line.sym}${n}）</span></div>`;
-  }).join('');
+  history.unshift({ k: r.line.key, i: r.idx });
+  if(history.length > HIST_MAX) history.pop();
+  saveHist();
+  renderHist();
 }
+
+renderHist();
 </script>
 </body>
 </html>
