@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>東京メトロ駅ガチャ | 9路線からランダムに駅を選ぶ</title>
-<meta name="description" content="東京メトロ全9路線・約180駅からランダムに1駅を選ぶ無料Webアプリ。銀座線・丸ノ内線・日比谷線・東西線・千代田線・有楽町線・半蔵門線・南北線・副都心線を路線で絞り込み可能。途中下車・お散歩・旅行先選びに。">
-<meta name="keywords" content="東京メトロ,ランダム,駅,ルーレット,路線,途中下車,散歩,銀座線,丸ノ内線,日比谷線,東西線,千代田線,有楽町線,半蔵門線,南北線,副都心線">
+<title>Tokyo Metro Station Gacha | Random Station Picker for All 9 Lines</title>
+<meta name="description" content="Free web app that randomly picks one of about 180 stations across all 9 Tokyo Metro lines — Ginza, Marunouchi, Hibiya, Tozai, Chiyoda, Yurakucho, Hanzomon, Namboku and Fukutoshin. Spin the gacha to find your next spot to explore in Tokyo.">
+<meta name="keywords" content="Tokyo Metro,random station,station picker,roulette,Tokyo sightseeing,Tokyo exploration,Ginza Line,Marunouchi Line,Hibiya Line,Tozai Line,Chiyoda Line,Yurakucho Line,Hanzomon Line,Namboku Line,Fukutoshin Line">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://metrandom.com/">
+<link rel="canonical" href="https://metrandom.com/en/">
 <link rel="alternate" hreflang="ja" href="https://metrandom.com/">
 <link rel="alternate" hreflang="en" href="https://metrandom.com/en/">
 <link rel="alternate" hreflang="x-default" href="https://metrandom.com/en/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="東京メトロ駅ガチャ">
-<meta property="og:title" content="東京メトロ駅ガチャ | 9路線からランダムに駅を選ぶ">
-<meta property="og:description" content="東京メトロ全9路線・約180駅からランダムに1駅を選ぶ無料Webアプリ。路線で絞り込みもできます。途中下車・お散歩・旅行先選びに。">
-<meta property="og:url" content="https://metrandom.com/">
+<meta property="og:site_name" content="Tokyo Metro Station Gacha">
+<meta property="og:title" content="Tokyo Metro Station Gacha | Random Station Picker for All 9 Lines">
+<meta property="og:description" content="Spin the gacha and get a random Tokyo Metro station from all 9 lines. Free, no sign-up. Find your next spot to explore in Tokyo.">
+<meta property="og:url" content="https://metrandom.com/en/">
 <meta property="og:image" content="https://metrandom.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:locale" content="ja_JP">
+<meta property="og:locale" content="en_US">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="東京メトロ駅ガチャ | 9路線からランダムに駅を選ぶ">
-<meta name="twitter:description" content="東京メトロ全9路線・約180駅からランダムに1駅を選ぶ無料Webアプリ。途中下車・お散歩・旅行先選びに。">
+<meta name="twitter:title" content="Tokyo Metro Station Gacha | Random Station Picker for All 9 Lines">
+<meta name="twitter:description" content="Spin the gacha and get a random Tokyo Metro station from all 9 lines. Free, no sign-up.">
 <meta name="twitter:image" content="https://metrandom.com/og-image.png">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -39,12 +39,12 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "東京メトロ駅ガチャ",
-  "url": "https://metrandom.com/",
-  "description": "東京メトロ全9路線・約180駅からランダムに1駅を選ぶ無料Webアプリ。路線で絞り込みもできます。",
+  "name": "Tokyo Metro Station Gacha",
+  "url": "https://metrandom.com/en/",
+  "description": "Free web app that randomly picks one of about 180 stations across all 9 Tokyo Metro lines.",
   "applicationCategory": "TravelApplication",
   "operatingSystem": "Any",
-  "inLanguage": "ja",
+  "inLanguage": "en",
   "browserRequirements": "Requires JavaScript",
   "offers": {
     "@type": "Offer",
@@ -185,8 +185,8 @@
 </style>
 </head>
 <body>
-  <h1 id="appTitle">🚇 東京メトロ駅ガチャ</h1>
-  <div class="sub" id="appSub">ボタンを押すと路線と駅のガチャを回せます</div>
+  <h1 id="appTitle">🚇 Tokyo Metro Station Gacha</h1>
+  <div class="sub" id="appSub">Press the button to spin for a random line and station</div>
 
   <div class="langs" id="langs">
     <button type="button" data-lang="ja">日本語</button>
@@ -197,70 +197,70 @@
   <div class="lines" id="lines"></div>
 
   <div class="card" id="card">
-    <div class="placeholder" id="placeholder">下のボタンを押してスタート</div>
+    <div class="placeholder" id="placeholder">Press the button below to start</div>
   </div>
 
-  <button class="go" id="go">ガチャを回す</button>
+  <button class="go" id="go">Spin the Gacha</button>
 
   <div class="share" id="share" hidden>
-    <span class="share-label" id="shareLabel">この結果をシェア</span>
+    <span class="share-label" id="shareLabel">Share this result</span>
     <div class="share-btns">
       <a class="x" id="shareX" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        <span id="shareXLabel">ポスト</span>
+        <span id="shareXLabel">Post</span>
       </a>
       <a class="line" id="shareLine">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63h-1.752v1.125h1.752c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.383c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.38c.347 0 .63.285.63.63 0 .349-.283.63-.63.63h-1.752v1.125h1.752zm-3.855 3.016c0 .27-.174.51-.432.596a.62.62 0 0 1-.199.034c-.197 0-.381-.099-.495-.255l-2.42-3.293v2.918a.626.626 0 0 1-.629.628.625.625 0 0 1-.628-.628V8.108c0-.27.173-.51.43-.595a.643.643 0 0 1 .199-.033c.195 0 .375.104.495.254l2.42 3.291V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0a.63.63 0 0 1-.631.628.625.625 0 0 1-.626-.628V8.108c0-.345.282-.63.63-.63.346 0 .627.285.627.63v4.771zm-2.466.628H4.917a.63.63 0 0 1-.63-.628V8.108c0-.345.282-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63a.63.63 0 0 1-.629.628M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.072 9.436-6.974C23.176 14.393 24 12.458 24 10.314"/></svg>
         LINE
       </a>
-      <button class="copy" id="shareCopy" type="button">リンクをコピー</button>
+      <button class="copy" id="shareCopy" type="button">Copy link</button>
     </div>
   </div>
 
   <div class="hist">
     <div class="hist-head" id="histHead" hidden>
-      <h2 id="histTitle">履歴</h2>
-      <button class="hist-clear" id="histClear" type="button">すべて削除</button>
+      <h2 id="histTitle">History</h2>
+      <button class="hist-clear" id="histClear" type="button">Clear all</button>
     </div>
     <div id="hist"></div>
   </div>
 
   <!-- 広告: 楽天アフィリエイトリンク -->
   <section class="pr">
-    <div class="pr-head"><span id="prHeadLabel">お出かけのおともに</span> <span class="pr-badge">PR</span></div>
+    <div class="pr-head"><span id="prHeadLabel">For your outing</span> <span class="pr-badge">PR</span></div>
     <a class="pr-item" href="https://a.r10.to/hFBRMP" target="_blank" rel="sponsored nofollow noopener">
       <span class="pr-emoji">🌂</span>
-      <span>完全遮光の日傘｜遮光率100%・UVカット・遮熱<br>駅から歩く日差し対策に</span>
-      <span class="pr-shop">楽天市場</span>
+      <span>Fully light-blocking UV parasol — 100% shading, UV cut, heat shield<br>Sun protection for walks from the station</span>
+      <span class="pr-shop">Rakuten</span>
     </a>
     <a class="pr-item" href="https://a.r10.to/hRMlLZ" target="_blank" rel="sponsored nofollow noopener">
       <span class="pr-emoji">🧴</span>
-      <span>ニベアUV ディープ プロテクト＆ケア ジェル（80g×2個）<br>街歩き前のUVケアに</span>
-      <span class="pr-shop">楽天市場</span>
+      <span>Nivea UV Deep Protect &amp; Care Gel (80g × 2)<br>UV care before exploring the city</span>
+      <span class="pr-shop">Rakuten</span>
     </a>
   </section>
 
   <section class="about">
-    <h2 id="aboutTitle">東京メトロ駅ガチャとは</h2>
-    <p id="aboutP1">東京メトロの全9路線・約180駅の中から、ボタンひとつでランダムに1駅を選ぶ無料のWebアプリです。行き先に迷ったときの途中下車、休日のお散歩コース選び、近場の小旅行、街歩きの目的地決めなどに使えます。路線を絞り込めば、特定の沿線からだけ駅を選ぶこともできます。</p>
-    <h2 id="aboutLinesTitle">対応している路線</h2>
+    <h2 id="aboutTitle">About Tokyo Metro Station Gacha</h2>
+    <p id="aboutP1">A free web app that randomly picks one station from about 180 stations across all 9 Tokyo Metro lines at the press of a button. Great for spontaneous stopovers, weekend walks, mini trips, and choosing your next place to explore in Tokyo. Filter by line to draw stations only from the lines you select.</p>
+    <h2 id="aboutLinesTitle">Supported lines</h2>
     <ul id="aboutLines">
-      <li>銀座線（G）</li>
-      <li>丸ノ内線（M）</li>
-      <li>日比谷線（H）</li>
-      <li>東西線（T）</li>
-      <li>千代田線（C）</li>
-      <li>有楽町線（Y）</li>
-      <li>半蔵門線（Z）</li>
-      <li>南北線（N）</li>
-      <li>副都心線（F）</li>
+      <li>Ginza Line (G)</li>
+      <li>Marunouchi Line (M)</li>
+      <li>Hibiya Line (H)</li>
+      <li>Tozai Line (T)</li>
+      <li>Chiyoda Line (C)</li>
+      <li>Yurakucho Line (Y)</li>
+      <li>Hanzomon Line (Z)</li>
+      <li>Namboku Line (N)</li>
+      <li>Fukutoshin Line (F)</li>
     </ul>
-    <h2 id="howTitle">使い方</h2>
-    <p id="howP">「ガチャを回す」ボタンを押すと、ルーレットのように路線と駅が回転し、最終的に1駅が決まります。上部の路線チップをタップすると、対象路線のオン・オフを切り替えられます。直近の結果は履歴として表示されます。</p>
+    <h2 id="howTitle">How to use</h2>
+    <p id="howP">Press the "Spin the Gacha" button and the roulette will cycle through lines and stations before landing on one. Tap the line chips at the top to toggle lines on or off. Your recent results are kept in the history.</p>
   </section>
 
   <footer>
-    東京メトロ駅ガチャ ・
+    Tokyo Metro Station Gacha ・
     <a href="https://github.com/Suyama-Daichi/metro-random" rel="noopener">GitHub</a>
   </footer>
 
@@ -375,7 +375,7 @@ const LANG_KEY = 'metroGachaLang';
 let lang = localStorage.getItem(LANG_KEY);
 if (!['ja','en','zh'].includes(lang)) {
   const nav = (navigator.language || 'ja').toLowerCase();
-  lang = nav.startsWith('en') ? 'en' : nav.startsWith('zh') ? 'zh' : 'ja';
+  lang = nav.startsWith('ja') ? 'ja' : nav.startsWith('zh') ? 'zh' : 'en';
 }
 
 function t(key){ return T[lang][key]; }
@@ -454,7 +454,7 @@ histClear.onclick = ()=>{
   renderHist();
 };
 
-const SITE_URL = 'https://metrandom.com/';
+const SITE_URL = 'https://metrandom.com/en/';
 const shareEl = document.getElementById('share');
 const shareX = document.getElementById('shareX');
 const shareLine = document.getElementById('shareLine');
