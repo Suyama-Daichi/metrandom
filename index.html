@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>東京メトロ ランダム駅セレクター</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    background: linear-gradient(160deg, #1a2238 0%, #0f1626 100%);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 48px;
+  }
+  h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 4px; letter-spacing: .02em; }
+  .sub { color: #9aa6c4; font-size: .8rem; margin-bottom: 20px; }
+
+  .lines {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    max-width: 560px; margin-bottom: 20px;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 999px; cursor: pointer;
+    font-size: .8rem; font-weight: 600; user-select: none;
+    background: rgba(255,255,255,.08); border: 1.5px solid transparent;
+    transition: .15s;
+  }
+  .chip .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .chip.off { opacity: .35; }
+  .chip.off .dot { filter: grayscale(1); }
+
+  .card {
+    width: 100%; max-width: 420px; background: rgba(255,255,255,.06);
+    border-radius: 24px; padding: 36px 28px; text-align: center;
+    border: 1px solid rgba(255,255,255,.1); min-height: 260px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+  }
+  .line-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 18px; border-radius: 999px; font-weight: 700; font-size: 1rem;
+    margin-bottom: 18px; color: #fff;
+  }
+  .line-badge .sym {
+    width: 30px; height: 30px; border-radius: 50%; background: #fff;
+    color: #111; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: .9rem;
+  }
+  .station { font-size: 2.6rem; font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .station-en { color: #9aa6c4; font-size: .95rem; letter-spacing: .05em; }
+  .num { color: #c8d2ee; font-size: .85rem; margin-top: 10px; }
+  .placeholder { color: #6b769a; font-size: 1.1rem; }
+
+  .spinning .station { animation: blur .08s linear infinite; }
+  @keyframes blur { 0%{opacity:.4} 50%{opacity:1} 100%{opacity:.4} }
+
+  button.go {
+    margin-top: 24px; padding: 16px 48px; font-size: 1.1rem; font-weight: 700;
+    border: none; border-radius: 999px; cursor: pointer; color: #1a2238;
+    background: linear-gradient(135deg, #ffd84d, #ffb300);
+    box-shadow: 0 8px 24px rgba(255,180,0,.35); transition: transform .1s;
+  }
+  button.go:active { transform: scale(.96); }
+  button.go:disabled { opacity: .6; cursor: default; }
+
+  .hist { margin-top: 22px; max-width: 420px; width: 100%; }
+  .hist h2 { font-size: .8rem; color: #9aa6c4; margin-bottom: 8px; font-weight: 600; }
+  .hist-item {
+    display: flex; align-items: center; gap: 8px; font-size: .85rem;
+    padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.06); color: #d4dcf0;
+  }
+  .hist-item .d { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+</style>
+</head>
+<body>
+  <h1>🚇 東京メトロ ランダム駅</h1>
+  <div class="sub">ボタンを押すと路線と駅をランダムに選びます</div>
+
+  <div class="lines" id="lines"></div>
+
+  <div class="card" id="card">
+    <div class="placeholder" id="placeholder">下のボタンを押してスタート</div>
+  </div>
+
+  <button class="go" id="go">ランダムに選ぶ</button>
+
+  <div class="hist">
+    <h2 id="histTitle" style="display:none">履歴</h2>
+    <div id="hist"></div>
+  </div>
+
+<script>
+const LINES = [
+  { key:"G", name:"銀座線", color:"#FF9500", sym:"G", stations:[
+    ["浅草","Asakusa"],["田原町","Tawaramachi"],["稲荷町","Inaricho"],["上野","Ueno"],["上野広小路","Ueno-hirokoji"],["末広町","Suehirocho"],["神田","Kanda"],["三越前","Mitsukoshimae"],["日本橋","Nihombashi"],["京橋","Kyobashi"],["銀座","Ginza"],["新橋","Shimbashi"],["虎ノ門","Toranomon"],["溜池山王","Tameike-sanno"],["赤坂見附","Akasaka-mitsuke"],["青山一丁目","Aoyama-itchome"],["外苑前","Gaiemmae"],["表参道","Omote-sando"],["渋谷","Shibuya"]
+  ]},
+  { key:"M", name:"丸ノ内線", color:"#F62E36", sym:"M", stations:[
+    ["池袋","Ikebukuro"],["新大塚","Shin-otsuka"],["茗荷谷","Myogadani"],["後楽園","Korakuen"],["本郷三丁目","Hongo-sanchome"],["御茶ノ水","Ochanomizu"],["淡路町","Awajicho"],["大手町","Otemachi"],["東京","Tokyo"],["銀座","Ginza"],["霞ケ関","Kasumigaseki"],["国会議事堂前","Kokkai-gijidomae"],["赤坂見附","Akasaka-mitsuke"],["四ツ谷","Yotsuya"],["四谷三丁目","Yotsuya-sanchome"],["新宿御苑前","Shinjuku-gyoemmae"],["新宿三丁目","Shinjuku-sanchome"],["新宿","Shinjuku"],["西新宿","Nishi-shinjuku"],["中野坂上","Nakano-sakaue"],["新中野","Shin-nakano"],["東高円寺","Higashi-koenji"],["新高円寺","Shin-koenji"],["南阿佐ケ谷","Minami-asagaya"],["荻窪","Ogikubo"],["中野新橋","Nakano-shimbashi"],["中野富士見町","Nakano-fujimicho"],["方南町","Honancho"]
+  ]},
+  { key:"H", name:"日比谷線", color:"#B5B5AC", sym:"H", stations:[
+    ["北千住","Kita-senju"],["南千住","Minami-senju"],["三ノ輪","Minowa"],["入谷","Iriya"],["上野","Ueno"],["仲御徒町","Naka-okachimachi"],["秋葉原","Akihabara"],["小伝馬町","Kodemmacho"],["人形町","Ningyocho"],["茅場町","Kayabacho"],["八丁堀","Hatchobori"],["築地","Tsukiji"],["東銀座","Higashi-ginza"],["銀座","Ginza"],["日比谷","Hibiya"],["霞ケ関","Kasumigaseki"],["虎ノ門ヒルズ","Toranomon Hills"],["神谷町","Kamiyacho"],["六本木","Roppongi"],["広尾","Hiroo"],["恵比寿","Ebisu"],["中目黒","Naka-meguro"]
+  ]},
+  { key:"T", name:"東西線", color:"#009BBF", sym:"T", stations:[
+    ["中野","Nakano"],["落合","Ochiai"],["高田馬場","Takadanobaba"],["早稲田","Waseda"],["神楽坂","Kagurazaka"],["飯田橋","Iidabashi"],["九段下","Kudanshita"],["竹橋","Takebashi"],["大手町","Otemachi"],["日本橋","Nihombashi"],["茅場町","Kayabacho"],["門前仲町","Monzen-nakacho"],["木場","Kiba"],["東陽町","Toyocho"],["南砂町","Minami-sunamachi"],["西葛西","Nishi-kasai"],["葛西","Kasai"],["浦安","Urayasu"],["南行徳","Minami-gyotoku"],["行徳","Gyotoku"],["妙典","Myoden"],["原木中山","Baraki-nakayama"],["西船橋","Nishi-funabashi"]
+  ]},
+  { key:"C", name:"千代田線", color:"#00BB85", sym:"C", stations:[
+    ["北綾瀬","Kita-ayase"],["綾瀬","Ayase"],["北千住","Kita-senju"],["町屋","Machiya"],["西日暮里","Nishi-nippori"],["千駄木","Sendagi"],["根津","Nezu"],["湯島","Yushima"],["新御茶ノ水","Shin-ochanomizu"],["大手町","Otemachi"],["二重橋前","Nijubashimae"],["日比谷","Hibiya"],["霞ケ関","Kasumigaseki"],["国会議事堂前","Kokkai-gijidomae"],["赤坂","Akasaka"],["乃木坂","Nogizaka"],["表参道","Omote-sando"],["明治神宮前","Meiji-jingumae"],["代々木公園","Yoyogi-koen"],["代々木上原","Yoyogi-uehara"]
+  ]},
+  { key:"Y", name:"有楽町線", color:"#C1A470", sym:"Y", stations:[
+    ["和光市","Wakoshi"],["地下鉄成増","Chikatetsu-narimasu"],["地下鉄赤塚","Chikatetsu-akatsuka"],["平和台","Heiwadai"],["氷川台","Hikawadai"],["小竹向原","Kotake-mukaihara"],["千川","Senkawa"],["要町","Kanamecho"],["池袋","Ikebukuro"],["東池袋","Higashi-ikebukuro"],["護国寺","Gokokuji"],["江戸川橋","Edogawabashi"],["飯田橋","Iidabashi"],["市ケ谷","Ichigaya"],["麹町","Kojimachi"],["永田町","Nagatacho"],["桜田門","Sakuradamon"],["有楽町","Yurakucho"],["銀座一丁目","Ginza-itchome"],["新富町","Shintomicho"],["月島","Tsukishima"],["豊洲","Toyosu"],["辰巳","Tatsumi"],["新木場","Shin-kiba"]
+  ]},
+  { key:"Z", name:"半蔵門線", color:"#8F76D6", sym:"Z", stations:[
+    ["渋谷","Shibuya"],["表参道","Omote-sando"],["青山一丁目","Aoyama-itchome"],["永田町","Nagatacho"],["半蔵門","Hanzomon"],["九段下","Kudanshita"],["神保町","Jimbocho"],["大手町","Otemachi"],["三越前","Mitsukoshimae"],["水天宮前","Suitengumae"],["清澄白河","Kiyosumi-shirakawa"],["住吉","Sumiyoshi"],["錦糸町","Kinshicho"],["押上","Oshiage"]
+  ]},
+  { key:"N", name:"南北線", color:"#00AC9B", sym:"N", stations:[
+    ["目黒","Meguro"],["白金台","Shirokanedai"],["白金高輪","Shirokane-takanawa"],["麻布十番","Azabu-juban"],["六本木一丁目","Roppongi-itchome"],["溜池山王","Tameike-sanno"],["永田町","Nagatacho"],["四ツ谷","Yotsuya"],["市ケ谷","Ichigaya"],["飯田橋","Iidabashi"],["後楽園","Korakuen"],["東大前","Todaimae"],["本駒込","Hon-komagome"],["駒込","Komagome"],["西ケ原","Nishigahara"],["王子","Oji"],["王子神谷","Oji-kamiya"],["志茂","Shimo"],["赤羽岩淵","Akabane-iwabuchi"]
+  ]},
+  { key:"F", name:"副都心線", color:"#9C5E31", sym:"F", stations:[
+    ["和光市","Wakoshi"],["地下鉄成増","Chikatetsu-narimasu"],["地下鉄赤塚","Chikatetsu-akatsuka"],["平和台","Heiwadai"],["氷川台","Hikawadai"],["小竹向原","Kotake-mukaihara"],["千川","Senkawa"],["要町","Kanamecho"],["池袋","Ikebukuro"],["雑司が谷","Zoshigaya"],["西早稲田","Nishi-waseda"],["東新宿","Higashi-shinjuku"],["新宿三丁目","Shinjuku-sanchome"],["北参道","Kita-sando"],["明治神宮前","Meiji-jingumae"],["渋谷","Shibuya"]
+  ]}
+];
+
+const linesEl = document.getElementById('lines');
+const active = new Set(LINES.map(l=>l.key));
+
+LINES.forEach(l=>{
+  const c = document.createElement('div');
+  c.className = 'chip';
+  c.dataset.key = l.key;
+  c.innerHTML = `<span class="dot" style="background:${l.color}"></span>${l.name}`;
+  c.onclick = ()=>{
+    if(active.has(l.key)){ if(active.size>1){active.delete(l.key); c.classList.add('off');} }
+    else { active.add(l.key); c.classList.remove('off'); }
+  };
+  linesEl.appendChild(c);
+});
+
+const card = document.getElementById('card');
+const go = document.getElementById('go');
+const histEl = document.getElementById('hist');
+const histTitle = document.getElementById('histTitle');
+const history = [];
+
+function pick(){
+  const pool = LINES.filter(l=>active.has(l.key));
+  const line = pool[Math.floor(Math.random()*pool.length)];
+  const idx = Math.floor(Math.random()*line.stations.length);
+  const st = line.stations[idx];
+  return { line, st, idx };
+}
+
+function render(r, spinning){
+  const num = String(r.idx+1).padStart(2,'0');
+  card.className = 'card' + (spinning?' spinning':'');
+  card.innerHTML = `
+    <div class="line-badge" style="background:${r.line.color}">
+      <span class="sym" style="color:${r.line.color}">${r.line.sym}${num}</span>${r.line.name}
+    </div>
+    <div class="station">${r.st[0]}</div>
+    <div class="station-en">${r.st[1]}</div>
+    <div class="num">${r.line.name} ${r.line.sym}${num}</div>`;
+}
+
+go.onclick = ()=>{
+  go.disabled = true;
+  let n = 0;
+  const total = 14;
+  const timer = setInterval(()=>{
+    render(pick(), true);
+    if(++n >= total){
+      clearInterval(timer);
+      const final = pick();
+      render(final, false);
+      addHist(final);
+      go.disabled = false;
+    }
+  }, 70);
+};
+
+function addHist(r){
+  const num = String(r.idx+1).padStart(2,'0');
+  history.unshift(r);
+  if(history.length>5) history.pop();
+  histTitle.style.display = 'block';
+  histEl.innerHTML = history.map(h=>{
+    const n = String(h.idx+1).padStart(2,'0');
+    return `<div class="hist-item"><span class="d" style="background:${h.line.color}"></span>${h.st[0]} <span style="color:#8a96b8">（${h.line.name} ${h.line.sym}${n}）</span></div>`;
+  }).join('');
+}
+</script>
+</body>
+</html>
