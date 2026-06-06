@@ -462,14 +462,15 @@ const shareCopy = document.getElementById('shareCopy');
 
 function updateShare(r){
   const text = T[lang].share(r);
-  const full = text + ' ' + SITE_URL;
-  shareX.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(SITE_URL)}`;
+  const resultUrl = `https://metrandom.com/s/${r.line.sym}${num2(r.idx)}/`;
+  const full = text + ' ' + resultUrl;
+  shareX.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(resultUrl)}`;
   shareLine.href = `https://line.me/R/share?text=${encodeURIComponent(full)}`;
   shareLine.target = '_blank'; shareLine.rel = 'noopener';
   shareCopy.textContent = t('copy');
   shareCopy.onclick = async ()=>{
     try {
-      if (navigator.share) { await navigator.share({ text, url: SITE_URL }); return; }
+      if (navigator.share) { await navigator.share({ text, url: resultUrl }); return; }
       await navigator.clipboard.writeText(full);
       shareCopy.textContent = t('copied');
       setTimeout(()=>{ shareCopy.textContent = t('copy'); }, 1600);
