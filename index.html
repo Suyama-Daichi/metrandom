@@ -3,11 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>東京メトロ ランダム駅セレクター</title>
+<title>東京メトロ ランダム駅セレクター | 9路線からランダムに駅を選ぶ</title>
+<meta name="description" content="東京メトロ全9路線・約180駅からランダムに1駅を選ぶ無料Webアプリ。銀座線・丸ノ内線・日比谷線・東西線・千代田線・有楽町線・半蔵門線・南北線・副都心線を路線で絞り込み可能。途中下車・お散歩・旅行先選びに。">
+<meta name="keywords" content="東京メトロ,ランダム,駅,ルーレット,路線,途中下車,散歩,銀座線,丸ノ内線,日比谷線,東西線,千代田線,有楽町線,半蔵門線,南北線,副都心線">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://suyama-daichi.github.io/metro-random/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="東京メトロ ランダム駅セレクター">
+<meta property="og:title" content="東京メトロ ランダム駅セレクター | 9路線からランダムに駅を選ぶ">
+<meta property="og:description" content="東京メトロ全9路線・約180駅からランダムに1駅を選ぶ無料Webアプリ。路線で絞り込みもできます。途中下車・お散歩・旅行先選びに。">
+<meta property="og:url" content="https://suyama-daichi.github.io/metro-random/">
+<meta property="og:image" content="https://suyama-daichi.github.io/metro-random/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="東京メトロ ランダム駅セレクター | 9路線からランダムに駅を選ぶ">
+<meta name="twitter:description" content="東京メトロ全9路線・約180駅からランダムに1駅を選ぶ無料Webアプリ。途中下車・お散歩・旅行先選びに。">
+<meta name="twitter:image" content="https://suyama-daichi.github.io/metro-random/og-image.png">
+
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="alternate icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#0f1626">
+
+<!-- 構造化データ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "東京メトロ ランダム駅セレクター",
+  "url": "https://suyama-daichi.github.io/metro-random/",
+  "description": "東京メトロ全9路線・約180駅からランダムに1駅を選ぶ無料Webアプリ。路線で絞り込みもできます。",
+  "applicationCategory": "TravelApplication",
+  "operatingSystem": "Any",
+  "inLanguage": "ja",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY"
+  }
+}
+</script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -79,6 +121,13 @@
     padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.06); color: #d4dcf0;
   }
   .hist-item .d { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  .about { max-width: 560px; margin: 36px auto 0; color: #b6c0db; font-size: .9rem; line-height: 1.8; }
+  .about h2 { font-size: 1rem; color: #fff; margin: 22px 0 8px; }
+  .about p { margin-bottom: 10px; }
+  .about ul { margin: 0 0 10px 1.2em; }
+  footer { margin-top: 32px; color: #6b769a; font-size: .78rem; text-align: center; }
+  footer a { color: #9aa6c4; }
 </style>
 </head>
 <body>
@@ -97,6 +146,30 @@
     <h2 id="histTitle" style="display:none">履歴</h2>
     <div id="hist"></div>
   </div>
+
+  <section class="about">
+    <h2>東京メトロ ランダム駅セレクターとは</h2>
+    <p>東京メトロの全9路線・約180駅の中から、ボタンひとつでランダムに1駅を選ぶ無料のWebアプリです。行き先に迷ったときの途中下車、休日のお散歩コース選び、近場の小旅行、街歩きの目的地決めなどに使えます。路線を絞り込めば、特定の沿線からだけ駅を選ぶこともできます。</p>
+    <h2>対応している路線</h2>
+    <ul>
+      <li>銀座線（G）</li>
+      <li>丸ノ内線（M）</li>
+      <li>日比谷線（H）</li>
+      <li>東西線（T）</li>
+      <li>千代田線（C）</li>
+      <li>有楽町線（Y）</li>
+      <li>半蔵門線（Z）</li>
+      <li>南北線（N）</li>
+      <li>副都心線（F）</li>
+    </ul>
+    <h2>使い方</h2>
+    <p>「ランダムに選ぶ」ボタンを押すと、ルーレットのように路線と駅が回転し、最終的に1駅が決まります。上部の路線チップをタップすると、対象路線のオン・オフを切り替えられます。直近の結果は履歴として表示されます。</p>
+  </section>
+
+  <footer>
+    東京メトロ ランダム駅セレクター ・
+    <a href="https://github.com/Suyama-Daichi/metro-random" rel="noopener">GitHub</a>
+  </footer>
 
 <script>
 const LINES = [
