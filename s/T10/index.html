@@ -56,31 +56,67 @@
   .station { font-size: 2.6rem; font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
   .station-en { color: #9aa6c4; font-size: .95rem; letter-spacing: .05em; }
   .guide { margin-top: 14px; color: #b6c0db; font-size: .85rem; line-height: 1.6; }
-  a.map {
-    display: inline-block; margin-top: 20px; padding: 12px 32px; font-size: .95rem;
-    border: 1px solid rgba(255,255,255,.25); border-radius: 999px;
-    color: #d4dcf0; text-decoration: none;
-  }
-  a.go { display: inline-block; margin-top: 28px; padding: 16px 48px; font-size: 1.1rem; font-weight: 700;
+  a.map { display: inline-block; margin-top: 20px; padding: 12px 32px; font-size: .95rem;
+    border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: #d4dcf0; text-decoration: none; }
+  a.go { display: inline-block; margin-top: 16px; padding: 16px 48px; font-size: 1.1rem; font-weight: 700;
     border-radius: 999px; color: #1a2238; text-decoration: none;
     background: linear-gradient(135deg, #ffd84d, #ffb300); box-shadow: 0 8px 24px rgba(255,180,0,.35); }
-  footer { margin-top: 36px; color: #6b769a; font-size: .78rem; }
+  footer { margin-top: 36px; color: #6b769a; font-size: .78rem; text-align: center; }
   footer a { color: #9aa6c4; }
 </style>
 </head>
 <body>
   <h1>🚇 メトロ駅ガチャ</h1>
-  <div class="label">ガチャ結果</div>
+  <div class="label" id="lbl">ガチャ結果</div>
   <div class="card">
     <div class="line-badge" style="background:#009BBF">
-      <span class="sym" style="color:#009BBF">T10</span>東西線
+      <span class="sym" style="color:#009BBF">T10</span><span id="lineName">東西線</span>
     </div>
     <div class="station">日本橋</div>
     <div class="station-en">Nihombashi</div>
-    <div class="guide">The historic zero-milestone bridge and heritage department stores.</div>
+    <div class="guide" id="guide">日本の道路の起点・日本橋と老舗百貨店。</div>
   </div>
-  <a class="map" href="https://www.google.com/maps/search/?api=1&query=%E6%97%A5%E6%9C%AC%E6%A9%8B%E9%A7%85%20%E6%9D%B1%E8%A5%BF%E7%B7%9A" target="_blank" rel="noopener">📍 Googleマップで見る</a>
-  <a class="go" href="/">自分もガチャを回す 🎲</a>
-  <footer><p style="margin-bottom:8px">本サイトは非公式のファンサイトであり、東京地下鉄株式会社（東京メトロ）とは一切関係ありません。</p><a href="/">メトロ駅ガチャ</a> ・ <a href="/privacy/">プライバシーポリシー</a> ・ <a href="/en/">English</a></footer>
+  <a class="map" id="mapBtn" href="https://www.google.com/maps/search/?api=1&query=%E6%97%A5%E6%9C%AC%E6%A9%8B%E9%A7%85%20%E6%9D%B1%E8%A5%BF%E7%B7%9A" target="_blank" rel="noopener">📍 Googleマップで見る</a>
+  <a class="go" id="cta" href="/">自分もガチャを回す 🎲</a>
+  <footer>
+    <p style="margin-bottom:8px" id="disc">本サイトは非公式のファンサイトであり、東京地下鉄株式会社（東京メトロ）とは一切関係ありません。</p>
+    <a href="/" id="brandLink">メトロ駅ガチャ</a> ・ <a href="/privacy/" id="privLink">プライバシーポリシー</a> ・ <a href="/en/">English</a>
+  </footer>
+<script>
+(function() {
+  var T = {
+    ja: { lbl: "ガチャ結果", map: "📍 Googleマップで見る", cta: "自分もガチャを回す 🎲",
+          disc: "本サイトは非公式のファンサイトであり、東京地下鉄株式会社（東京メトロ）とは一切関係ありません。",
+          priv: "プライバシーポリシー", line: "東西線",
+          title: "日本橋駅（東西線 T10）が出ました！ | メトロ駅ガチャ", guide: "日本の道路の起点・日本橋と老舗百貨店。", cta_href: "/" },
+    en: { lbl: "Gacha result", map: "📍 View on Google Maps", cta: "Spin the Gacha yourself 🎲",
+          disc: "This is an unofficial fan site and is not affiliated with Tokyo Metro Co., Ltd.",
+          priv: "Privacy Policy", line: "Tozai Line",
+          title: "You got Nihombashi Station (Tozai Line, T10)! | Metro Station Gacha", guide: "The historic zero-milestone bridge and heritage department stores.", cta_href: "/en/" },
+    zh: { lbl: "抽选结果", map: "📍 在谷歌地图中查看", cta: "我也要转扭蛋 🎲",
+          disc: "本网站为非官方粉丝网站，与东京地下铁株式会社（东京Metro）无任何关联。",
+          priv: "隐私政策", line: "东西线",
+          title: "抽到了日本橋站（东西线 T10）！ | 地铁站扭蛋", guide: "The historic zero-milestone bridge and heritage department stores.", cta_href: "/zh/" }
+  };
+  var lang = null;
+  try { lang = localStorage.getItem("metroGachaLang"); } catch(e) {}
+  if (["ja","en","zh"].indexOf(lang) < 0) {
+    var nav = (navigator.language || "ja").toLowerCase();
+    lang = nav.indexOf("ja") === 0 ? "ja" : nav.indexOf("zh") === 0 ? "zh" : "en";
+  }
+  if (lang === "ja") return;
+  var t = T[lang];
+  document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
+  document.title = t.title;
+  document.getElementById("lbl").textContent = t.lbl;
+  document.getElementById("lineName").textContent = t.line;
+  document.getElementById("guide").textContent = t.guide;
+  document.getElementById("mapBtn").textContent = t.map;
+  document.getElementById("cta").textContent = t.cta;
+  document.getElementById("cta").href = t.cta_href;
+  document.getElementById("disc").textContent = t.disc;
+  document.getElementById("privLink").textContent = t.priv;
+})();
+</script>
 </body>
 </html>
