@@ -509,11 +509,13 @@ function updateShare(r){
 }
 
 function pick(){
-  const pool = LINES.filter(l=>active.has(l.key));
-  const line = pool[Math.floor(Math.random()*pool.length)];
-  const idx = Math.floor(Math.random()*line.stations.length);
-  const st = line.stations[idx];
-  return { line, st, idx };
+  // 全駅均等: 有効路線の全駅を1つのプールにして一律確率で選ぶ
+  const pool = [];
+  LINES.forEach(l => {
+    if (!active.has(l.key)) return;
+    l.stations.forEach((st, idx) => pool.push({ line: l, st, idx }));
+  });
+  return pool[Math.floor(Math.random() * pool.length)];
 }
 
 let lastResult = null;
