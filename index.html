@@ -128,6 +128,20 @@
   .about ul { margin: 0 0 10px 1.2em; }
   footer { margin-top: 32px; color: #6b769a; font-size: .78rem; text-align: center; }
   footer a { color: #9aa6c4; }
+
+  .share { margin-top: 20px; text-align: center; }
+  .share-label { display: block; color: #9aa6c4; font-size: .78rem; margin-bottom: 10px; }
+  .share-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .share-btns a, .share-btns button {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 18px; border-radius: 999px; font-size: .85rem; font-weight: 700;
+    border: none; cursor: pointer; text-decoration: none; color: #fff; transition: transform .1s, opacity .15s;
+  }
+  .share-btns a:active, .share-btns button:active { transform: scale(.95); }
+  .share-btns .x { background: #000; border: 1px solid #2a2a2a; }
+  .share-btns .line { background: #06C755; }
+  .share-btns .copy { background: rgba(255,255,255,.12); color: #d4dcf0; }
+  .share-btns svg { width: 16px; height: 16px; fill: currentColor; }
 </style>
 </head>
 <body>
@@ -141,6 +155,21 @@
   </div>
 
   <button class="go" id="go">ランダムに選ぶ</button>
+
+  <div class="share" id="share" hidden>
+    <span class="share-label">この結果をシェア</span>
+    <div class="share-btns">
+      <a class="x" id="shareX" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        ポスト
+      </a>
+      <a class="line" id="shareLine">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63h-1.752v1.125h1.752c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.383c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.38c.347 0 .63.285.63.63 0 .349-.283.63-.63.63h-1.752v1.125h1.752zm-3.855 3.016c0 .27-.174.51-.432.596a.62.62 0 0 1-.199.034c-.197 0-.381-.099-.495-.255l-2.42-3.293v2.918a.626.626 0 0 1-.629.628.625.625 0 0 1-.628-.628V8.108c0-.27.173-.51.43-.595a.643.643 0 0 1 .199-.033c.195 0 .375.104.495.254l2.42 3.291V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0a.63.63 0 0 1-.631.628.625.625 0 0 1-.626-.628V8.108c0-.345.282-.63.63-.63.346 0 .627.285.627.63v4.771zm-2.466.628H4.917a.63.63 0 0 1-.63-.628V8.108c0-.345.282-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63a.63.63 0 0 1-.629.628M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.072 9.436-6.974C23.176 14.393 24 12.458 24 10.314"/></svg>
+        LINE
+      </a>
+      <button class="copy" id="shareCopy" type="button">リンクをコピー</button>
+    </div>
+  </div>
 
   <div class="hist">
     <h2 id="histTitle" style="display:none">履歴</h2>
@@ -223,6 +252,34 @@ const histEl = document.getElementById('hist');
 const histTitle = document.getElementById('histTitle');
 const history = [];
 
+const SITE_URL = 'https://suyama-daichi.github.io/metro-random/';
+const shareEl = document.getElementById('share');
+const shareX = document.getElementById('shareX');
+const shareLine = document.getElementById('shareLine');
+const shareCopy = document.getElementById('shareCopy');
+
+function shareText(r){
+  const num = String(r.idx+1).padStart(2,'0');
+  return `東京メトロ駅ガチャの結果は「${r.line.name} ${r.st[0]}駅（${r.line.sym}${num}）」でした！🚇 #東京メトロ駅ガチャ`;
+}
+function updateShare(r){
+  const text = shareText(r);
+  const full = text + ' ' + SITE_URL;
+  shareX.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(SITE_URL)}`;
+  shareLine.href = `https://line.me/R/share?text=${encodeURIComponent(full)}`;
+  shareLine.target = '_blank'; shareLine.rel = 'noopener';
+  shareCopy.textContent = 'リンクをコピー';
+  shareCopy.onclick = async ()=>{
+    try {
+      if (navigator.share) { await navigator.share({ text, url: SITE_URL }); return; }
+      await navigator.clipboard.writeText(full);
+      shareCopy.textContent = 'コピーしました ✓';
+      setTimeout(()=>{ shareCopy.textContent = 'リンクをコピー'; }, 1600);
+    } catch(e){ /* ユーザーがキャンセルした場合などは無視 */ }
+  };
+  shareEl.hidden = false;
+}
+
 function pick(){
   const pool = LINES.filter(l=>active.has(l.key));
   const line = pool[Math.floor(Math.random()*pool.length)];
@@ -245,6 +302,7 @@ function render(r, spinning){
 
 go.onclick = ()=>{
   go.disabled = true;
+  shareEl.hidden = true;
   let n = 0;
   const total = 14;
   const timer = setInterval(()=>{
@@ -254,6 +312,7 @@ go.onclick = ()=>{
       const final = pick();
       render(final, false);
       addHist(final);
+      updateShare(final);
       go.disabled = false;
     }
   }, 70);
