@@ -596,9 +596,10 @@ function applyLang(){
 langsEl.addEventListener('click', e=>{
   const b = e.target.closest('button[data-lang]');
   if(!b || b.dataset.lang === lang) return;
-  lang = b.dataset.lang;
-  try { localStorage.setItem(LANG_KEY, lang); } catch(err){}
-  applyLang();
+  const next = b.dataset.lang;
+  try { localStorage.setItem(LANG_KEY, next); } catch(err){}
+  // 言語に対応するパスへ遷移（/ = ja, /en/ = en, /zh/ = zh）
+  location.href = next === 'ja' ? '/' : '/' + next + '/';
 });
 
 applyLang();
