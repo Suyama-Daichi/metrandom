@@ -406,11 +406,8 @@ const T = {
 };
 
 const LANG_KEY = 'metroGachaLang';
-let lang = localStorage.getItem(LANG_KEY);
-if (!['ja','en','zh'].includes(lang)) {
-  const nav = (navigator.language || 'ja').toLowerCase();
-  lang = nav.startsWith('ja') ? 'ja' : nav.startsWith('en') ? 'en' : 'zh';
-}
+// このページのURLが示す言語を常に表示（/ = ja, /en/ = en, /zh/ = zh）
+let lang = 'zh';
 
 function t(key){ return T[lang][key]; }
 function num2(i){ return String(i+1).padStart(2,'0'); }
