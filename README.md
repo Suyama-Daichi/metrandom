@@ -8,7 +8,8 @@
 
 - ボタンを押すとルーレットのように路線と駅が回転し、最終的に1駅が決まる
 - 路線チップのタップで対象路線をオン・オフして絞り込み可能
-- 直近の結果を履歴として表示
+- 直近の結果を履歴として表示（履歴の駅をタップすると結果を再表示）
+- 選ばれた駅の**周辺スポット**（飲食店・カフェ・観光名所・ショッピング）を表示（Foursquare）
 - 各路線は公式ラインカラーと駅ナンバリング（例: G19）付き
 - 単一の `index.html` で完結（ビルド不要・依存ライブラリなし）
 - レスポンシブ対応でスマホでも利用可能
@@ -105,10 +106,25 @@ git push origin main
 └── README.md
 ```
 
+## 周辺スポット機能（Foursquare）
+
+選ばれた駅の周辺スポットは Foursquare Places API から取得します。サイト本体は
+静的サイト（GitHub Pages）のままで、API キーを秘匿するために小さな **Cloudflare
+Worker** をプロキシとして使います。
+
+- `worker/` … プロキシ Worker（`GET /spots?code=G19` → 周辺スポットJSON）
+- `worker/src/stationGeo.js` … 全185駅の座標テーブル（駅コード→緯度経度）。
+  出典: [Seo-4d696b75/station_database](https://github.com/Seo-4d696b75/station_database)。
+  `node worker/scripts/generate-station-geo.mjs` で再生成可能。
+- セットアップ・デプロイ手順は [`worker/README.md`](worker/README.md) を参照。
+- フロント側は `index.html` の定数 `SPOTS_API`（既定 `/api/spots`）で Worker を参照します。
+  Worker 未デプロイ時はスポット欄が表示されないだけで、ガチャ本体は通常どおり動作します。
+
 ## 技術構成
 
 - HTML / CSS / Vanilla JavaScript のみ（フレームワーク・ビルドツールなし）
 - 駅データは `index.html` 内に内蔵
+- 周辺スポットは Foursquare Places API（Cloudflare Worker プロキシ経由）
 - SEO 対応: メタ情報・OGP・Twitter カード・JSON-LD（`WebApplication`）・robots.txt・sitemap.xml
 
 ## 備考

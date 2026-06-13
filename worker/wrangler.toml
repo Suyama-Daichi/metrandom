@@ -1,0 +1,14 @@
+name = "metrandom-spots"
+main = "src/index.js"
+compatibility_date = "2025-06-17"
+
+# --- 公開方法 ---------------------------------------------------------------
+# 既定では https://metrandom-spots.<your-subdomain>.workers.dev で公開されます。
+# 独自ドメインが Cloudflare 管理なら、同一オリジンにできるルートを推奨します
+# （CORS不要・実装隠蔽）。その場合は以下のコメントを外して設定してください。
+#
+# routes = [
+#   { pattern = "metrandom.com/api/spots", zone_name = "metrandom.com" }
+# ]
+#
+# フロント側 index.html の SPOTS_API を、採用した公開URLに合わせてください。
