@@ -30,8 +30,8 @@ const ALLOWED_ORIGINS = new Set([
   'https://metrandom.com',
   'https://www.metrandom.com',
 ]);
-// ローカル開発は localhost / 127.0.0.1 を任意ポートで許可
-const LOCAL_ORIGIN = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+// ローカル開発は localhost / 127.x / 0.0.0.0 / IPv6ループバック([::],[::1]) を任意ポートで許可
+const LOCAL_ORIGIN = /^http:\/\/(localhost|127(?:\.\d+){3}|0\.0\.0\.0|\[::1?\])(?::\d+)?$/;
 
 function corsHeaders(origin) {
   const ok = ALLOWED_ORIGINS.has(origin) || LOCAL_ORIGIN.test(origin);
