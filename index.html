@@ -630,16 +630,14 @@ function stationCode(r){ return r.line.key + num2(r.idx); }
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function distLabel(d){ if(d == null) return ''; return d < 1000 ? `${d}m` : `${(d/1000).toFixed(1)}km`; }
 
-function renderSpots(list){
+function renderSpots(list, stationName){
   if(!list || !list.length){ spotsEl.hidden = true; return; }
   spotsEl.hidden = false;
   spotsTitleEl.textContent = t('spotsTitle');
   spotsList.innerHTML = list.map(s => {
-    // クリック時は Foursquare のスポットページを開く。
-    // id が無い場合のみ Google Maps 検索にフォールバック。
-    const href = s.id
-      ? `https://foursquare.com/v/${encodeURIComponent(s.id)}`
-      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${s.name} ${s.lat},${s.lng}`)}`;
+    // クリック時は Google マップを「スポット名 + 駅名」で検索して開く。
+    const query = stationName ? `${s.name} ${stationName}` : s.name;
+    const href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
     return `<a class="spot-item" href="${href}" target="_blank" rel="noopener">`
       + (s.photo ? `<img class="spot-thumb" src="${esc(s.photo)}" alt="" loading="lazy">` : '')
       + `<span class="spot-body"><span class="spot-name">${esc(s.name)}</span>`
@@ -650,7 +648,8 @@ function renderSpots(list){
 
 async function loadNearby(r){
   const code = stationCode(r);
-  if(spotsCache[code]){ renderSpots(spotsCache[code]); return; }
+  const stationName = r.st[0];
+  if(spotsCache[code]){ renderSpots(spotsCache[code], stationName); return; }
   const reqId = ++spotsReqId;
   spotsEl.hidden = false;
   spotsTitleEl.textContent = t('spotsTitle');
@@ -662,7 +661,7 @@ async function loadNearby(r){
     if(reqId !== spotsReqId) return; // 新しい駅が選ばれていたら破棄
     const spots = Array.isArray(data.spots) ? data.spots : [];
     spotsCache[code] = spots;
-    renderSpots(spots);
+    renderSpots(spots, stationName);
   } catch(e){
     if(reqId !== spotsReqId) return;
     spotsEl.hidden = true; // 取得失敗時は静かに非表示（ガチャ本体には影響させない）
