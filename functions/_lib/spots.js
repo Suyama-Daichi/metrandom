@@ -15,6 +15,8 @@ import { STATION_GEO } from './stationGeo.js';
 
 // --- Foursquare Places API 設定 -------------------------------------------
 const FSQ_ENDPOINT = 'https://places-api.foursquare.com/places/search';
+// Tips（口コミ）はスポット個別エンドポイントで取得する（検索の fields では返らない）。
+const FSQ_TIPS_ENDPOINT = id => `https://places-api.foursquare.com/places/${id}/tips`;
 const FSQ_API_VERSION = '2025-06-17'; // X-Places-Api-Version
 // 取得するスポットのトップレベルカテゴリ（飲食・観光・名所・ショッピング）。
 //   13000=Dining and Drinking(飲食店・カフェ) / 10000=Arts & Entertainment(観光)
@@ -22,7 +24,7 @@ const FSQ_API_VERSION = '2025-06-17'; // X-Places-Api-Version
 const CATEGORIES = '13000,10000,16000,17000';
 const RADIUS_M = 800;
 const LIMIT = 8;
-const FIELDS = 'fsq_place_id,name,categories,distance,location,latitude,longitude,photos,tips';
+const FIELDS = 'fsq_place_id,name,categories,distance,location,latitude,longitude,photos';
 
 // 言語コード -> Foursquare ロケール（Accept-Language）。
 // Foursquare 対応ロケール: en, es, fr, de, it, ja, th, tr, ko, ru, pt, id
@@ -92,6 +94,28 @@ function normalizePlace(p) {
   };
 }
 
+// スポット個別の Tips（人気の口コミ1件）を取得。失敗時は空文字（Tipsは任意表示）。
+async function fetchTip(id, env, locale) {
+  try {
+    const params = new URLSearchParams({ limit: '1' });
+    const res = await fetch(`${FSQ_TIPS_ENDPOINT(id)}?${params}`, {
+      headers: {
+        'Authorization': `Bearer ${env.FSQ_SERVICE_KEY}`,
+        'X-Places-Api-Version': FSQ_API_VERSION,
+        'Accept': 'application/json',
+        'Accept-Language': locale,
+      },
+    });
+    if (!res.ok) return '';
+    const data = await res.json();
+    const arr = Array.isArray(data) ? data : (data.results || data.tips || []);
+    const text = arr[0]?.text;
+    return typeof text === 'string' ? text.trim() : '';
+  } catch (e) {
+    return '';
+  }
+}
+
 async function fetchSpots(code, env, locale) {
   const [lat, lng] = STATION_GEO[code];
   const params = new URLSearchParams({
@@ -116,7 +140,16 @@ async function fetchSpots(code, env, locale) {
   }
   const data = await res.json();
   const results = data.results || data.places || [];
-  return results.map(normalizePlace).filter(s => s.name && s.lat != null);
+  const spots = results.map(normalizePlace).filter(s => s.name && s.lat != null);
+
+  // 各スポットの Tips を並列取得（IDがあるもののみ）。取得できたら上書き。
+  await Promise.all(spots.map(async (s) => {
+    if (!s.id) return;
+    const tip = await fetchTip(s.id, env, locale);
+    if (tip) s.tip = tip;
+  }));
+
+  return spots;
 }
 
 // --- Pages Functions ハンドラ ---------------------------------------------
