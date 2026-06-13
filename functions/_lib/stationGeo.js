@@ -1,7 +1,7 @@
 // 東京メトロ全185駅の座標テーブル（駅コード -> [緯度, 経度]）
 // データ出典: Seo-4d696b75/station_database (https://github.com/Seo-4d696b75/station_database)
 //   （ekidata.jp 等に由来する公開データ。利用規約に従い出典を明記）
-// 自動生成物。手で編集しないこと。再生成: node worker/scripts/generate-station-geo.mjs
+// 自動生成物。手で編集しないこと。再生成: node scripts/generate-station-geo.mjs
 export const STATION_GEO = {
   "G01": [35.711883, 139.798214],
   "G02": [35.709897, 139.790897],

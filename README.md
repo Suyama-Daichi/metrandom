@@ -55,76 +55,91 @@ python3 -m http.server 8000
 
 ## ホスティング
 
-このサイトは **GitHub Pages** でホスティングしています。
+このサイトは **Cloudflare Pages** でホスティングしています（静的サイト＋周辺スポット
+APIの Pages Functions を同一プロジェクトで配信）。
 
-- 公開元: `main` ブランチのルート（`/`）
+- リポジトリ: GitHub 連携（`main` への push で自動デプロイ）
+- ビルド: なし（ビルドコマンド空・出力ディレクトリはルート `/`）
 - 公開URL: https://metrandom.com/
-- エントリーポイント: `index.html`（GitHub Pages が自動配信）
+- API: `functions/api/spots.js`（同一オリジン `/api/spots`）
 
-### デプロイ方法
+### Cloudflare Pages のセットアップ
 
-`main` ブランチへ push すると、GitHub Pages が自動的にビルド・公開します。専用のビルド工程はありません。
+1. Cloudflare ダッシュボード → **Workers & Pages → Create → Pages → Connect to Git**
+   でこのリポジトリを接続。
+2. ビルド設定:
+   - **Framework preset**: None
+   - **Build command**: （空）
+   - **Build output directory**: `/`
+3. **環境変数** に `FSQ_SERVICE_KEY`（Foursquare の Service API Key）を登録（暗号化）。
+   周辺スポット機能に必要です。
+4. **Custom domains** で `metrandom.com`（と必要なら `www`）を追加。apex ドメインを
+   使うには、ドメインの DNS を Cloudflare 管理にするのが前提です（ネームサーバを
+   Cloudflare に向ける）。Pages が DNS レコードを自動設定します。
 
-```bash
-git add .
-git commit -m "Update"
-git push origin main
-```
+> `main` への push で自動的に再デプロイされます。プルリクのプレビューデプロイも利用可。
 
-### GitHub Pages の設定
+### GitHub Pages からの移行メモ
 
-リポジトリの **Settings → Pages** で以下のように設定しています。
-
-- **Source**: Deploy from a branch
-- **Branch**: `main` / `（root）`
-
-### カスタムドメイン（設定中）
-
-リポジトリには独自ドメイン用の `CNAME` ファイル（`metrandom.com`）が含まれています。apex ドメインを GitHub Pages に向けるには、DNS プロバイダ側で次の A レコードが必要です（設定が完了するまでは GitHub Pages の既定URLで公開されます）。
-
-```
-185.199.108.153
-185.199.109.153
-185.199.110.153
-185.199.111.153
-```
-
-詳細は [GitHub 公式ドキュメント](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site) を参照してください。
+- 旧 `CNAME` ファイルは GitHub Pages 用で、Cloudflare Pages では未使用です（カスタム
+  ドメインはダッシュボードで設定）。残してあっても無害なので当面そのままにしています。
+- 移行が完了するまでは、DNS の切り替えタイミングで一時的に旧 GitHub Pages 側が
+  見えることがあります。
 
 ## ファイル構成
 
 ```
 .
-├── index.html          # アプリ本体（HTML / CSS / JS を1ファイルに同梱）
-├── favicon.svg         # ファビコン（SVG）
-├── favicon.png         # ファビコン（PNG フォールバック）
-├── apple-touch-icon.png# iOS ホーム画面用アイコン
-├── og-image.png        # OGP / SNS シェア用画像
-├── robots.txt          # クローラ向け設定
-├── sitemap.xml         # サイトマップ
-├── CNAME               # カスタムドメイン設定
+├── index.html              # アプリ本体（HTML / CSS / JS を1ファイルに同梱）
+├── en/ , zh/               # 各言語版（同構成）
+├── s/ , en/s/ , zh/s/      # 駅別シェアページ（185駅 × 3言語）
+├── functions/              # Cloudflare Pages Functions
+│   ├── api/spots.js        #   GET /api/spots?code=C01（周辺スポットAPI）
+│   └── _lib/
+│       ├── spots.js        #   Foursquare 呼び出し・正規化・キャッシュ
+│       └── stationGeo.js   #   全185駅の座標テーブル（自動生成）
+├── scripts/
+│   └── generate-station-geo.mjs  # 座標テーブル再生成スクリプト
+├── .dev.vars.example       # ローカル開発用の環境変数テンプレート
+├── favicon.svg / favicon.png / apple-touch-icon.png / og-image.png
+├── robots.txt / sitemap.xml
+├── CNAME                   # （旧 GitHub Pages 用・Cloudflare では未使用）
 └── README.md
 ```
 
 ## 周辺スポット機能（Foursquare）
 
-選ばれた駅の周辺スポットは Foursquare Places API から取得します。サイト本体は
-静的サイト（GitHub Pages）のままで、API キーを秘匿するために小さな **Cloudflare
-Worker** をプロキシとして使います。
+選ばれた駅の周辺スポットは Foursquare Places API から取得します。API キーを秘匿する
+ため、**Cloudflare Pages Functions**（`functions/api/spots.js`）をプロキシとして使い、
+ブラウザからは同一オリジンの `/api/spots` を呼びます。
 
-- `worker/` … プロキシ Worker（`GET /spots?code=G19` → 周辺スポットJSON）
-- `worker/src/stationGeo.js` … 全185駅の座標テーブル（駅コード→緯度経度）。
+- `functions/api/spots.js` … ルート（`GET /api/spots?code=G19` → 周辺スポットJSON）
+- `functions/_lib/spots.js` … Foursquare 呼び出し・正規化・7日キャッシュ・CORS
+- `functions/_lib/stationGeo.js` … 全185駅の座標テーブル（駅コード→緯度経度）。
   出典: [Seo-4d696b75/station_database](https://github.com/Seo-4d696b75/station_database)。
-  `node worker/scripts/generate-station-geo.mjs` で再生成可能。
-- セットアップ・デプロイ手順は [`worker/README.md`](worker/README.md) を参照。
-- フロント側は `index.html` の定数 `SPOTS_API`（既定 `/api/spots`）で Worker を参照します。
-  Worker 未デプロイ時はスポット欄が表示されないだけで、ガチャ本体は通常どおり動作します。
+  `node scripts/generate-station-geo.mjs` で再生成可能。
+- フロント側は `index.html` の定数 `SPOTS_API`（既定 `/api/spots`）で参照します。
+  API 未設定（`FSQ_SERVICE_KEY` 無し）や取得失敗時はスポット欄が出ないだけで、
+  ガチャ本体は通常どおり動作します。
+
+### ローカルで動かす（Functions込み）
+
+```bash
+cp .dev.vars.example .dev.vars   # FSQ_SERVICE_KEY=... を記入
+npx wrangler pages dev .
+# 表示された URL（例 http://localhost:8788）を開く
+#   API 単体確認: curl "http://localhost:8788/api/spots?code=G19"
+```
+
+静的サイト部分だけ確認するなら、従来どおり任意の静的サーバー（`python3 -m http.server`
+など）でも動きます（その場合 `/api/spots` は応答しないためスポット欄は非表示）。
 
 ## 技術構成
 
 - HTML / CSS / Vanilla JavaScript のみ（フレームワーク・ビルドツールなし）
 - 駅データは `index.html` 内に内蔵
-- 周辺スポットは Foursquare Places API（Cloudflare Worker プロキシ経由）
+- 周辺スポットは Foursquare Places API（Cloudflare Pages Functions 経由）
+- ホスティング: Cloudflare Pages（GitHub 連携で自動デプロイ）
 - SEO 対応: メタ情報・OGP・Twitter カード・JSON-LD（`WebApplication`）・robots.txt・sitemap.xml
 
 ## 備考
