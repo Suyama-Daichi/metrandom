@@ -635,8 +635,12 @@ function renderSpots(list){
   spotsEl.hidden = false;
   spotsTitleEl.textContent = t('spotsTitle');
   spotsList.innerHTML = list.map(s => {
-    const q = encodeURIComponent(`${s.name} ${s.lat},${s.lng}`);
-    return `<a class="spot-item" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">`
+    // クリック時は Foursquare のスポットページを開く。
+    // id が無い場合のみ Google Maps 検索にフォールバック。
+    const href = s.id
+      ? `https://foursquare.com/v/${encodeURIComponent(s.id)}`
+      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${s.name} ${s.lat},${s.lng}`)}`;
+    return `<a class="spot-item" href="${href}" target="_blank" rel="noopener">`
       + (s.photo ? `<img class="spot-thumb" src="${esc(s.photo)}" alt="" loading="lazy">` : '')
       + `<span class="spot-body"><span class="spot-name">${esc(s.name)}</span>`
       + (s.category ? `<span class="spot-meta">${esc(s.category)}</span>` : '')
