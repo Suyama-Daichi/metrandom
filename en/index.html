@@ -164,6 +164,12 @@
     padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.06); color: #d4dcf0;
   }
   .hist-item .d { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .hist-restore {
+    display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;
+    background: none; border: none; color: inherit; font: inherit;
+    text-align: left; cursor: pointer; padding: 2px 4px; border-radius: 6px;
+  }
+  .hist-restore:hover { background: rgba(255,255,255,.08); }
   .hist-del {
     margin-left: auto; background: none; border: none; color: #6b769a;
     cursor: pointer; font-size: .85rem; padding: 2px 8px; border-radius: 6px;
@@ -353,6 +359,7 @@ const T = {
     mapLink: 'Googleマップで見る',
     hist: '履歴',
     clearAll: 'すべて削除',
+    restore: 'この駅を表示',
     prHead: 'お出かけのおともに',
     aboutTitle: 'メトロ駅ガチャとは',
     aboutP1: '東京メトロの全9路線・180駅の中から、ボタンひとつでランダムに1駅を選んでくれます。行き先に迷ったときの途中下車、休日のお散歩コース選び、近場の小旅行、街歩きの目的地決め、YouTubeの企画などに使えます。路線を絞り込めば、特定の沿線からだけ駅を選ぶこともできます。',
@@ -374,6 +381,7 @@ const T = {
     mapLink: 'View on Google Maps',
     hist: 'History',
     clearAll: 'Clear all',
+    restore: 'Show this station',
     prHead: 'For your outing',
     aboutTitle: 'About Metro Station Gacha',
     aboutP1: 'Picks one random station from the 180 stations across all 9 Tokyo Metro lines at the press of a button. Great for spontaneous stopovers, weekend walks, mini trips, choosing your next place to explore in Tokyo — even YouTube video ideas. Filter by line to draw stations only from the lines you select. The name "gacha" comes from Japanese capsule-toy vending machines (gachapon) — you never know what comes out!',
@@ -395,6 +403,7 @@ const T = {
     mapLink: '在谷歌地图中查看',
     hist: '历史记录',
     clearAll: '全部删除',
+    restore: '显示该车站',
     prHead: '出行好物',
     aboutTitle: '关于地铁站扭蛋',
     aboutP1: '只需按一下按钮，即可从东京地铁全部9条线路、180个车站中随机抽选1站。适合随性下车、周末散步、近郊小旅行、为城市漫步挑选目的地，也可用于YouTube企划等。还可以按线路筛选，只从特定线路中抽选车站。',
@@ -467,16 +476,28 @@ function renderHist(){
     const st = line.stations[h.i];
     const n = num2(h.i);
     const stName = lang === 'en' ? st[1] : st[0];
-    return `<div class="hist-item"><span class="d" style="background:${line.color}"></span>${stName} <span style="color:#8a96b8">（${lineName(line)} ${line.sym}${n}）</span><button class="hist-del" data-i="${i}" type="button" aria-label="delete">✕</button></div>`;
+    return `<div class="hist-item"><button class="hist-restore" data-i="${i}" type="button" title="${t('restore')}"><span class="d" style="background:${line.color}"></span>${stName} <span style="color:#8a96b8">（${lineName(line)} ${line.sym}${n}）</span></button><button class="hist-del" data-i="${i}" type="button" aria-label="delete">✕</button></div>`;
   }).join('');
 }
 
 histEl.addEventListener('click', e=>{
-  const btn = e.target.closest('.hist-del');
-  if(!btn) return;
-  history.splice(Number(btn.dataset.i), 1);
-  saveHist();
-  renderHist();
+  const del = e.target.closest('.hist-del');
+  if(del){
+    history.splice(Number(del.dataset.i), 1);
+    saveHist();
+    renderHist();
+    return;
+  }
+  const restore = e.target.closest('.hist-restore');
+  if(!restore) return;
+  const h = history[Number(restore.dataset.i)];
+  const line = h && LINE_MAP[h.k];
+  if(!line || !line.stations[h.i]) return;
+  const r = { line, st: line.stations[h.i], idx: h.i };
+  lastResult = r;
+  render(r, false);
+  updateShare(r);
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
 histClear.onclick = ()=>{
