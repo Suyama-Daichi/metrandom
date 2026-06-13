@@ -19,17 +19,23 @@ GitHub Pages（静的サイト本体）とは独立してデプロイします�
 cd worker
 npm i -g wrangler          # もしくは npx wrangler を利用
 
-# Foursquare の Service API Key を登録（リポジトリには絶対に置かない）
-wrangler secret put FSQ_SERVICE_KEY
-
-# ローカル動作確認
+# --- ローカル動作確認 -----------------------------------------------------
+# wrangler dev は `wrangler secret put` で登録したシークレットを読み込みません。
+# ローカルでは .dev.vars にキーを置きます（.gitignore 済み）。
+cp .dev.vars.example .dev.vars
+#   .dev.vars を開いて FSQ_SERVICE_KEY=... に実際のキーを記入
 wrangler dev
 #   別ターミナルで:
 #   curl "http://localhost:8787/spots?code=G19"
 
-# デプロイ
+# --- デプロイ -------------------------------------------------------------
+# 本番（デプロイ先）のシークレットは secret put で登録します（.dev.vars とは別管理）。
+wrangler secret put FSQ_SERVICE_KEY
 wrangler deploy
 ```
+
+> **500 (`{"error":"misconfigured"}`) が返る場合**: `FSQ_SERVICE_KEY` が読めていません。
+> ローカルなら `.dev.vars` にキーがあるか、本番なら `wrangler secret put` 済みかを確認してください。
 
 デプロイ後に表示される URL（例 `https://metrandom-spots.<subdomain>.workers.dev`）を
 フロントの `SPOTS_API` に設定してください。独自ドメインを Cloudflare 管理にしている
