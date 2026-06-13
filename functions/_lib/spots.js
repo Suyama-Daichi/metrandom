@@ -22,7 +22,7 @@ const FSQ_API_VERSION = '2025-06-17'; // X-Places-Api-Version
 const CATEGORIES = '13000,10000,16000,17000';
 const RADIUS_M = 800;
 const LIMIT = 8;
-const FIELDS = 'fsq_place_id,name,categories,distance,location,latitude,longitude,photos';
+const FIELDS = 'fsq_place_id,name,categories,distance,location,latitude,longitude,photos,tips';
 
 // 言語コード -> Foursquare ロケール（Accept-Language）。
 // Foursquare 対応ロケール: en, es, fr, de, it, ja, th, tr, ko, ru, pt, id
@@ -73,6 +73,12 @@ function normalizePlace(p) {
     if (ph?.prefix && ph?.suffix) photo = `${ph.prefix}200x200${ph.suffix}`;
   }
   const loc = p.location || {};
+  // Tips（ユーザーの口コミ）。premium フィールド。先頭の1件のテキストのみ採用。
+  let tip = '';
+  if (Array.isArray(p.tips) && p.tips.length) {
+    const text = p.tips[0]?.text;
+    if (typeof text === 'string') tip = text.trim();
+  }
   return {
     id: p.fsq_place_id || p.fsq_id || null,
     name: p.name || '',
@@ -82,6 +88,7 @@ function normalizePlace(p) {
     lng,
     address: loc.formatted_address || loc.address || '',
     photo,
+    tip,
   };
 }
 

@@ -247,7 +247,7 @@
   .spots-title { font-size: .8rem; color: #9aa6c4; font-weight: 600; margin-bottom: 10px; }
   .spots-status { color: #8a96b8; font-size: .82rem; padding: 4px 0; }
   .spot-item {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
+    display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px;
     background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08);
     border-radius: 14px; padding: 10px 14px; color: #d4dcf0;
     text-decoration: none; font-size: .85rem; line-height: 1.45; transition: background .15s;
@@ -260,6 +260,11 @@
   .spot-body { min-width: 0; flex: 1; }
   .spot-name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .spot-meta { display: block; color: #8a96b8; font-size: .72rem; margin-top: 2px; }
+  .spot-tip {
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden; color: #b6c0db; font-size: .72rem; line-height: 1.4;
+    margin-top: 4px; white-space: normal;
+  }
   .spot-dist { margin-left: auto; color: #8a96b8; font-size: .72rem; flex-shrink: 0; }
 </style>
 </head>
@@ -707,6 +712,7 @@ function renderSpots(list, stationName){
       + (s.photo ? `<img class="spot-thumb" src="${esc(s.photo)}" alt="" loading="lazy">` : '')
       + `<span class="spot-body"><span class="spot-name">${esc(s.name)}</span>`
       + (s.category ? `<span class="spot-meta">${esc(s.category)}</span>` : '')
+      + (s.tip ? `<span class="spot-tip">💬 ${esc(s.tip)}</span>` : '')
       + `</span><span class="spot-dist">${distLabel(s.distance)}</span></a>`;
   }).join('');
 }
