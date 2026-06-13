@@ -100,7 +100,8 @@ async function fetchSpots(code, env) {
   }
   const data = await res.json();
   const results = data.results || data.places || [];
-  return results.map(normalizePlace).filter(s => s.name && s.lat != null);
+  const spots = results.map(normalizePlace).filter(s => s.name && s.lat != null);
+  return { raw: data, spots };
 }
 
 export default {
@@ -133,9 +134,20 @@ export default {
       return json(body, { origin, cache: true });
     }
 
+    // デバッグ: Foursquare の生レスポンスをそのまま確認する
+    //   curl "http://localhost:8787/spots?code=G19&debug=1"
+    if (url.searchParams.get('debug')) {
+      try {
+        const { raw, spots } = await fetchSpots(code, env);
+        return json({ code, spotsCount: spots.length, spots, raw }, { origin });
+      } catch (e) {
+        return json({ error: String(e) }, { status: 502, origin });
+      }
+    }
+
     let spots = [];
     try {
-      spots = await fetchSpots(code, env);
+      ({ spots } = await fetchSpots(code, env));
     } catch (e) {
       // 失敗時は空配列を返す（フロントは静かに非表示）。キャッシュはしない。
       return json({ code, spots: [], error: 'upstream' }, { status: 502, origin });
