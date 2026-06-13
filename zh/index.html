@@ -655,7 +655,7 @@ async function loadNearby(r){
   spotsTitleEl.textContent = t('spotsTitle');
   spotsList.innerHTML = `<div class="spots-status">${esc(t('spotsLoading'))}</div>`;
   try {
-    const res = await fetch(`${SPOTS_API}?code=${encodeURIComponent(code)}`);
+    const res = await fetch(`${SPOTS_API}?code=${encodeURIComponent(code)}&lang=${encodeURIComponent(lang)}`);
     if(!res.ok) throw new Error('http ' + res.status);
     const data = await res.json();
     if(reqId !== spotsReqId) return; // 新しい駅が選ばれていたら破棄

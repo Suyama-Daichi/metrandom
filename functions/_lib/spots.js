@@ -24,6 +24,12 @@ const RADIUS_M = 800;
 const LIMIT = 8;
 const FIELDS = 'fsq_place_id,name,categories,distance,location,latitude,longitude,photos';
 
+// 言語コード -> Foursquare ロケール（Accept-Language）。
+// Foursquare 対応ロケール: en, es, fr, de, it, ja, th, tr, ko, ru, pt, id
+// （zh は非対応のため en にフォールバック）
+const LOCALES = { ja: 'ja', en: 'en', zh: 'en' };
+const DEFAULT_LOCALE = 'ja';
+
 const CACHE_TTL = 60 * 60 * 24 * 7; // 7日
 
 // --- CORS（Pages では同一オリジンのため基本不要だが、保険として付与）---------
@@ -79,7 +85,7 @@ function normalizePlace(p) {
   };
 }
 
-async function fetchSpots(code, env) {
+async function fetchSpots(code, env, locale) {
   const [lat, lng] = STATION_GEO[code];
   const params = new URLSearchParams({
     ll: `${lat},${lng}`,
@@ -88,12 +94,14 @@ async function fetchSpots(code, env) {
     limit: String(LIMIT),
     sort: 'DISTANCE',
     fields: FIELDS,
+    exclude_all_chains: 'true', // コンビニ・大手チェーン店を除外（個人店等のみ）
   });
   const res = await fetch(`${FSQ_ENDPOINT}?${params}`, {
     headers: {
       'Authorization': `Bearer ${env.FSQ_SERVICE_KEY}`,
       'X-Places-Api-Version': FSQ_API_VERSION,
       'Accept': 'application/json',
+      'Accept-Language': locale, // カテゴリ名等のローカライズ
     },
   });
   if (!res.ok) {
@@ -123,9 +131,12 @@ export async function handleGet(context) {
     return json({ error: 'misconfigured', spots: [] }, { status: 500, origin });
   }
 
-  // 駅コード単位でエッジキャッシュ
+  const lang = (url.searchParams.get('lang') || '').toLowerCase();
+  const locale = LOCALES[lang] || DEFAULT_LOCALE;
+
+  // 駅コード×ロケール単位でエッジキャッシュ
   const cache = caches.default;
-  const cacheKey = new Request(`https://cache.local/spots/${code}`, { method: 'GET' });
+  const cacheKey = new Request(`https://cache.local/spots/${code}/${locale}`, { method: 'GET' });
   const cached = await cache.match(cacheKey);
   if (cached) {
     const body = await cached.json();
@@ -134,7 +145,7 @@ export async function handleGet(context) {
 
   let spots = [];
   try {
-    spots = await fetchSpots(code, env);
+    spots = await fetchSpots(code, env, locale);
   } catch (e) {
     // 失敗時は空配列を返す（フロントは静かに非表示）。キャッシュはしない。
     return json({ code, spots: [], error: 'upstream' }, { status: 502, origin });
