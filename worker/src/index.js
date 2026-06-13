@@ -29,12 +29,13 @@ const CACHE_TTL = 60 * 60 * 24 * 7; // 7日
 const ALLOWED_ORIGINS = new Set([
   'https://metrandom.com',
   'https://www.metrandom.com',
-  'http://localhost:8080',
-  'http://127.0.0.1:8080',
 ]);
+// ローカル開発は localhost / 127.0.0.1 を任意ポートで許可
+const LOCAL_ORIGIN = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
 
 function corsHeaders(origin) {
-  const allow = ALLOWED_ORIGINS.has(origin) ? origin : 'https://metrandom.com';
+  const ok = ALLOWED_ORIGINS.has(origin) || LOCAL_ORIGIN.test(origin);
+  const allow = ok ? origin : 'https://metrandom.com';
   return {
     'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
@@ -110,7 +111,8 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: corsHeaders(origin) });
     }
-    if (request.method !== 'GET' || url.pathname !== '/spots') {
+    // workers.dev の /spots でも、独自ドメインの /api/spots ルートでも動くよう末尾一致で判定
+    if (request.method !== 'GET' || !url.pathname.endsWith('/spots')) {
       return json({ error: 'not_found' }, { status: 404, origin });
     }
 
