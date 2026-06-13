@@ -1,20 +1,20 @@
-// worker/src/stationGeo.js を再生成するスクリプト。
+// functions/_lib/stationGeo.js を再生成するスクリプト。
 //
 // データ出典: Seo-4d696b75/station_database
 //   https://github.com/Seo-4d696b75/station_database  (out/main/line/{code}.json)
-// サイト本体 (../../index.html) の LINES と、路線ごとに駅名でマッチングして
+// サイト本体 (../index.html) の LINES と、路線ごとに駅名でマッチングして
 //   駅コード (G01 等) -> [lat, lng] を生成する。
 //
-// 実行: node worker/scripts/generate-station-geo.mjs
+// 実行: node scripts/generate-station-geo.mjs
 //
 // 注意: station_database は路線の並び順がサイトと逆のことがある（例: 南北線）。
 //   そのためインデックスではなく「駅名」でマッチングしている。
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT = join(__dirname, '..', '..');
+const ROOT = join(__dirname, '..');
 
 // サイトの key(=symbol) -> station_database の路線ファイルコード
 const LINE_FILE = {
@@ -59,7 +59,7 @@ const codes = Object.keys(geo).sort((a, b) =>
 let out = `// 東京メトロ全${codes.length}駅の座標テーブル（駅コード -> [緯度, 経度]）
 // データ出典: Seo-4d696b75/station_database (https://github.com/Seo-4d696b75/station_database)
 //   （ekidata.jp 等に由来する公開データ。利用規約に従い出典を明記）
-// 自動生成物。手で編集しないこと。再生成: node worker/scripts/generate-station-geo.mjs
+// 自動生成物。手で編集しないこと。再生成: node scripts/generate-station-geo.mjs
 export const STATION_GEO = {
 `;
 let cur = '';
@@ -69,5 +69,7 @@ for (const c of codes) {
 }
 out += `};\n`;
 
-await writeFile(join(__dirname, '..', 'src', 'stationGeo.js'), out);
-console.log(`wrote worker/src/stationGeo.js (${codes.length} stations)`);
+const outDir = join(ROOT, 'functions', '_lib');
+await mkdir(outDir, { recursive: true });
+await writeFile(join(outDir, 'stationGeo.js'), out);
+console.log(`wrote functions/_lib/stationGeo.js (${codes.length} stations)`);

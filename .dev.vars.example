@@ -1,5 +1,6 @@
-# wrangler dev 用のローカル環境変数。
+# `wrangler pages dev` 用のローカル環境変数。
 # このファイルをコピーして .dev.vars を作り、実際のキーを記入してください。
 #   cp .dev.vars.example .dev.vars
 # .dev.vars は .gitignore 済み（コミットしないこと）。
+# 本番は Cloudflare Pages プロジェクトの環境変数（暗号化）に設定します。
 FSQ_SERVICE_KEY=your_foursquare_service_api_key_here
