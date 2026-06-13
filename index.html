@@ -215,6 +215,25 @@
   .share-btns .line { background: #06C755; }
   .share-btns .copy { background: rgba(255,255,255,.12); color: #d4dcf0; }
   .share-btns svg { width: 16px; height: 16px; fill: currentColor; }
+
+  .spots { max-width: 420px; width: 100%; margin-top: 22px; }
+  .spots-title { font-size: .8rem; color: #9aa6c4; font-weight: 600; margin-bottom: 10px; }
+  .spots-status { color: #8a96b8; font-size: .82rem; padding: 4px 0; }
+  .spot-item {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px; padding: 10px 14px; color: #d4dcf0;
+    text-decoration: none; font-size: .85rem; line-height: 1.45; transition: background .15s;
+  }
+  .spot-item:hover { background: rgba(255,255,255,.11); }
+  .spot-thumb {
+    width: 44px; height: 44px; border-radius: 10px; object-fit: cover;
+    flex-shrink: 0; background: rgba(255,255,255,.08);
+  }
+  .spot-body { min-width: 0; flex: 1; }
+  .spot-name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .spot-meta { display: block; color: #8a96b8; font-size: .72rem; margin-top: 2px; }
+  .spot-dist { margin-left: auto; color: #8a96b8; font-size: .72rem; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -249,6 +268,11 @@
       <button class="copy" id="shareCopy" type="button">リンクをコピー</button>
     </div>
   </div>
+
+  <section class="spots" id="spots" hidden>
+    <h2 class="spots-title" id="spotsTitle">周辺スポット</h2>
+    <div id="spotsList"></div>
+  </section>
 
   <div class="hist">
     <div class="hist-head" id="histHead" hidden>
@@ -360,6 +384,8 @@ const T = {
     hist: '履歴',
     clearAll: 'すべて削除',
     restore: 'この駅を表示',
+    spotsTitle: '周辺スポット',
+    spotsLoading: '周辺スポットを探しています…',
     prHead: 'お出かけのおともに',
     aboutTitle: 'メトロ駅ガチャとは',
     aboutP1: '東京メトロの全9路線・180駅の中から、ボタンひとつでランダムに1駅を選んでくれます。行き先に迷ったときの途中下車、休日のお散歩コース選び、近場の小旅行、街歩きの目的地決め、YouTubeの企画などに使えます。路線を絞り込めば、特定の沿線からだけ駅を選ぶこともできます。',
@@ -382,6 +408,8 @@ const T = {
     hist: 'History',
     clearAll: 'Clear all',
     restore: 'Show this station',
+    spotsTitle: 'Nearby spots',
+    spotsLoading: 'Finding nearby spots…',
     prHead: 'For your outing',
     aboutTitle: 'About Metro Station Gacha',
     aboutP1: 'Picks one random station from the 180 stations across all 9 Tokyo Metro lines at the press of a button. Great for spontaneous stopovers, weekend walks, mini trips, choosing your next place to explore in Tokyo — even YouTube video ideas. Filter by line to draw stations only from the lines you select. The name "gacha" comes from Japanese capsule-toy vending machines (gachapon) — you never know what comes out!',
@@ -404,6 +432,8 @@ const T = {
     hist: '历史记录',
     clearAll: '全部删除',
     restore: '显示该车站',
+    spotsTitle: '周边地点',
+    spotsLoading: '正在查找周边地点…',
     prHead: '出行好物',
     aboutTitle: '关于地铁站扭蛋',
     aboutP1: '只需按一下按钮，即可从东京地铁全部9条线路、180个车站中随机抽选1站。适合随性下车、周末散步、近郊小旅行、为城市漫步挑选目的地，也可用于YouTube企划等。还可以按线路筛选，只从特定线路中抽选车站。',
@@ -497,6 +527,7 @@ histEl.addEventListener('click', e=>{
   lastResult = r;
   render(r, false);
   updateShare(r);
+  loadNearby(r);
   card.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
@@ -559,6 +590,8 @@ function render(r, spinning){
 go.onclick = ()=>{
   go.disabled = true;
   shareEl.hidden = true;
+  spotsEl.hidden = true;
+  spotsReqId++;
   let n = 0;
   const total = 14;
   const timer = setInterval(()=>{
@@ -570,6 +603,7 @@ go.onclick = ()=>{
       render(final, false);
       addHist(final);
       updateShare(final);
+      loadNearby(final);
       go.disabled = false;
     }
   }, 70);
@@ -580,6 +614,55 @@ function addHist(r){
   if(history.length > HIST_MAX) history.pop();
   saveHist();
   renderHist();
+}
+
+// ---------- 周辺スポット (Foursquare) ----------
+// Worker のエンドポイント。独自ドメインを Cloudflare 管理にしている場合は
+// 同一オリジンの /api/spots に割り当て可能。workers.dev を使う場合はそのURLに変更。
+const SPOTS_API = '/api/spots';
+const spotsEl = document.getElementById('spots');
+const spotsList = document.getElementById('spotsList');
+const spotsTitleEl = document.getElementById('spotsTitle');
+const spotsCache = {};
+let spotsReqId = 0;
+
+function stationCode(r){ return r.line.key + num2(r.idx); }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function distLabel(d){ if(d == null) return ''; return d < 1000 ? `${d}m` : `${(d/1000).toFixed(1)}km`; }
+
+function renderSpots(list){
+  if(!list || !list.length){ spotsEl.hidden = true; return; }
+  spotsEl.hidden = false;
+  spotsTitleEl.textContent = t('spotsTitle');
+  spotsList.innerHTML = list.map(s => {
+    const q = encodeURIComponent(`${s.name} ${s.lat},${s.lng}`);
+    return `<a class="spot-item" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">`
+      + (s.photo ? `<img class="spot-thumb" src="${esc(s.photo)}" alt="" loading="lazy">` : '')
+      + `<span class="spot-body"><span class="spot-name">${esc(s.name)}</span>`
+      + (s.category ? `<span class="spot-meta">${esc(s.category)}</span>` : '')
+      + `</span><span class="spot-dist">${distLabel(s.distance)}</span></a>`;
+  }).join('');
+}
+
+async function loadNearby(r){
+  const code = stationCode(r);
+  if(spotsCache[code]){ renderSpots(spotsCache[code]); return; }
+  const reqId = ++spotsReqId;
+  spotsEl.hidden = false;
+  spotsTitleEl.textContent = t('spotsTitle');
+  spotsList.innerHTML = `<div class="spots-status">${esc(t('spotsLoading'))}</div>`;
+  try {
+    const res = await fetch(`${SPOTS_API}?code=${encodeURIComponent(code)}`);
+    if(!res.ok) throw new Error('http ' + res.status);
+    const data = await res.json();
+    if(reqId !== spotsReqId) return; // 新しい駅が選ばれていたら破棄
+    const spots = Array.isArray(data.spots) ? data.spots : [];
+    spotsCache[code] = spots;
+    renderSpots(spots);
+  } catch(e){
+    if(reqId !== spotsReqId) return;
+    spotsEl.hidden = true; // 取得失敗時は静かに非表示（ガチャ本体には影響させない）
+  }
 }
 
 // ---------- 言語適用 ----------
@@ -597,6 +680,7 @@ function applyLang(){
   document.getElementById('shareXLabel').textContent = t('post');
   document.getElementById('histTitle').textContent = t('hist');
   histClear.textContent = t('clearAll');
+  spotsTitleEl.textContent = t('spotsTitle');
   document.getElementById('prHeadLabel').textContent = t('prHead');
   document.getElementById('aboutTitle').textContent = t('aboutTitle');
   document.getElementById('aboutP1').textContent = t('aboutP1');
