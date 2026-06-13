@@ -244,7 +244,10 @@
   .share-btns svg { width: 16px; height: 16px; fill: currentColor; }
 
   .spots { max-width: 420px; width: 100%; margin-top: 22px; }
-  .spots-title { font-size: .8rem; color: #9aa6c4; font-weight: 600; margin-bottom: 10px; }
+  .spots-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+  .spots-title { font-size: .8rem; color: #9aa6c4; font-weight: 600; }
+  .powered-by { font-size: .68rem; color: #6b769a; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+  .powered-by:hover { color: #9aa6c4; text-decoration: underline; }
   .spots-status { color: #8a96b8; font-size: .82rem; padding: 4px 0; }
   .spot-item {
     display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px;
@@ -320,7 +323,10 @@
   </div>
 
   <section class="spots" id="spots" hidden>
-    <h2 class="spots-title" id="spotsTitle">周辺スポット</h2>
+    <div class="spots-head">
+      <h2 class="spots-title" id="spotsTitle">周辺スポット</h2>
+      <a class="powered-by" href="https://ja.swarmapp.com/" target="_blank" rel="noopener">Powered by Foursquare</a>
+    </div>
     <div id="spotsList"></div>
   </section>
 
