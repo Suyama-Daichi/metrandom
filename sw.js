@@ -1,5 +1,5 @@
 // メトロ駅ガチャ Service Worker
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE = `metro-gacha-${VERSION}`;
 const PRECACHE = [
   '/', '/en/', '/zh/',

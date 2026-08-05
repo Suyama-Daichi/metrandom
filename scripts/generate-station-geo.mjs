@@ -18,8 +18,11 @@ const ROOT = join(__dirname, '..');
 
 // サイトの key(=symbol) -> station_database の路線ファイルコード
 const LINE_FILE = {
+  // 東京メトロ
   G: 28001, M: 28002, H: 28003, T: 28004, C: 28005,
   Y: 28006, Z: 28008, N: 28009, F: 28010,
+  // 都営地下鉄
+  A: 99302, I: 99303, S: 99304, E: 99301,
 };
 const BASE = 'https://raw.githubusercontent.com/Seo-4d696b75/station_database/main/out/main/line';
 
@@ -56,7 +59,7 @@ const order = Object.keys(LINE_FILE);
 const codes = Object.keys(geo).sort((a, b) =>
   order.indexOf(a[0]) - order.indexOf(b[0]) || (+a.slice(1)) - (+b.slice(1)));
 
-let out = `// 東京メトロ全${codes.length}駅の座標テーブル（駅コード -> [緯度, 経度]）
+let out = `// 東京メトロ・都営地下鉄 全${codes.length}駅の座標テーブル（駅コード -> [緯度, 経度]）
 // データ出典: Seo-4d696b75/station_database (https://github.com/Seo-4d696b75/station_database)
 //   （ekidata.jp 等に由来する公開データ。利用規約に従い出典を明記）
 // 自動生成物。手で編集しないこと。再生成: node scripts/generate-station-geo.mjs
