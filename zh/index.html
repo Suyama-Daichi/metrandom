@@ -21,9 +21,9 @@
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7001458737801425"
      crossorigin="anonymous"></script>
-<title>地铁站扭蛋 | 从东京地铁9条线路随机抽选车站</title>
-<meta name="description" content="只需按一下按钮，即可从东京地铁全部9条线路、180个车站中随机抽选1站——银座线、丸之内线、日比谷线、东西线、千代田线、有乐町线、半藏门线、南北线、副都心线。东京自由行、随性下车、城市漫步的好帮手。">
-<meta name="keywords" content="东京地铁,随机车站,扭蛋,东京自由行,东京观光,银座线,丸之内线,日比谷线,东西线,千代田线,有乐町线,半藏门线,南北线,副都心线">
+<title>地铁站扭蛋 | 从东京地铁·都营地铁13条线路随机抽选车站</title>
+<meta name="description" content="只需按一下按钮，即可从东京地铁全部9条线路与都营地铁全部4条线路、共13条线路286个车站中随机抽选1站——银座线、丸之内线、日比谷线、东西线、千代田线、有乐町线、半藏门线、南北线、副都心线、都营浅草线、都营三田线、都营新宿线、都营大江户线。东京自由行、随性下车、城市漫步的好帮手。">
+<meta name="keywords" content="东京地铁,都营地铁,随机车站,扭蛋,东京自由行,东京观光,银座线,丸之内线,日比谷线,东西线,千代田线,有乐町线,半藏门线,南北线,副都心线,浅草线,三田线,新宿线,大江户线">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://metrandom.com/zh/">
 <link rel="alternate" hreflang="ja" href="https://metrandom.com/">
@@ -34,8 +34,8 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="地铁站扭蛋">
-<meta property="og:title" content="地铁站扭蛋 | 从东京地铁9条线路随机抽选车站">
-<meta property="og:description" content="只需按一下按钮，即可从东京地铁全部9条线路、180个车站中随机抽选1站。可按线路筛选。东京自由行、随性下车、城市漫步的好帮手。">
+<meta property="og:title" content="地铁站扭蛋 | 从东京地铁·都营地铁13条线路随机抽选车站">
+<meta property="og:description" content="只需按一下按钮，即可从东京地铁与都营地铁共13条线路、286个车站中随机抽选1站。可按运营公司或线路筛选。东京自由行、随性下车、城市漫步的好帮手。">
 <meta property="og:url" content="https://metrandom.com/zh/">
 <meta property="og:image" content="https://metrandom.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -44,8 +44,8 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="地铁站扭蛋 | 从东京地铁9条线路随机抽选车站">
-<meta name="twitter:description" content="从东京地铁全部9条线路、180个车站中随机抽选1站。东京自由行、城市漫步的好帮手。">
+<meta name="twitter:title" content="地铁站扭蛋 | 从东京地铁·都营地铁13条线路随机抽选车站">
+<meta name="twitter:description" content="从东京地铁与都营地铁共13条线路、286个车站中随机抽选1站。东京自由行、城市漫步的好帮手。">
 <meta name="twitter:image" content="https://metrandom.com/og-image.png">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -61,7 +61,7 @@
   "@type": "WebApplication",
   "name": "地铁站扭蛋",
   "url": "https://metrandom.com/zh/",
-  "description": "从东京地铁全部9条线路、180个车站中随机抽选1站。",
+  "description": "从东京地铁与都营地铁共13条线路、286个车站中随机抽选1站。",
   "applicationCategory": "TravelApplication",
   "operatingSystem": "Any",
   "inLanguage": "zh",
@@ -109,6 +109,17 @@
   .chip .dot { width: 12px; height: 12px; border-radius: 50%; }
   .chip.off { opacity: .35; }
   .chip.off .dot { filter: grayscale(1); }
+
+  .ops {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 10px;
+  }
+  .op-chip {
+    padding: 6px 14px; border-radius: 999px; cursor: pointer;
+    font-size: .8rem; font-weight: 700; user-select: none;
+    background: rgba(255,255,255,.14); border: 1.5px solid rgba(255,255,255,.4);
+    transition: .15s;
+  }
+  .op-chip.off { opacity: .35; border-color: transparent; }
 
   .card {
     width: 100%; max-width: 420px; background: rgba(255,255,255,.06);
@@ -299,6 +310,8 @@
     <button type="button" data-lang="zh">中文</button>
   </div>
 
+  <div class="ops" id="ops"></div>
+
   <div class="lines" id="lines"></div>
 
   <div class="card" id="card">
@@ -347,7 +360,7 @@
 
   <section class="about">
     <h2 id="aboutTitle">关于地铁站扭蛋</h2>
-    <p id="aboutP1">只需按一下按钮，即可从东京地铁全部9条线路、180个车站中随机抽选1站。适合随性下车、周末散步、近郊小旅行、为城市漫步挑选目的地，也可用于YouTube企划等。还可以按线路筛选，只从特定线路中抽选车站。</p>
+    <p id="aboutP1">只需按一下按钮，即可从东京地铁全部9条线路与都营地铁全部4条线路、共13条线路286个车站中随机抽选1站。适合随性下车、周末散步、近郊小旅行、为城市漫步挑选目的地，也可用于YouTube企划等。还可以按运营公司或线路筛选，只从特定线路中抽选车站。</p>
     <h2 id="aboutLinesTitle">支持的线路</h2>
     <ul id="aboutLines">
       <li>银座线（G）</li>
@@ -359,13 +372,17 @@
       <li>半藏门线（Z）</li>
       <li>南北线（N）</li>
       <li>副都心线（F）</li>
+      <li>都营浅草线（A）</li>
+      <li>都营三田线（I）</li>
+      <li>都营新宿线（S）</li>
+      <li>都营大江户线（E）</li>
     </ul>
     <h2 id="howTitle">使用方法</h2>
-    <p id="howP">按下「转扭蛋」按钮，线路和车站会像轮盘一样旋转，最终确定1站。点击上方的线路标签可切换线路的开/关。最近的结果会保存在历史记录中。</p>
+    <p id="howP">按下「转扭蛋」按钮，线路和车站会像轮盘一样旋转，最终确定1站。点击上方的「东京地铁」「都营地铁」标签可整体切换运营公司，点击线路标签可单独筛选。最近的结果会保存在历史记录中。</p>
   </section>
 
   <footer>
-    <p style="margin-bottom:8px">本网站为非官方粉丝网站，与东京地下铁株式会社（东京Metro）无任何关联。</p>
+    <p style="margin-bottom:8px">本网站为非官方粉丝网站，与东京地下铁株式会社（东京Metro）及东京都交通局无任何关联。</p>
     地铁站扭蛋 ・
     <a href="/en/privacy/">隐私政策</a> ・
     <a href="https://github.com/Suyama-Daichi/metro-random" rel="noopener">GitHub</a>
@@ -373,36 +390,70 @@
 
 <script>
 const LINES = [
-  { key:"G", name:"銀座線", color:"#FF9500", sym:"G", stations:[
+  { key:"G", name:"銀座線", color:"#FF9500", sym:"G", op:"metro", stations:[
     ["浅草","Asakusa"],["田原町","Tawaramachi"],["稲荷町","Inaricho"],["上野","Ueno"],["上野広小路","Ueno-hirokoji"],["末広町","Suehirocho"],["神田","Kanda"],["三越前","Mitsukoshimae"],["日本橋","Nihombashi"],["京橋","Kyobashi"],["銀座","Ginza"],["新橋","Shimbashi"],["虎ノ門","Toranomon"],["溜池山王","Tameike-sanno"],["赤坂見附","Akasaka-mitsuke"],["青山一丁目","Aoyama-itchome"],["外苑前","Gaiemmae"],["表参道","Omote-sando"],["渋谷","Shibuya"]
   ]},
-  { key:"M", name:"丸ノ内線", color:"#F62E36", sym:"M", stations:[
+  { key:"M", name:"丸ノ内線", color:"#F62E36", sym:"M", op:"metro", stations:[
     ["池袋","Ikebukuro"],["新大塚","Shin-otsuka"],["茗荷谷","Myogadani"],["後楽園","Korakuen"],["本郷三丁目","Hongo-sanchome"],["御茶ノ水","Ochanomizu"],["淡路町","Awajicho"],["大手町","Otemachi"],["東京","Tokyo"],["銀座","Ginza"],["霞ケ関","Kasumigaseki"],["国会議事堂前","Kokkai-gijidomae"],["赤坂見附","Akasaka-mitsuke"],["四ツ谷","Yotsuya"],["四谷三丁目","Yotsuya-sanchome"],["新宿御苑前","Shinjuku-gyoemmae"],["新宿三丁目","Shinjuku-sanchome"],["新宿","Shinjuku"],["西新宿","Nishi-shinjuku"],["中野坂上","Nakano-sakaue"],["新中野","Shin-nakano"],["東高円寺","Higashi-koenji"],["新高円寺","Shin-koenji"],["南阿佐ケ谷","Minami-asagaya"],["荻窪","Ogikubo"],["中野新橋","Nakano-shimbashi"],["中野富士見町","Nakano-fujimicho"],["方南町","Honancho"]
   ]},
-  { key:"H", name:"日比谷線", color:"#B5B5AC", sym:"H", stations:[
+  { key:"H", name:"日比谷線", color:"#B5B5AC", sym:"H", op:"metro", stations:[
     ["北千住","Kita-senju"],["南千住","Minami-senju"],["三ノ輪","Minowa"],["入谷","Iriya"],["上野","Ueno"],["仲御徒町","Naka-okachimachi"],["秋葉原","Akihabara"],["小伝馬町","Kodemmacho"],["人形町","Ningyocho"],["茅場町","Kayabacho"],["八丁堀","Hatchobori"],["築地","Tsukiji"],["東銀座","Higashi-ginza"],["銀座","Ginza"],["日比谷","Hibiya"],["霞ケ関","Kasumigaseki"],["虎ノ門ヒルズ","Toranomon Hills"],["神谷町","Kamiyacho"],["六本木","Roppongi"],["広尾","Hiroo"],["恵比寿","Ebisu"],["中目黒","Naka-meguro"]
   ]},
-  { key:"T", name:"東西線", color:"#009BBF", sym:"T", stations:[
+  { key:"T", name:"東西線", color:"#009BBF", sym:"T", op:"metro", stations:[
     ["中野","Nakano"],["落合","Ochiai"],["高田馬場","Takadanobaba"],["早稲田","Waseda"],["神楽坂","Kagurazaka"],["飯田橋","Iidabashi"],["九段下","Kudanshita"],["竹橋","Takebashi"],["大手町","Otemachi"],["日本橋","Nihombashi"],["茅場町","Kayabacho"],["門前仲町","Monzen-nakacho"],["木場","Kiba"],["東陽町","Toyocho"],["南砂町","Minami-sunamachi"],["西葛西","Nishi-kasai"],["葛西","Kasai"],["浦安","Urayasu"],["南行徳","Minami-gyotoku"],["行徳","Gyotoku"],["妙典","Myoden"],["原木中山","Baraki-nakayama"],["西船橋","Nishi-funabashi"]
   ]},
-  { key:"C", name:"千代田線", color:"#00BB85", sym:"C", stations:[
+  { key:"C", name:"千代田線", color:"#00BB85", sym:"C", op:"metro", stations:[
     ["北綾瀬","Kita-ayase"],["綾瀬","Ayase"],["北千住","Kita-senju"],["町屋","Machiya"],["西日暮里","Nishi-nippori"],["千駄木","Sendagi"],["根津","Nezu"],["湯島","Yushima"],["新御茶ノ水","Shin-ochanomizu"],["大手町","Otemachi"],["二重橋前","Nijubashimae"],["日比谷","Hibiya"],["霞ケ関","Kasumigaseki"],["国会議事堂前","Kokkai-gijidomae"],["赤坂","Akasaka"],["乃木坂","Nogizaka"],["表参道","Omote-sando"],["明治神宮前","Meiji-jingumae"],["代々木公園","Yoyogi-koen"],["代々木上原","Yoyogi-uehara"]
   ]},
-  { key:"Y", name:"有楽町線", color:"#C1A470", sym:"Y", stations:[
+  { key:"Y", name:"有楽町線", color:"#C1A470", sym:"Y", op:"metro", stations:[
     ["和光市","Wakoshi"],["地下鉄成増","Chikatetsu-narimasu"],["地下鉄赤塚","Chikatetsu-akatsuka"],["平和台","Heiwadai"],["氷川台","Hikawadai"],["小竹向原","Kotake-mukaihara"],["千川","Senkawa"],["要町","Kanamecho"],["池袋","Ikebukuro"],["東池袋","Higashi-ikebukuro"],["護国寺","Gokokuji"],["江戸川橋","Edogawabashi"],["飯田橋","Iidabashi"],["市ケ谷","Ichigaya"],["麹町","Kojimachi"],["永田町","Nagatacho"],["桜田門","Sakuradamon"],["有楽町","Yurakucho"],["銀座一丁目","Ginza-itchome"],["新富町","Shintomicho"],["月島","Tsukishima"],["豊洲","Toyosu"],["辰巳","Tatsumi"],["新木場","Shin-kiba"]
   ]},
-  { key:"Z", name:"半蔵門線", color:"#8F76D6", sym:"Z", stations:[
+  { key:"Z", name:"半蔵門線", color:"#8F76D6", sym:"Z", op:"metro", stations:[
     ["渋谷","Shibuya"],["表参道","Omote-sando"],["青山一丁目","Aoyama-itchome"],["永田町","Nagatacho"],["半蔵門","Hanzomon"],["九段下","Kudanshita"],["神保町","Jimbocho"],["大手町","Otemachi"],["三越前","Mitsukoshimae"],["水天宮前","Suitengumae"],["清澄白河","Kiyosumi-shirakawa"],["住吉","Sumiyoshi"],["錦糸町","Kinshicho"],["押上","Oshiage"]
   ]},
-  { key:"N", name:"南北線", color:"#00AC9B", sym:"N", stations:[
+  { key:"N", name:"南北線", color:"#00AC9B", sym:"N", op:"metro", stations:[
     ["目黒","Meguro"],["白金台","Shirokanedai"],["白金高輪","Shirokane-takanawa"],["麻布十番","Azabu-juban"],["六本木一丁目","Roppongi-itchome"],["溜池山王","Tameike-sanno"],["永田町","Nagatacho"],["四ツ谷","Yotsuya"],["市ケ谷","Ichigaya"],["飯田橋","Iidabashi"],["後楽園","Korakuen"],["東大前","Todaimae"],["本駒込","Hon-komagome"],["駒込","Komagome"],["西ケ原","Nishigahara"],["王子","Oji"],["王子神谷","Oji-kamiya"],["志茂","Shimo"],["赤羽岩淵","Akabane-iwabuchi"]
   ]},
-  { key:"F", name:"副都心線", color:"#9C5E31", sym:"F", stations:[
+  { key:"F", name:"副都心線", color:"#9C5E31", sym:"F", op:"metro", stations:[
     ["和光市","Wakoshi"],["地下鉄成増","Chikatetsu-narimasu"],["地下鉄赤塚","Chikatetsu-akatsuka"],["平和台","Heiwadai"],["氷川台","Hikawadai"],["小竹向原","Kotake-mukaihara"],["千川","Senkawa"],["要町","Kanamecho"],["池袋","Ikebukuro"],["雑司が谷","Zoshigaya"],["西早稲田","Nishi-waseda"],["東新宿","Higashi-shinjuku"],["新宿三丁目","Shinjuku-sanchome"],["北参道","Kita-sando"],["明治神宮前","Meiji-jingumae"],["渋谷","Shibuya"]
+  ]},
+  { key:"A", name:"都営浅草線", color:"#E85298", sym:"A", op:"toei", stations:[
+    ["西馬込","Nishi-magome"],["馬込","Magome"],["中延","Nakanobu"],["戸越","Togoshi"],["五反田","Gotanda"],["高輪台","Takanawadai"],
+    ["泉岳寺","Sengakuji"],["三田","Mita"],["大門","Daimon"],["新橋","Shimbashi"],["東銀座","Higashi-ginza"],["宝町","Takaracho"],
+    ["日本橋","Nihombashi"],["人形町","Ningyocho"],["東日本橋","Higashi-nihombashi"],["浅草橋","Asakusabashi"],["蔵前","Kuramae"],["浅草","Asakusa"],
+    ["本所吾妻橋","Honjo-azumabashi"],["押上","Oshiage"]
+  ]},
+  { key:"I", name:"都営三田線", color:"#0079C2", sym:"I", op:"toei", stations:[
+    ["目黒","Meguro"],["白金台","Shirokanedai"],["白金高輪","Shirokane-takanawa"],["三田","Mita"],["芝公園","Shibakoen"],["御成門","Onarimon"],
+    ["内幸町","Uchisaiwaicho"],["日比谷","Hibiya"],["大手町","Otemachi"],["神保町","Jimbocho"],["水道橋","Suidobashi"],["春日","Kasuga"],
+    ["白山","Hakusan"],["千石","Sengoku"],["巣鴨","Sugamo"],["西巣鴨","Nishi-sugamo"],["新板橋","Shin-itabashi"],["板橋区役所前","Itabashi-kuyakushomae"],
+    ["板橋本町","Itabashi-honcho"],["本蓮沼","Motohasunuma"],["志村坂上","Shimura-sakaue"],["志村三丁目","Shimura-sanchome"],["蓮根","Hasune"],["西台","Nishidai"],
+    ["高島平","Takashimadaira"],["新高島平","Shin-takashimadaira"],["西高島平","Nishi-takashimadaira"]
+  ]},
+  { key:"S", name:"都営新宿線", color:"#6CBB5A", sym:"S", op:"toei", stations:[
+    ["新宿","Shinjuku"],["新宿三丁目","Shinjuku-sanchome"],["曙橋","Akebonobashi"],["市ケ谷","Ichigaya"],["九段下","Kudanshita"],["神保町","Jimbocho"],
+    ["小川町","Ogawamachi"],["岩本町","Iwamotocho"],["馬喰横山","Bakuro-yokoyama"],["浜町","Hamacho"],["森下","Morishita"],["菊川","Kikukawa"],
+    ["住吉","Sumiyoshi"],["西大島","Nishi-ojima"],["大島","Ojima"],["東大島","Higashi-ojima"],["船堀","Funabori"],["一之江","Ichinoe"],
+    ["瑞江","Mizue"],["篠崎","Shinozaki"],["本八幡","Motoyawata"]
+  ]},
+  { key:"E", name:"都営大江戸線", color:"#B6007A", sym:"E", op:"toei", stations:[
+    ["新宿西口","Shinjuku-nishiguchi"],["東新宿","Higashi-shinjuku"],["若松河田","Wakamatsu-kawada"],["牛込柳町","Ushigome-yanagicho"],["牛込神楽坂","Ushigome-kagurazaka"],["飯田橋","Iidabashi"],
+    ["春日","Kasuga"],["本郷三丁目","Hongo-sanchome"],["上野御徒町","Ueno-okachimachi"],["新御徒町","Shin-okachimachi"],["蔵前","Kuramae"],["両国","Ryogoku"],
+    ["森下","Morishita"],["清澄白河","Kiyosumi-shirakawa"],["門前仲町","Monzen-nakacho"],["月島","Tsukishima"],["勝どき","Kachidoki"],["築地市場","Tsukijishijo"],
+    ["汐留","Shiodome"],["大門","Daimon"],["赤羽橋","Akabanebashi"],["麻布十番","Azabu-juban"],["六本木","Roppongi"],["青山一丁目","Aoyama-itchome"],
+    ["国立競技場","Kokuritsu-kyogijo"],["代々木","Yoyogi"],["新宿","Shinjuku"],["都庁前","Tochomae"],["西新宿五丁目","Nishi-shinjuku-gochome"],["中野坂上","Nakano-sakaue"],
+    ["東中野","Higashi-nakano"],["中井","Nakai"],["落合南長崎","Ochiai-minami-nagasaki"],["新江古田","Shin-egota"],["練馬","Nerima"],["豊島園","Toshimaen"],
+    ["練馬春日町","Nerima-kasugacho"],["光が丘","Hikarigaoka"]
   ]}
 ];
 
-const GUIDES = {"浅草":["浅草寺と仲見世通り、古き良き東京の代表格。","Senso-ji temple, Nakamise shopping street and old Tokyo at its best."],"田原町":["かっぱ橋道具街で食品サンプルと料理道具めぐり。","Kappabashi kitchenware street — plastic food and chef knives galore."],"稲荷町":["仏壇店が並ぶ、上野近くの静かな下町。","Buddhist altar shops and quiet shitamachi streets near Ueno."],"上野":["上野公園・博物館・動物園・アメ横が勢ぞろい。","Ueno Park, top museums, the zoo and Ameyoko market street."],"上野広小路":["アメ横と上野の商店街まですぐ。","Steps from Ameyoko market and Ueno's bustling shopping streets."],"末広町":["秋葉原電気街の静かな北端。","The quieter north end of Akihabara's Electric Town."],"神田":["老舗グルメと神田明神のおひざもと。","Old-school eateries and the historic Kanda Myojin shrine."],"三越前":["日本橋三越本店など老舗百貨店の街。","Home of the historic Mitsukoshi department store in Nihonbashi."],"日本橋":["日本の道路の起点・日本橋と老舗百貨店。","The historic zero-milestone bridge and heritage department stores."],"京橋":["東京と银座の間、画廊と骨董の街。","Art galleries and antique shops between Tokyo Station and Ginza."],"銀座":["言わずと知れた日本一の高級ショッピング街。","Tokyo's most famous upscale shopping and dining district."],"新橋":["サラリーマンの聖地、ガード下の居酒屋とゆりかもめ。","Salaryman izakaya alleys and the Yurikamome line to Odaiba."],"虎ノ門":["虎ノ門ヒルズを中心に再開発が進むビジネス街。","Fast-changing business district around Toranomon Hills."],"溜池山王":["日枝神社と官庁に隣接するビジネス街。","Business district beside Hie Shrine and government offices."],"赤坂見附":["赤坂と永田町が交わるホテルと繁華街。","Hotels and nightlife where Akasaka meets Nagatacho."],"青山一丁目":["神宮外苑に近い並木の美しい青山エリア。","Aoyama's tree-lined avenues near the Jingu Gaien park."],"外苑前":["神宮外苑のいちょう並木と国立競技場エリア。","Meiji Jingu Gaien's famous ginkgo avenue and stadium area."],"表参道":["建築美が並ぶ東京随一のファッションストリート。","Tokyo's architecture-lined luxury fashion avenue."],"渋谷":["スクランブル交差点とハチ公、若者文化の中心。","The scramble crossing, Hachiko statue and nonstop youth culture."],"池袋":["巨大商業施設とサンシャインシティ、アニメ文化も。","Mega shopping, Sunshine City and thriving anime culture."],"新大塚":["池袋と護国寺の間の静かな住宅街。","Quiet streets between Ikebukuro and the Gokokuji temple area."],"茗荷谷":["坂と学校の文教地区、小石川植物園も近い。","Hilly education quarter near the Koishikawa Botanical Garden."],"後楽園":["東京ドームと遊園地、小石川後楽園の庭園。","Tokyo Dome, an amusement park and the Koishikawa Korakuen garden."],"本郷三丁目":["東京大学本郷キャンパスと赤門の街。","University of Tokyo's historic Hongo campus and red Akamon gate."],"御茶ノ水":["楽器店街と大学、神田明神も徒歩圏。","Guitar shops, universities and Kanda Myojin shrine nearby."],"淡路町":["老舗の蕎麦屋とレトロ喫茶が残る神田の一角。","Century-old soba restaurants and retro coffee shops near Kanda."],"大手町":["皇居の目の前、日本経済の中枢ビジネス街。","Tokyo's corporate heart, steps from the Imperial Palace gardens."],"東京":["赤レンガの東京駅舎と丸の内ビジネス街。","Tokyo Station's red-brick facade and the Marunouchi district."],"霞ケ関":["中央省庁が集まる日本の行政の中心。","Japan's central government ministries district."],"国会議事堂前":["国会議事堂と政治の中枢エリア。","Japan's National Diet Building and the political quarter."],"四ツ谷":["上智大学と外濠の緑が広がる文教エリア。","Leafy area around Sophia University and the Sotobori moat."],"四谷三丁目":["荒木町の隠れ家グルメと消防博物館。","Home to Arakicho's hidden dining alleys and the Fire Museum."],"新宿御苑前":["広大な芝生の新宿御苑への最寄り。","Gateway to the spacious lawns of Shinjuku Gyoen garden."],"新宿三丁目":["伊勢丹を中心とした新宿ショッピングの核心。","Isetan department store and the heart of Shinjuku shopping."],"新宿":["高層ビルとデパート、ネオンが輝く日本一のターミナル。","Japan's busiest hub — skyscrapers, department stores and neon."],"西新宿":["都庁展望室と超高層ビル群。","Skyscraper district with Tokyo Metropolitan Government views."],"中野坂上":["新宿西側のオフィスと住宅のミックスエリア。","Office-and-residential area on the western edge of Shinjuku."],"新中野":["青梅街道沿いの地元グルメが楽しい街。","Friendly local eateries along the old Ome highway."],"東高円寺":["高円寺インディーズ音楽シーンの静かな側。","The quieter side of Koenji's indie music scene."],"新高円寺":["古着とサブカルの高円寺南側。","South side of bohemian Koenji, vintage shops within reach."],"南阿佐ケ谷":["阿佐谷パールセンター商店街に近い杉並の街。","Local Suginami neighborhood near Asagaya's Pearl Center arcade."],"荻窪":["東京を代表するラーメン激戦区のひとつ。","One of Tokyo's classic ramen towns."],"中野新橋":["商店街の残るのんびりした下町風情。","Laid-back neighborhood with a local shopping-street feel."],"中野富士見町":["西東京の静かな住宅街。","Quiet residential streets in western Tokyo."],"方南町":["丸ノ内線の終点、親しみやすい商店街の街。","Friendly shopping street at the Marunouchi line's end."],"北千住":["学生街として活気づくレトロ飲み屋横丁の街。","Lively student town with retro izakaya alleys."],"南千住":["再開発が進む隅田川沿いのリバーサイド。","Redeveloped riverside area with Sumida River views."],"三ノ輪":["レトロなジョイフル三ノ輪商店街の入口。","Gateway to the retro Joyful Minowa shopping arcade."],"入谷":["朝顔市で知られる下町の静かな街。","Known for its summer morning-glory fair and shitamachi calm."],"仲御徒町":["アメ横の喧騒のど真ん中。","Right in the middle of Ameyoko's bustling market streets."],"秋葉原":["アニメ・ゲーム・電気街、世界のアキバ。","Electric Town — anime, games and electronics galore."],"小伝馬町":["オフィスに小さな神社が混じる歴史ある問屋街。","Historic merchant district with small shrines among offices."],"人形町":["甘酒横丁と水天宮、下町情緒の残る街。","Old-Tokyo charm, traditional sweets and Suitengu shrine nearby."],"茅場町":["証券の街の名残と隠れた名ランチの宝庫。","Former securities district full of hidden lunch spots."],"八丁堀":["築地まで歩ける静かなオフィス街。","Quiet business area within walking distance of Tsukiji."],"築地":["場外市場の海鮮朝ごはんは健在。","The outer market's legendary seafood breakfasts."],"東銀座":["歌舞伎座でひと幕見物はいかが。","Kabukiza Theatre — catch a kabuki performance."],"日比谷":["日比谷公園と劇場街、ミッドタウン日比谷。","Hibiya Park, grand theaters and the Midtown Hibiya complex."],"虎ノ門ヒルズ":["虎ノ門ヒルズ直結の最新駅。","The newest station beneath the Toranomon Hills towers."],"神谷町":["東京タワーを望む、麻布台ヒルズもすぐ。","Tokyo Tower views with Azabudai Hills next door."],"六本木":["六本木ヒルズと森美術館、夜も眠らない街。","Nightlife, Roppongi Hills and the Mori Art Museum."],"広尾":["大使館とインターナショナルなカフェ、有栖川公園。","Embassies, international cafes and Arisugawa Park."],"恵比寿":["恵比寿ガーデンプレイスとクラフトビールの街。","Yebisu Garden Place, craft beer and stylish dining."],"中目黒":["目黒川沿いのカフェとセレクトショップ、桜の名所。","Trendy cafes along the Meguro River — cherry blossom famous."],"中野":["中野ブロードウェイ、サブカルコレクターの聖地。","Nakano Broadway, a paradise for anime and manga collectors."],"落合":["中野と新宿に挟まれた静かな住宅街。","Quiet neighborhood between Nakano and Shinjuku."],"高田馬場":["ラーメンと古本の学生街。","Student town packed with ramen shops and bookstores."],"早稲田":["早稲田大学のキャンパスタウン、学生グルメ充実。","Waseda University's campus town with cheap student eats."],"神楽坂":["石畳の路地とフレンチ、花街の風情。","Cobbled lanes, French bistros and geisha-district heritage."],"飯田橋":["神楽坂下の運河沿いグルメと縁結びの東京大神宮。","Canal-side dining and Tokyo Daijingu, the matchmaking shrine."],"九段下":["日本武道館と千鳥ヶ淵の桜。","Nippon Budokan and the cherry-blossom moat of Chidorigafuchi."],"竹橋":["皇居のお濠端に建つ東京国立近代美術館。","National Museum of Modern Art beside the palace moat."],"門前仲町":["深川不動の参道と下町酒場。","Fukagawa Fudo temple market and old downtown izakaya."],"木場":["木場公園と東京都現代美術館。","Kiba Park and the Museum of Contemporary Art Tokyo nearby."],"東陽町":["運河沿いの東東京、地元グルメの街。","Canal-side east Tokyo neighborhood with local eateries."],"南砂町":["大きな公園とモールのファミリータウン。","Family-friendly area with big parks and shopping malls."],"西葛西":["絶品カレーが集まる東京のリトルインディア。","Tokyo's Little India — outstanding curry awaits."],"葛西":["地下鉄博物館のあるファミリーの街。","Home of the Tokyo Metro Museum and family-friendly streets."],"浦安":["境川沿いの古民家と路地、ぶらり散歩が楽しい旧市街。","Old wooden houses and lanes along the Sakai River — perfect for a slow stroll."],"南行徳":["江戸川を越えてすぐの郊外の住宅街。","Suburban neighborhood just across the Edogawa river."],"行徳":["行徳鳥獣保護区の湿地に近い郊外の街。","Suburban area near the Gyotoku bird sanctuary wetlands."],"妙典":["大型モールのある市川の川沿いの街。","Riverside suburb with a big shopping mall in Ichikawa."],"原木中山":["千葉側の静かな郊外の駅。","Quiet suburban stop on the Chiba side of the river."],"西船橋":["東京メトロと千葉の路線が交わる大型乗換駅。","Major interchange where Tokyo Metro meets Chiba's rail network."],"北綾瀬":["しょうぶ沼公園の花菖蒲で知られる静かな郊外。","Quiet suburb known for the iris gardens of Shobunuma Park."],"綾瀬":["川沿いの公園が多い東京北東部の下町。","Down-to-earth northeast Tokyo with riverside parks."],"町屋":["都電荒川線が走る下町風情の街。","Shitamachi vibes and the nostalgic Toden Arakawa tram."],"西日暮里":["谷中の寺町に近い乗換駅。","Hillside connection point near Yanaka's temple town."],"千駄木":["谷根千エリアの一角、谷中銀座もすぐ。","Part of the nostalgic Yanesen district — Yanaka Ginza is close."],"根津":["つつじの根津神社と木造の街並み。","Nezu Shrine's azalea gardens and old wooden townscape."],"湯島":["梅と学問の湯島天神。","Yushima Tenjin shrine, plum blossoms and exam-luck prayers."],"新御茶ノ水":["ニコライ堂と御茶ノ水の学生街エリア。","Near Nikolai Cathedral and the student quarter of Ochanomizu."],"二重橋前":["皇居・二重橋の目の前。","Right by the Imperial Palace's iconic Nijubashi bridge."],"赤坂":["赤坂サカスを中心とした大人のグルメ街。","Upscale dining district around TBS's Akasaka Sacas."],"乃木坂":["国立新美術館と落ち着いた高級住宅街。","The National Art Center and quiet upscale streets."],"明治神宮前":["原宿ファッションと明治神宮の杜。","Harajuku fashion streets and the forested Meiji Shrine."],"代々木公園":["代々木公園の芝生と週末イベントの最寄り。","Doorstep of Yoyogi Park's lawns and weekend events."],"代々木上原":["名店ベーカリーと東京ジャーミイのある洒落た住宅街。","Stylish residential area with acclaimed bakeries and Tokyo Camii mosque."],"和光市":["埼玉県境の終着駅の街。","Terminus town on the Saitama border."],"地下鉄成増":["埼玉県境の商店街がにぎわう郊外。","Suburban shopping streets on the Saitama border."],"地下鉄赤塚":["東京大仏に近い静かな住宅街。","Quiet area near the Tokyo Daibutsu great Buddha statue."],"平和台":["練馬の落ち着いた住宅街。","Calm residential Nerima neighborhood."],"氷川台":["石神井川沿いの練馬の住宅街。","Riverside residential area in Nerima."],"小竹向原":["池袋と埼玉を結ぶ静かな乗換駅。","Quiet junction neighborhood between Ikebukuro and Saitama."],"千川":["池袋北西の落ち着いた住宅街。","Calm residential neighborhood northwest of Ikebukuro."],"要町":["池袋のすぐ西側の静かなエリア。","Peaceful residential pocket just west of Ikebukuro."],"東池袋":["サンシャインシティとアニメカルチャーの拠点。","Sunshine City complex and anime culture spots."],"護国寺":["江戸の面影を残す護国寺の門前。","Home to the tranquil 17th-century Gokokuji temple."],"江戸川橋":["神田川沿いの散歩道と印刷の街。","Riverside walks along the Kanda River and the printing district."],"市ケ谷":["お濠の釣り堀と出版社が集まる街。","A fishing pond on the moat and a hub of publishing houses."],"麹町":["英国大使館とお濠に近い静かなオフィス街。","Quiet office streets near the British Embassy and palace moat."],"永田町":["国会議事堂に隣接する日本政治の中枢。","Japan's political nerve center next to the National Diet."],"桜田門":["皇居ランの起点としても有名な桜田門。","The Imperial Palace's famous gate on the runners' palace loop."],"有楽町":["ガード下の飲み屋街と銀座への入口。","Under-the-tracks izakaya alleys on Ginza's doorstep."],"銀座一丁目":["画廊が点在する銀座の静かな北端。","The quieter, gallery-dotted north end of Ginza."],"新富町":["銀座と築地に挟まれた下町の穴場。","Quiet downtown pocket between Ginza and Tsukiji."],"月島":["もんじゃストリートの聖地。","Famous for its monja-yaki pancake alleys."],"豊洲":["豊洲市場とチームラボ、ベイサイドのモール群。","The new fish market, teamLab Planets and bayside malls."],"辰巳":["五輪水泳会場と広大な臨海公園。","Olympic aquatics centre and a spacious bayside park."],"新木場":["夢の島公園とライブ会場のベイエリア終点。","Bayside terminus near Yumenoshima Park and big event halls."],"半蔵門":["皇居半蔵濠と国立劇場のおひざもと。","Beside the Imperial Palace moat and the National Theatre."],"神保町":["世界最大級の古書店街、カレーの激戦区。","The world's largest secondhand book town — with great curry."],"水天宮前":["安産祈願で愛される水天宮。","Suitengu Shrine, beloved for safe-birth blessings."],"清澄白河":["サードウェーブコーヒーと清澄庭園の街。","Third-wave coffee roasters and the Kiyosumi teien garden."],"住吉":["猿江恩賜公園の緑に近い東東京の住宅街。","Residential east Tokyo near the greenery of Sarue Onshi Park."],"錦糸町":["スカイツリー南側の安うまグルメの街。","Lively hub south of Skytree with great cheap eats."],"押上":["東京スカイツリーとソラマチの真下。","Right under Tokyo Skytree and the Solamachi mall."],"目黒":["目黒川散歩と個性派ミュージアムの街。","Meguro River walks and the quirky Parasitological Museum."],"白金台":["プラチナ通りと自然教育園のシロガネーゼの街。","Platinum Street elegance and the Institute for Nature Study."],"白金高輪":["川沿いカフェが点在する高級住宅街。","Upscale residential area dotted with riverside cafes."],"麻布十番":["老舗たい焼きと商店街のある大人の街。","Village-like upscale shopping street with famous taiyaki."],"六本木一丁目":["アークヒルズと緑豊かな大使館エリア。","Ark Hills complex and leafy embassy-district streets."],"東大前":["東京大学のキャンパスがすぐそこ。","Right by the University of Tokyo's leafy campus."],"本駒込":["六義園に近い寺町の住宅街。","Temple-dotted residential area near Rikugien garden."],"駒込":["名園・六義園の最寄り駅。","Rikugien, one of Tokyo's finest landscape gardens."],"西ケ原":["東京屈指の静かな駅、旧古河庭園が近い。","One of Tokyo's quietest stations, near Kyu-Furukawa Gardens."],"王子":["飛鳥山公園の桜と都電のレトロな街。","Asukayama Park's cherry blossoms and a retro tram line."],"王子神谷":["荒川に近い北東京の静かな住宅街。","Quiet northern neighborhood near the Arakawa river."],"志茂":["荒川の河川敷に近い庶民的な住宅街。","Down-to-earth residential area near the Arakawa riverbanks."],"赤羽岩淵":["荒川河川敷の公園に近い北の終着駅。","Northern terminus near the Arakawa riverside parks."],"雑司が谷":["鬼子母神と都電、静かな路地の街。","Kishimojin temple, a retro tram stop and quiet lanes."],"西早稲田":["早稲田の北側に広がる学生街。","Student area on the north side of Waseda."],"東新宿":["歌舞伎町の外れ、大久保のコリアンタウンも近い。","Edge of Kabukicho with Okubo's Korean food scene nearby."],"北参道":["原宿と新宿の間、アパレルとカフェの街。","Between Harajuku and Shinjuku — apparel studios and cafes."]};
+// 事業者（東京メトロ / 都営地下鉄）。路線チップをまとめて切り替えるのに使う。
+const OPERATORS = [
+  { key:'metro', name:'東京メトロ' },
+  { key:'toei',  name:'都営地下鉄' }
+];
+
+const GUIDES = {"浅草":["浅草寺と仲見世通り、古き良き東京の代表格。","Senso-ji temple, Nakamise shopping street and old Tokyo at its best."],"田原町":["かっぱ橋道具街で食品サンプルと料理道具めぐり。","Kappabashi kitchenware street — plastic food and chef knives galore."],"稲荷町":["仏壇店が並ぶ、上野近くの静かな下町。","Buddhist altar shops and quiet shitamachi streets near Ueno."],"上野":["上野公園・博物館・動物園・アメ横が勢ぞろい。","Ueno Park, top museums, the zoo and Ameyoko market street."],"上野広小路":["アメ横と上野の商店街まですぐ。","Steps from Ameyoko market and Ueno's bustling shopping streets."],"末広町":["秋葉原電気街の静かな北端。","The quieter north end of Akihabara's Electric Town."],"神田":["老舗グルメと神田明神のおひざもと。","Old-school eateries and the historic Kanda Myojin shrine."],"三越前":["日本橋三越本店など老舗百貨店の街。","Home of the historic Mitsukoshi department store in Nihonbashi."],"日本橋":["日本の道路の起点・日本橋と老舗百貨店。","The historic zero-milestone bridge and heritage department stores."],"京橋":["東京と银座の間、画廊と骨董の街。","Art galleries and antique shops between Tokyo Station and Ginza."],"銀座":["言わずと知れた日本一の高級ショッピング街。","Tokyo's most famous upscale shopping and dining district."],"新橋":["サラリーマンの聖地、ガード下の居酒屋とゆりかもめ。","Salaryman izakaya alleys and the Yurikamome line to Odaiba."],"虎ノ門":["虎ノ門ヒルズを中心に再開発が進むビジネス街。","Fast-changing business district around Toranomon Hills."],"溜池山王":["日枝神社と官庁に隣接するビジネス街。","Business district beside Hie Shrine and government offices."],"赤坂見附":["赤坂と永田町が交わるホテルと繁華街。","Hotels and nightlife where Akasaka meets Nagatacho."],"青山一丁目":["神宮外苑に近い並木の美しい青山エリア。","Aoyama's tree-lined avenues near the Jingu Gaien park."],"外苑前":["神宮外苑のいちょう並木と国立競技場エリア。","Meiji Jingu Gaien's famous ginkgo avenue and stadium area."],"表参道":["建築美が並ぶ東京随一のファッションストリート。","Tokyo's architecture-lined luxury fashion avenue."],"渋谷":["スクランブル交差点とハチ公、若者文化の中心。","The scramble crossing, Hachiko statue and nonstop youth culture."],"池袋":["巨大商業施設とサンシャインシティ、アニメ文化も。","Mega shopping, Sunshine City and thriving anime culture."],"新大塚":["池袋と護国寺の間の静かな住宅街。","Quiet streets between Ikebukuro and the Gokokuji temple area."],"茗荷谷":["坂と学校の文教地区、小石川植物園も近い。","Hilly education quarter near the Koishikawa Botanical Garden."],"後楽園":["東京ドームと遊園地、小石川後楽園の庭園。","Tokyo Dome, an amusement park and the Koishikawa Korakuen garden."],"本郷三丁目":["東京大学本郷キャンパスと赤門の街。","University of Tokyo's historic Hongo campus and red Akamon gate."],"御茶ノ水":["楽器店街と大学、神田明神も徒歩圏。","Guitar shops, universities and Kanda Myojin shrine nearby."],"淡路町":["老舗の蕎麦屋とレトロ喫茶が残る神田の一角。","Century-old soba restaurants and retro coffee shops near Kanda."],"大手町":["皇居の目の前、日本経済の中枢ビジネス街。","Tokyo's corporate heart, steps from the Imperial Palace gardens."],"東京":["赤レンガの東京駅舎と丸の内ビジネス街。","Tokyo Station's red-brick facade and the Marunouchi district."],"霞ケ関":["中央省庁が集まる日本の行政の中心。","Japan's central government ministries district."],"国会議事堂前":["国会議事堂と政治の中枢エリア。","Japan's National Diet Building and the political quarter."],"四ツ谷":["上智大学と外濠の緑が広がる文教エリア。","Leafy area around Sophia University and the Sotobori moat."],"四谷三丁目":["荒木町の隠れ家グルメと消防博物館。","Home to Arakicho's hidden dining alleys and the Fire Museum."],"新宿御苑前":["広大な芝生の新宿御苑への最寄り。","Gateway to the spacious lawns of Shinjuku Gyoen garden."],"新宿三丁目":["伊勢丹を中心とした新宿ショッピングの核心。","Isetan department store and the heart of Shinjuku shopping."],"新宿":["高層ビルとデパート、ネオンが輝く日本一のターミナル。","Japan's busiest hub — skyscrapers, department stores and neon."],"西新宿":["都庁展望室と超高層ビル群。","Skyscraper district with Tokyo Metropolitan Government views."],"中野坂上":["新宿西側のオフィスと住宅のミックスエリア。","Office-and-residential area on the western edge of Shinjuku."],"新中野":["青梅街道沿いの地元グルメが楽しい街。","Friendly local eateries along the old Ome highway."],"東高円寺":["高円寺インディーズ音楽シーンの静かな側。","The quieter side of Koenji's indie music scene."],"新高円寺":["古着とサブカルの高円寺南側。","South side of bohemian Koenji, vintage shops within reach."],"南阿佐ケ谷":["阿佐谷パールセンター商店街に近い杉並の街。","Local Suginami neighborhood near Asagaya's Pearl Center arcade."],"荻窪":["東京を代表するラーメン激戦区のひとつ。","One of Tokyo's classic ramen towns."],"中野新橋":["商店街の残るのんびりした下町風情。","Laid-back neighborhood with a local shopping-street feel."],"中野富士見町":["西東京の静かな住宅街。","Quiet residential streets in western Tokyo."],"方南町":["丸ノ内線の終点、親しみやすい商店街の街。","Friendly shopping street at the Marunouchi line's end."],"北千住":["学生街として活気づくレトロ飲み屋横丁の街。","Lively student town with retro izakaya alleys."],"南千住":["再開発が進む隅田川沿いのリバーサイド。","Redeveloped riverside area with Sumida River views."],"三ノ輪":["レトロなジョイフル三ノ輪商店街の入口。","Gateway to the retro Joyful Minowa shopping arcade."],"入谷":["朝顔市で知られる下町の静かな街。","Known for its summer morning-glory fair and shitamachi calm."],"仲御徒町":["アメ横の喧騒のど真ん中。","Right in the middle of Ameyoko's bustling market streets."],"秋葉原":["アニメ・ゲーム・電気街、世界のアキバ。","Electric Town — anime, games and electronics galore."],"小伝馬町":["オフィスに小さな神社が混じる歴史ある問屋街。","Historic merchant district with small shrines among offices."],"人形町":["甘酒横丁と水天宮、下町情緒の残る街。","Old-Tokyo charm, traditional sweets and Suitengu shrine nearby."],"茅場町":["証券の街の名残と隠れた名ランチの宝庫。","Former securities district full of hidden lunch spots."],"八丁堀":["築地まで歩ける静かなオフィス街。","Quiet business area within walking distance of Tsukiji."],"築地":["場外市場の海鮮朝ごはんは健在。","The outer market's legendary seafood breakfasts."],"東銀座":["歌舞伎座でひと幕見物はいかが。","Kabukiza Theatre — catch a kabuki performance."],"日比谷":["日比谷公園と劇場街、ミッドタウン日比谷。","Hibiya Park, grand theaters and the Midtown Hibiya complex."],"虎ノ門ヒルズ":["虎ノ門ヒルズ直結の最新駅。","The newest station beneath the Toranomon Hills towers."],"神谷町":["東京タワーを望む、麻布台ヒルズもすぐ。","Tokyo Tower views with Azabudai Hills next door."],"六本木":["六本木ヒルズと森美術館、夜も眠らない街。","Nightlife, Roppongi Hills and the Mori Art Museum."],"広尾":["大使館とインターナショナルなカフェ、有栖川公園。","Embassies, international cafes and Arisugawa Park."],"恵比寿":["恵比寿ガーデンプレイスとクラフトビールの街。","Yebisu Garden Place, craft beer and stylish dining."],"中目黒":["目黒川沿いのカフェとセレクトショップ、桜の名所。","Trendy cafes along the Meguro River — cherry blossom famous."],"中野":["中野ブロードウェイ、サブカルコレクターの聖地。","Nakano Broadway, a paradise for anime and manga collectors."],"落合":["中野と新宿に挟まれた静かな住宅街。","Quiet neighborhood between Nakano and Shinjuku."],"高田馬場":["ラーメンと古本の学生街。","Student town packed with ramen shops and bookstores."],"早稲田":["早稲田大学のキャンパスタウン、学生グルメ充実。","Waseda University's campus town with cheap student eats."],"神楽坂":["石畳の路地とフレンチ、花街の風情。","Cobbled lanes, French bistros and geisha-district heritage."],"飯田橋":["神楽坂下の運河沿いグルメと縁結びの東京大神宮。","Canal-side dining and Tokyo Daijingu, the matchmaking shrine."],"九段下":["日本武道館と千鳥ヶ淵の桜。","Nippon Budokan and the cherry-blossom moat of Chidorigafuchi."],"竹橋":["皇居のお濠端に建つ東京国立近代美術館。","National Museum of Modern Art beside the palace moat."],"門前仲町":["深川不動の参道と下町酒場。","Fukagawa Fudo temple market and old downtown izakaya."],"木場":["木場公園と東京都現代美術館。","Kiba Park and the Museum of Contemporary Art Tokyo nearby."],"東陽町":["運河沿いの東東京、地元グルメの街。","Canal-side east Tokyo neighborhood with local eateries."],"南砂町":["大きな公園とモールのファミリータウン。","Family-friendly area with big parks and shopping malls."],"西葛西":["絶品カレーが集まる東京のリトルインディア。","Tokyo's Little India — outstanding curry awaits."],"葛西":["地下鉄博物館のあるファミリーの街。","Home of the Tokyo Metro Museum and family-friendly streets."],"浦安":["境川沿いの古民家と路地、ぶらり散歩が楽しい旧市街。","Old wooden houses and lanes along the Sakai River — perfect for a slow stroll."],"南行徳":["江戸川を越えてすぐの郊外の住宅街。","Suburban neighborhood just across the Edogawa river."],"行徳":["行徳鳥獣保護区の湿地に近い郊外の街。","Suburban area near the Gyotoku bird sanctuary wetlands."],"妙典":["大型モールのある市川の川沿いの街。","Riverside suburb with a big shopping mall in Ichikawa."],"原木中山":["千葉側の静かな郊外の駅。","Quiet suburban stop on the Chiba side of the river."],"西船橋":["東京メトロと千葉の路線が交わる大型乗換駅。","Major interchange where Tokyo Metro meets Chiba's rail network."],"北綾瀬":["しょうぶ沼公園の花菖蒲で知られる静かな郊外。","Quiet suburb known for the iris gardens of Shobunuma Park."],"綾瀬":["川沿いの公園が多い東京北東部の下町。","Down-to-earth northeast Tokyo with riverside parks."],"町屋":["都電荒川線が走る下町風情の街。","Shitamachi vibes and the nostalgic Toden Arakawa tram."],"西日暮里":["谷中の寺町に近い乗換駅。","Hillside connection point near Yanaka's temple town."],"千駄木":["谷根千エリアの一角、谷中銀座もすぐ。","Part of the nostalgic Yanesen district — Yanaka Ginza is close."],"根津":["つつじの根津神社と木造の街並み。","Nezu Shrine's azalea gardens and old wooden townscape."],"湯島":["梅と学問の湯島天神。","Yushima Tenjin shrine, plum blossoms and exam-luck prayers."],"新御茶ノ水":["ニコライ堂と御茶ノ水の学生街エリア。","Near Nikolai Cathedral and the student quarter of Ochanomizu."],"二重橋前":["皇居・二重橋の目の前。","Right by the Imperial Palace's iconic Nijubashi bridge."],"赤坂":["赤坂サカスを中心とした大人のグルメ街。","Upscale dining district around TBS's Akasaka Sacas."],"乃木坂":["国立新美術館と落ち着いた高級住宅街。","The National Art Center and quiet upscale streets."],"明治神宮前":["原宿ファッションと明治神宮の杜。","Harajuku fashion streets and the forested Meiji Shrine."],"代々木公園":["代々木公園の芝生と週末イベントの最寄り。","Doorstep of Yoyogi Park's lawns and weekend events."],"代々木上原":["名店ベーカリーと東京ジャーミイのある洒落た住宅街。","Stylish residential area with acclaimed bakeries and Tokyo Camii mosque."],"和光市":["埼玉県境の終着駅の街。","Terminus town on the Saitama border."],"地下鉄成増":["埼玉県境の商店街がにぎわう郊外。","Suburban shopping streets on the Saitama border."],"地下鉄赤塚":["東京大仏に近い静かな住宅街。","Quiet area near the Tokyo Daibutsu great Buddha statue."],"平和台":["練馬の落ち着いた住宅街。","Calm residential Nerima neighborhood."],"氷川台":["石神井川沿いの練馬の住宅街。","Riverside residential area in Nerima."],"小竹向原":["池袋と埼玉を結ぶ静かな乗換駅。","Quiet junction neighborhood between Ikebukuro and Saitama."],"千川":["池袋北西の落ち着いた住宅街。","Calm residential neighborhood northwest of Ikebukuro."],"要町":["池袋のすぐ西側の静かなエリア。","Peaceful residential pocket just west of Ikebukuro."],"東池袋":["サンシャインシティとアニメカルチャーの拠点。","Sunshine City complex and anime culture spots."],"護国寺":["江戸の面影を残す護国寺の門前。","Home to the tranquil 17th-century Gokokuji temple."],"江戸川橋":["神田川沿いの散歩道と印刷の街。","Riverside walks along the Kanda River and the printing district."],"市ケ谷":["お濠の釣り堀と出版社が集まる街。","A fishing pond on the moat and a hub of publishing houses."],"麹町":["英国大使館とお濠に近い静かなオフィス街。","Quiet office streets near the British Embassy and palace moat."],"永田町":["国会議事堂に隣接する日本政治の中枢。","Japan's political nerve center next to the National Diet."],"桜田門":["皇居ランの起点としても有名な桜田門。","The Imperial Palace's famous gate on the runners' palace loop."],"有楽町":["ガード下の飲み屋街と銀座への入口。","Under-the-tracks izakaya alleys on Ginza's doorstep."],"銀座一丁目":["画廊が点在する銀座の静かな北端。","The quieter, gallery-dotted north end of Ginza."],"新富町":["銀座と築地に挟まれた下町の穴場。","Quiet downtown pocket between Ginza and Tsukiji."],"月島":["もんじゃストリートの聖地。","Famous for its monja-yaki pancake alleys."],"豊洲":["豊洲市場とチームラボ、ベイサイドのモール群。","The new fish market, teamLab Planets and bayside malls."],"辰巳":["五輪水泳会場と広大な臨海公園。","Olympic aquatics centre and a spacious bayside park."],"新木場":["夢の島公園とライブ会場のベイエリア終点。","Bayside terminus near Yumenoshima Park and big event halls."],"半蔵門":["皇居半蔵濠と国立劇場のおひざもと。","Beside the Imperial Palace moat and the National Theatre."],"神保町":["世界最大級の古書店街、カレーの激戦区。","The world's largest secondhand book town — with great curry."],"水天宮前":["安産祈願で愛される水天宮。","Suitengu Shrine, beloved for safe-birth blessings."],"清澄白河":["サードウェーブコーヒーと清澄庭園の街。","Third-wave coffee roasters and the Kiyosumi teien garden."],"住吉":["猿江恩賜公園の緑に近い東東京の住宅街。","Residential east Tokyo near the greenery of Sarue Onshi Park."],"錦糸町":["スカイツリー南側の安うまグルメの街。","Lively hub south of Skytree with great cheap eats."],"押上":["東京スカイツリーとソラマチの真下。","Right under Tokyo Skytree and the Solamachi mall."],"目黒":["目黒川散歩と個性派ミュージアムの街。","Meguro River walks and the quirky Parasitological Museum."],"白金台":["プラチナ通りと自然教育園のシロガネーゼの街。","Platinum Street elegance and the Institute for Nature Study."],"白金高輪":["川沿いカフェが点在する高級住宅街。","Upscale residential area dotted with riverside cafes."],"麻布十番":["老舗たい焼きと商店街のある大人の街。","Village-like upscale shopping street with famous taiyaki."],"六本木一丁目":["アークヒルズと緑豊かな大使館エリア。","Ark Hills complex and leafy embassy-district streets."],"東大前":["東京大学のキャンパスがすぐそこ。","Right by the University of Tokyo's leafy campus."],"本駒込":["六義園に近い寺町の住宅街。","Temple-dotted residential area near Rikugien garden."],"駒込":["名園・六義園の最寄り駅。","Rikugien, one of Tokyo's finest landscape gardens."],"西ケ原":["東京屈指の静かな駅、旧古河庭園が近い。","One of Tokyo's quietest stations, near Kyu-Furukawa Gardens."],"王子":["飛鳥山公園の桜と都電のレトロな街。","Asukayama Park's cherry blossoms and a retro tram line."],"王子神谷":["荒川に近い北東京の静かな住宅街。","Quiet northern neighborhood near the Arakawa river."],"志茂":["荒川の河川敷に近い庶民的な住宅街。","Down-to-earth residential area near the Arakawa riverbanks."],"赤羽岩淵":["荒川河川敷の公園に近い北の終着駅。","Northern terminus near the Arakawa riverside parks."],"雑司が谷":["鬼子母神と都電、静かな路地の街。","Kishimojin temple, a retro tram stop and quiet lanes."],"西早稲田":["早稲田の北側に広がる学生街。","Student area on the north side of Waseda."],"東新宿":["歌舞伎町の外れ、大久保のコリアンタウンも近い。","Edge of Kabukicho with Okubo's Korean food scene nearby."],"北参道":["原宿と新宿の間、アパレルとカフェの街。","Between Harajuku and Shinjuku — apparel studios and cafes."],"西馬込":["浅草線の南の終点、池上本門寺へも歩ける。","The line's southern terminus, within a walk of Ikegami Honmon-ji."],"馬込":["文士たちが暮らした馬込文士村の坂道。","Hilly lanes of the old Magome writers' village."],"中延":["アーケード商店街スキップロードの街。","The covered Skip Road shopping arcade."],"戸越":["全長1.3kmの戸越銀座商店街で食べ歩き。","Togoshi Ginza — 1.3km of shopping street made for snacking."],"五反田":["目黒川沿いのオフィスと個性的な飲み屋街。","Offices along the Meguro River and a characterful bar scene."],"高輪台":["大使館と高級住宅が並ぶ静かな台地。","Quiet hilltop of embassies and upscale homes."],"泉岳寺":["赤穂義士の墓所と高輪ゲートウェイの再開発。","Resting place of the 47 ronin, beside Takanawa Gateway."],"三田":["慶應義塾大学と再開発が進むオフィス街。","Keio University and a fast-changing office skyline."],"大門":["増上寺の総門と東京タワーのふもと。","Zojo-ji temple's great gate at the foot of Tokyo Tower."],"宝町":["京橋の画廊と老舗に近いオフィス街。","Business streets near Kyobashi's galleries and old shops."],"東日本橋":["問屋街に個性派カフェが混じる馬喰町エリア。","Wholesale district where old shops meet new cafes."],"浅草橋":["人形とアクセサリーパーツの問屋街。","Wholesale town for dolls, beads and craft supplies."],"蔵前":["「東京のブルックリン」、革小物と焙煎珈琲の街。","\"Tokyo's Brooklyn\" — leather workshops and coffee roasters."],"本所吾妻橋":["スカイツリーを望む隅田川沿いの下町。","Riverside shitamachi with Tokyo Skytree in view."],"芝公園":["東京タワーと増上寺、都心のオアシス。","Tokyo Tower, Zojo-ji temple and a green pocket downtown."],"御成門":["増上寺の旧門跡と愛宕山に近いオフィス街。","Offices near Zojo-ji's old gate and Atago hill."],"内幸町":["帝国ホテルと日比谷、再開発が進む官庁の隣。","Beside Hibiya and the Imperial Hotel, now being rebuilt."],"水道橋":["東京ドームシティと神保町に挟まれた学生街。","Tokyo Dome City and student streets near Jimbocho."],"春日":["文京シビックセンターの無料展望室から都心一望。","Free skyline views from the Bunkyo Civic Center."],"白山":["白山神社のあじさいと東洋大学の学生街。","Hakusan Shrine's hydrangeas and Toyo University's campus town."],"千石":["六義園にも歩ける文京区の静かな住宅街。","Quiet Bunkyo streets within a walk of Rikugien garden."],"巣鴨":["とげぬき地蔵と「おばあちゃんの原宿」地蔵通り。","Togenuki Jizo and the \"Harajuku for grandmas\" arcade."],"西巣鴨":["旧中山道沿い、大正大学の落ち着いた街。","Calm streets along the old Nakasendo by Taisho University."],"新板橋":["板橋宿の面影が残る商店街の入口。","Gateway to the shopping streets of the old Itabashi post town."],"板橋区役所前":["区役所前の商店街と昔ながらの飲み屋。","Local arcade and old-school izakaya by the ward office."],"板橋本町":["旧中山道の宿場町の面影が残る商店街。","Shopping street that still recalls the old highway post town."],"本蓮沼":["板橋の落ち着いた住宅街。","Calm residential Itabashi neighborhood."],"志村坂上":["中山道の急坂を上りきった商店街の街。","Shopping street at the top of the old highway's steep slope."],"志村三丁目":["荒川に近い板橋の住宅街。","Itabashi neighborhood close to the Arakawa river."],"蓮根":["蓮沼の名を残す静かな住宅地。","Quiet residential blocks named for its old lotus ponds."],"西台":["高島平の西側、荒川河川敷が近い。","West of Takashimadaira, close to the Arakawa riverbanks."],"高島平":["巨大な団地と赤塚公園の並木道。","Vast 1970s housing estates and the trees of Akatsuka Park."],"新高島平":["赤塚公園と運動施設が広がる高島平の街。","Akatsuka Park and sports grounds beside the estates."],"西高島平":["三田線の終点、荒川を望む静かな街。","The Mita line's terminus, quiet by the Arakawa river."],"曙橋":["靖国通りの陸橋と荒木町の路地飲み。","An overpass town with Arakicho's hidden dining lanes nearby."],"小川町":["スポーツ用品店街と神田の老舗グルメ。","Sports-gear shopping street and long-loved Kanda eateries."],"岩本町":["繊維問屋街、秋葉原まで歩けるエリア。","Textile wholesale district within a walk of Akihabara."],"馬喰横山":["衣料問屋街の中心、朝から活気づく街。","Heart of the garment wholesale district, busy from dawn."],"浜町":["明治座と浜町公園、隅田川沿いの下町。","Meijiza theatre, Hamacho Park and the Sumida riverside."],"森下":["深川めしと老舗和菓子、下町グルメの宝庫。","Fukagawa-meshi rice bowls and century-old sweet shops."],"菊川":["江戸の面影が残る墨田の住宅街。","Sumida backstreets that still feel like old Edo."],"西大島":["明治通り沿いの下町商店街。","Local shopping streets along Meiji-dori."],"大島":["小名木川の水辺と団地が広がる街。","Canal-side walks along the Onagi River."],"東大島":["旧中川の水辺に開けた大島小松川公園。","Waterside Ojima-Komatsugawa Park on the old Nakagawa river."],"船堀":["タワーホール船堀の無料展望塔。","Free observation tower at Tower Hall Funabori."],"一之江":["親水公園が続く江戸川区の住宅街。","Edogawa neighborhood strung with waterside parks."],"瑞江":["江戸川に近いのどかな住宅地。","Peaceful residential area near the Edogawa river."],"篠崎":["篠崎公園の芝生と江戸川の土手。","The lawns of Shinozaki Park and the Edogawa embankment."],"本八幡":["千葉側の終点、葛飾八幡宮の門前町。","Chiba-side terminus, the town of Katsushika Hachimangu shrine."],"新宿西口":["思い出横丁の焼き鳥で一杯。","Yakitori and beer in the alleys of Omoide Yokocho."],"若松河田":["大学病院に囲まれた新宿の静かな住宅街。","Quiet Shinjuku streets around the university hospitals."],"牛込柳町":["坂の多い新宿東部の落ち着いた住宅街。","Hilly, calm residential streets in eastern Shinjuku."],"牛込神楽坂":["神楽坂の北側、寺町と路地の風情。","North of Kagurazaka — temple lanes and quiet alleys."],"上野御徒町":["アメ横と多慶屋、上野の買い物天国。","Ameyoko market and discount stores — Ueno shopping heaven."],"新御徒町":["日本有数の歴史をもつ佐竹商店街。","Sadake, one of Japan's oldest shopping arcades."],"両国":["国技館とちゃんこ鍋、相撲の街。","Sumo's Kokugikan arena and chanko hotpot restaurants."],"勝どき":["隅田川の河口に立つタワーマンションの街。","High-rise waterfront where the Sumida meets the bay."],"築地市場":["場外市場の海鮮と浜離宮恩賜庭園。","Outer-market seafood and the Hamarikyu gardens."],"汐留":["高層ビル群と旧新橋停車場跡。","Skyscrapers and the ruins of the original Shimbashi station."],"赤羽橋":["東京タワーを一番きれいに見上げられる街。","Arguably the finest spot to look up at Tokyo Tower."],"国立競技場":["国立競技場と神宮外苑の緑。","The National Stadium and the greenery of Jingu Gaien."],"代々木":["新宿の南、代々木公園に近い学生の街。","Just south of Shinjuku, near Yoyogi Park."],"都庁前":["都庁展望室から東京を一望（無料）。","Free panoramic views from the Metropolitan Government towers."],"西新宿五丁目":["副都心の西側に残る下町的な商店街。","Local shopping streets behind Shinjuku's skyscrapers."],"東中野":["神田川沿いの桜並木とカフェの街。","Cherry trees along the Kanda River and cozy cafes."],"中井":["染物の街、坂と路地の落合エリア。","The dyers' district of Ochiai — slopes and narrow lanes."],"落合南長崎":["トキワ荘マンガミュージアムのある街。","Home of the Tokiwaso Manga Museum."],"新江古田":["練馬の静かな住宅街。","Quiet residential Nerima neighborhood."],"練馬":["アニメ産業発祥の地にして練馬大根の郷。","Birthplace of Japan's anime industry — and the Nerima daikon."],"豊島園":["としまえん跡地のワーナー ブラザース スタジオツアー東京。","Warner Bros. Studio Tour Tokyo on the old Toshimaen site."],"練馬春日町":["光が丘に近い練馬の住宅街。","Nerima residential streets near Hikarigaoka."],"光が丘":["大江戸線の終点、広大な光が丘公園。","The Oedo line's terminus beside the vast Hikarigaoka Park."]};
 
 // ---------- i18n ----------
 const LINE_I18N = {
@@ -414,12 +465,20 @@ const LINE_I18N = {
   Y: { en: 'Yurakucho Line',   zh: '有乐町线' },
   Z: { en: 'Hanzomon Line',    zh: '半藏门线' },
   N: { en: 'Namboku Line',     zh: '南北线' },
-  F: { en: 'Fukutoshin Line',  zh: '副都心线' }
+  F: { en: 'Fukutoshin Line',  zh: '副都心线' },
+  A: { en: 'Toei Asakusa Line',  zh: '都营浅草线' },
+  I: { en: 'Toei Mita Line',     zh: '都营三田线' },
+  S: { en: 'Toei Shinjuku Line', zh: '都营新宿线' },
+  E: { en: 'Toei Oedo Line',     zh: '都营大江户线' }
+};
+const OP_I18N = {
+  metro: { en: 'Tokyo Metro', zh: '东京地铁' },
+  toei:  { en: 'Toei Subway', zh: '都营地铁' }
 };
 
 const T = {
   ja: {
-    docTitle: 'メトロ駅ガチャ | 東京メトロ9路線からランダムに駅を選ぶ',
+    docTitle: 'メトロ駅ガチャ | 東京メトロ・都営地下鉄の13路線からランダムに駅を選ぶ',
     h1: '🚇 メトロ駅ガチャ',
     sub: 'ボタンを押すと路線と駅のガチャを回せます',
     placeholder: '下のボタンを押してスタート',
@@ -436,14 +495,14 @@ const T = {
     spotsLoading: '周辺スポットを探しています…',
     prHead: 'お出かけのおともに',
     aboutTitle: 'メトロ駅ガチャとは',
-    aboutP1: '東京メトロの全9路線・180駅の中から、ボタンひとつでランダムに1駅を選んでくれます。行き先に迷ったときの途中下車、休日のお散歩コース選び、近場の小旅行、街歩きの目的地決め、YouTubeの企画などに使えます。路線を絞り込めば、特定の沿線からだけ駅を選ぶこともできます。',
+    aboutP1: '東京メトロの全9路線と都営地下鉄の全4路線、あわせて13路線286駅の中から、ボタンひとつでランダムに1駅を選んでくれます。行き先に迷ったときの途中下車、休日のお散歩コース選び、近場の小旅行、街歩きの目的地決め、YouTubeの企画などに使えます。事業者や路線を絞り込めば、東京メトロだけ・都営地下鉄だけ・特定の沿線だけから駅を選ぶこともできます。',
     aboutLinesTitle: '対応している路線',
     howTitle: '使い方',
-    howP: '「ガチャを回す」ボタンを押すと、ルーレットのように路線と駅が回転し、最終的に1駅が決まります。上部の路線チップをタップすると、対象路線のオン・オフを切り替えられます。直近の結果は履歴として表示されます。',
+    howP: '「ガチャを回す」ボタンを押すと、ルーレットのように路線と駅が回転し、最終的に1駅が決まります。上部の「東京メトロ」「都営地下鉄」チップで事業者ごとにまとめて、路線チップで個別にオン・オフを切り替えられます。直近の結果は履歴として表示されます。',
     share: r => `メトロ駅ガチャの結果は「${lineName(r.line)} ${r.st[0]}駅（${r.line.sym}${num2(r.idx)}）」でした！🚇 #メトロ駅ガチャ`
   },
   en: {
-    docTitle: 'Metro Station Gacha | Random station picker across all 9 Tokyo Metro lines',
+    docTitle: 'Metro Station Gacha | Random station picker across all 13 Tokyo Metro and Toei Subway lines',
     h1: '🚇 Metro Station Gacha',
     sub: 'Press the button to spin for a random line and station',
     placeholder: 'Press the button below to start',
@@ -460,14 +519,14 @@ const T = {
     spotsLoading: 'Finding nearby spots…',
     prHead: 'For your outing',
     aboutTitle: 'About Metro Station Gacha',
-    aboutP1: 'Picks one random station from the 180 stations across all 9 Tokyo Metro lines at the press of a button. Great for spontaneous stopovers, weekend walks, mini trips, choosing your next place to explore in Tokyo — even YouTube video ideas. Filter by line to draw stations only from the lines you select. The name "gacha" comes from Japanese capsule-toy vending machines (gachapon) — you never know what comes out!',
+    aboutP1: 'Picks one random station from the 286 stations across all 13 Tokyo Metro and Toei Subway lines at the press of a button. Great for spontaneous stopovers, weekend walks, mini trips, choosing your next place to explore in Tokyo — even YouTube video ideas. Filter by operator or line to draw stations only from the ones you select. The name "gacha" comes from Japanese capsule-toy vending machines (gachapon) — you never know what comes out!',
     aboutLinesTitle: 'Supported lines',
     howTitle: 'How to use',
-    howP: 'Press the "Spin the Gacha" button and the roulette will cycle through lines and stations before landing on one. Tap the line chips at the top to toggle lines on or off. Your recent results are kept in the history.',
+    howP: 'Press the "Spin the Gacha" button and the roulette will cycle through lines and stations before landing on one. Tap the "Tokyo Metro" and "Toei Subway" chips to switch a whole operator on or off, or the line chips below to fine-tune. Your recent results are kept in the history.',
     share: r => `I spun the Metro Station Gacha and got "${r.st[1]} Station (${lineName(r.line)}, ${r.line.sym}${num2(r.idx)})"! 🚇 #MetroStationGacha`
   },
   zh: {
-    docTitle: '地铁站扭蛋 | 从东京地铁9条线路随机抽选车站',
+    docTitle: '地铁站扭蛋 | 从东京地铁·都营地铁13条线路随机抽选车站',
     h1: '🚇 地铁站扭蛋',
     sub: '按下按钮，随机抽选线路和车站',
     placeholder: '点击下方按钮开始',
@@ -486,10 +545,10 @@ const T = {
     spotsLoading: '正在查找周边地点…',
     prHead: '出行好物',
     aboutTitle: '关于地铁站扭蛋',
-    aboutP1: '只需按一下按钮，即可从东京地铁全部9条线路、180个车站中随机抽选1站。适合随性下车、周末散步、近郊小旅行、为城市漫步挑选目的地，也可用于YouTube企划等。还可以按线路筛选，只从特定线路中抽选车站。',
+    aboutP1: '只需按一下按钮，即可从东京地铁全部9条线路与都营地铁全部4条线路、共13条线路286个车站中随机抽选1站。适合随性下车、周末散步、近郊小旅行、为城市漫步挑选目的地，也可用于YouTube企划等。还可以按运营公司或线路筛选，只从特定线路中抽选车站。',
     aboutLinesTitle: '支持的线路',
     howTitle: '使用方法',
-    howP: '按下「转扭蛋」按钮，线路和车站会像轮盘一样旋转，最终确定1站。点击上方的线路标签可切换线路的开/关。最近的结果会保存在历史记录中。',
+    howP: '按下「转扭蛋」按钮，线路和车站会像轮盘一样旋转，最终确定1站。点击上方的「东京地铁」「都营地铁」标签可整体切换运营公司，点击线路标签可单独筛选。最近的结果会保存在历史记录中。',
     share: r => `地铁站扭蛋抽到了「${r.st[0]}站（${lineName(r.line)} ${r.line.sym}${num2(r.idx)}）」！🚇 #地铁站扭蛋`
   }
 };
@@ -501,28 +560,61 @@ let lang = 'zh';
 function t(key){ return T[lang][key]; }
 function num2(i){ return String(i+1).padStart(2,'0'); }
 function lineName(line){ return lang === 'ja' ? line.name : LINE_I18N[line.key][lang]; }
+function opName(op){ return lang === 'ja' ? op.name : OP_I18N[op.key][lang]; }
 // ---------- /i18n ----------
 
+const opsEl = document.getElementById('ops');
 const linesEl = document.getElementById('lines');
 const active = new Set(LINES.map(l=>l.key));
 const chipEls = [];
+const opChipEls = [];
+
+// 事業者チップ: 配下の路線をまとめてオン・オフする
+OPERATORS.forEach(op=>{
+  const c = document.createElement('div');
+  c.className = 'op-chip';
+  c.dataset.op = op.key;
+  c.onclick = ()=>{
+    const keys = LINES.filter(l=>l.op === op.key).map(l=>l.key);
+    const on = keys.filter(k=>active.has(k));
+    if(on.length){
+      if(on.length >= active.size) return; // 全路線オフになる操作は無視
+      keys.forEach(k=>active.delete(k));
+    } else {
+      keys.forEach(k=>active.add(k));
+    }
+    syncChips();
+  };
+  opChipEls.push([c, op]);
+  opsEl.appendChild(c);
+});
 
 LINES.forEach(l=>{
   const c = document.createElement('div');
   c.className = 'chip';
   c.dataset.key = l.key;
   c.onclick = ()=>{
-    if(active.has(l.key)){ if(active.size>1){active.delete(l.key); c.classList.add('off');} }
-    else { active.add(l.key); c.classList.remove('off'); }
+    if(active.has(l.key)){ if(active.size>1) active.delete(l.key); }
+    else active.add(l.key);
+    syncChips();
   };
   chipEls.push([c, l]);
   linesEl.appendChild(c);
 });
 
+// active の内容をチップの表示状態へ反映する
+function syncChips(){
+  chipEls.forEach(([c, l])=> c.classList.toggle('off', !active.has(l.key)));
+  opChipEls.forEach(([c, op])=>
+    c.classList.toggle('off', !LINES.some(l=>l.op === op.key && active.has(l.key))));
+}
+
 function renderChips(){
   chipEls.forEach(([c, l])=>{
     c.innerHTML = `<span class="dot" style="background:${l.color}"></span>${lineName(l)}`;
   });
+  opChipEls.forEach(([c, op])=>{ c.textContent = opName(op); });
+  syncChips();
 }
 
 const card = document.getElementById('card');
@@ -619,9 +711,16 @@ const shareX = document.getElementById('shareX');
 const shareLine = document.getElementById('shareLine');
 const shareCopy = document.getElementById('shareCopy');
 
+
+// 結果の共有URL。静的な結果ページがある路線はそちらへ、無ければトップの ?s= で復元する。
+function shareUrl(r){
+  const base = `https://metrandom.com/${lang === 'ja' ? '' : lang + '/'}`;
+  const code = r.line.sym + num2(r.idx);
+  return r.line.op === 'metro' ? `${base}s/${code}/` : `${base}?s=${code}`;
+}
 function updateShare(r){
   const text = T[lang].share(r);
-  const resultUrl = `https://metrandom.com/${lang === 'ja' ? '' : lang + '/'}s/${r.line.sym}${num2(r.idx)}/`;
+  const resultUrl = shareUrl(r);
   const full = text + ' ' + resultUrl;
   shareX.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(resultUrl)}`;
   shareLine.href = `https://line.me/R/share?text=${encodeURIComponent(full)}`;
@@ -785,6 +884,20 @@ langsEl.addEventListener('click', e=>{
   // 言語に対応するパスへ遷移（/ = ja, /en/ = en, /zh/ = zh）
   location.href = next === 'ja' ? '/' : '/' + next + '/';
 });
+
+// 共有リンク(?s=E23)で開かれたときは、その駅の結果を復元して表示する
+(function restoreFromQuery(){
+  const code = (new URLSearchParams(location.search).get('s') || '').toUpperCase();
+  const m = /^([A-Z])(\d{2})$/.exec(code);
+  if(!m) return;
+  const line = LINE_MAP[m[1]];
+  const idx = Number(m[2]) - 1;
+  if(!line || !line.stations[idx]) return;
+  lastResult = { line, st: line.stations[idx], idx };
+  render(lastResult, false);
+  updateShare(lastResult);
+  loadNearby(lastResult);
+})();
 
 applyLang();
 
