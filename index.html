@@ -712,11 +712,11 @@ const shareLine = document.getElementById('shareLine');
 const shareCopy = document.getElementById('shareCopy');
 
 
-// 結果の共有URL。静的な結果ページがある路線はそちらへ、無ければトップの ?s= で復元する。
+// 結果の共有URL。全駅に静的な結果ページがあるためそちらを使う（?s= は旧リンクの後方互換用）。
 function shareUrl(r){
   const base = `https://metrandom.com/${lang === 'ja' ? '' : lang + '/'}`;
   const code = r.line.sym + num2(r.idx);
-  return r.line.op === 'metro' ? `${base}s/${code}/` : `${base}?s=${code}`;
+  return `${base}s/${code}/`;
 }
 function updateShare(r){
   const text = T[lang].share(r);
