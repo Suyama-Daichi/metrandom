@@ -869,7 +869,7 @@ function applyLang(){
   document.getElementById('howTitle').textContent = t('howTitle');
   document.getElementById('howP').textContent = t('howP');
   document.getElementById('aboutLines').innerHTML =
-    LINES.map(l => `<li>${lineName(l)}（${l.key}）</li>`).join('');
+    LINES.map(l => `<li>${lineName(l)}（${l.sym}）</li>`).join('');
   langsEl.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
   renderChips();
   renderHist();
