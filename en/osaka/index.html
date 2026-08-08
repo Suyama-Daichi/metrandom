@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZFZ05FF6E9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZFZ05FF6E9');
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x2pr31qy85");
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7001458737801425"
+     crossorigin="anonymous"></script>
+<title>Osaka Metro Station Gacha | Random station picker across all 9 Osaka Metro lines</title>
+<meta name="description" content="Picks one random station from the 134 stations across all 9 Osaka Metro lines — Midosuji, Tanimachi, Yotsubashi, Chuo, Sennichimae, Sakaisuji, Nagahori Tsurumi-ryokuchi, Imazatosuji and the Nanko Port Town Line (New Tram). Spin the gacha to find your next spot to explore in Osaka.">
+<meta name="keywords" content="Osaka Metro,random station,station picker,roulette,Osaka sightseeing,Osaka exploration,Midosuji Line,Tanimachi Line,Yotsubashi Line,Chuo Line,Sennichimae Line,Sakaisuji Line,Nagahori Tsurumiryokuchi Line,Imazatosuji Line,New Tram">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://metrandom.com/en/osaka/">
+<link rel="alternate" hreflang="ja" href="https://metrandom.com/osaka/">
+<link rel="alternate" hreflang="en" href="https://metrandom.com/en/osaka/">
+<link rel="alternate" hreflang="zh" href="https://metrandom.com/zh/osaka/">
+<link rel="alternate" hreflang="x-default" href="https://metrandom.com/en/osaka/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Osaka Metro Station Gacha">
+<meta property="og:title" content="Osaka Metro Station Gacha | Random station picker across all 9 Osaka Metro lines">
+<meta property="og:description" content="Picks one random station from the 134 stations across all 9 Osaka Metro lines. Filter by line. Perfect for spontaneous stopovers, walks, and finding your next spot to explore in Osaka.">
+<meta property="og:url" content="https://metrandom.com/en/osaka/">
+<meta property="og:image" content="https://metrandom.com/og-image-osaka.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Osaka Metro Station Gacha | Random station picker across all 9 Osaka Metro lines">
+<meta name="twitter:description" content="Picks one random station from the 134 stations across all 9 Osaka Metro lines. Perfect for stopovers, walks, and exploring Osaka.">
+<meta name="twitter:image" content="https://metrandom.com/og-image-osaka.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0f1626">
+<link rel="manifest" href="/osaka/manifest.webmanifest">
+
+<!-- 構造化データ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Osaka Metro Station Gacha",
+  "url": "https://metrandom.com/en/osaka/",
+  "description": "Picks one random station from the 134 stations across all 9 Osaka Metro lines — Midosuji, Tanimachi, Yotsubashi, Chuo, Sennichimae, Sakaisuji, Nagahori Tsurumi-ryokuchi, Imazatosuji and the Nanko Port Town Line (New Tram). Spin the gacha to find your next spot to explore in Osaka.",
+  "applicationCategory": "TravelApplication",
+  "operatingSystem": "Any",
+  "inLanguage": "en",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY"
+  }
+}
+</script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    background: linear-gradient(160deg, #1a2238 0%, #0f1626 100%);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 48px;
+  }
+  h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 4px; letter-spacing: .02em; }
+  .sub { color: #9aa6c4; font-size: .8rem; margin-bottom: 12px; }
+
+  .langs { display: flex; gap: 6px; margin-bottom: 16px; }
+  .langs button {
+    background: rgba(255,255,255,.08); border: 1.5px solid transparent; color: #9aa6c4;
+    font-size: .72rem; font-weight: 600; padding: 4px 12px; border-radius: 999px; cursor: pointer;
+  }
+  .langs button.active { color: #1a2238; background: #ffd84d; }
+
+  .lines {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    max-width: 560px; margin-bottom: 20px;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 999px; cursor: pointer;
+    font-size: .8rem; font-weight: 600; user-select: none;
+    background: rgba(255,255,255,.08); border: 1.5px solid transparent;
+    transition: .15s;
+  }
+  .chip .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .chip.off { opacity: .35; }
+  .chip.off .dot { filter: grayscale(1); }
+
+  .ops {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 10px;
+  }
+  .ops[hidden] { display: none; }
+  .op-chip {
+    padding: 6px 14px; border-radius: 999px; cursor: pointer;
+    font-size: .8rem; font-weight: 700; user-select: none;
+    background: rgba(255,255,255,.14); border: 1.5px solid rgba(255,255,255,.4);
+    transition: .15s;
+  }
+  .op-chip.off { opacity: .35; border-color: transparent; }
+
+  .card {
+    width: 100%; max-width: 420px; background: rgba(255,255,255,.06);
+    border-radius: 24px; padding: 36px 28px; text-align: center;
+    border: 1px solid rgba(255,255,255,.1); min-height: 260px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+  }
+  .line-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 18px; border-radius: 999px; font-weight: 700; font-size: 1rem;
+    margin-bottom: 18px; color: #fff;
+  }
+  .line-badge .sym {
+    width: 30px; height: 30px; border-radius: 50%; background: #fff;
+    color: #111; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: .9rem;
+  }
+  .station { font-size: 2.6rem; font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .station-en { color: #9aa6c4; font-size: .95rem; letter-spacing: .05em; }
+  .num { color: #c8d2ee; font-size: .85rem; margin-top: 10px; }
+  .placeholder { color: #6b769a; font-size: 1.1rem; }
+  .card-guide { margin-top: 12px; color: #b6c0db; font-size: .85rem; line-height: 1.6; max-width: 320px; }
+  .map-link {
+    display: inline-block; margin-top: 16px; padding: 9px 20px;
+    border: 1px solid rgba(255,255,255,.25); border-radius: 999px;
+    color: #d4dcf0; font-size: .85rem; text-decoration: none; transition: background .15s;
+  }
+  .map-link:hover { background: rgba(255,255,255,.1); }
+
+  .spinning .station { animation: blur .08s linear infinite; }
+  @keyframes blur { 0%{opacity:.4} 50%{opacity:1} 100%{opacity:.4} }
+
+  button.go {
+    margin-top: 24px; padding: 16px 48px; font-size: 1.1rem; font-weight: 700;
+    border: none; border-radius: 999px; cursor: pointer; color: #1a2238;
+    background: linear-gradient(135deg, #ffd84d, #ffb300);
+    box-shadow: 0 8px 24px rgba(255,180,0,.35); transition: transform .1s;
+  }
+  button.go:active { transform: scale(.96); }
+  button.go:disabled { opacity: .6; cursor: default; }
+
+  /* ハンバーガーメニュー & 履歴ドロワー */
+  .menu-btn {
+    position: fixed; top: 16px; right: 16px; z-index: 30;
+    width: 42px; height: 42px; border-radius: 12px; cursor: pointer;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); transition: background .15s;
+  }
+  .menu-btn:hover { background: rgba(255,255,255,.14); }
+  .menu-btn span { display: block; width: 18px; height: 2px; border-radius: 2px; background: #d4dcf0; }
+  .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 40; }
+  .drawer {
+    position: fixed; top: 0; right: 0; height: 100%; width: 300px; max-width: 84vw;
+    background: #141d31; border-left: 1px solid rgba(255,255,255,.1);
+    box-shadow: -16px 0 48px rgba(0,0,0,.5); z-index: 50;
+    padding: 20px 18px; overflow-y: auto;
+    transform: translateX(100%); transition: transform .25s ease;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .drawer-head h2 { font-size: 1rem; font-weight: 700; color: #fff; }
+  .drawer-close {
+    background: none; border: none; color: #9aa6c4; font-size: 1.1rem;
+    cursor: pointer; padding: 4px 8px; border-radius: 8px;
+  }
+  .drawer-close:hover { color: #fff; background: rgba(255,255,255,.08); }
+  .hist-empty { color: #6b769a; font-size: .85rem; padding: 8px 4px; }
+
+  .hist { width: 100%; }
+  .hist-head { display: flex; align-items: center; justify-content: flex-end; margin-bottom: 8px; }
+  .hist-clear {
+    background: none; border: none; color: #9aa6c4; font-size: .75rem;
+    cursor: pointer; text-decoration: underline; padding: 2px 4px;
+  }
+  .hist-clear:hover { color: #fff; }
+  .hist-item {
+    display: flex; align-items: center; gap: 8px; font-size: .85rem;
+    padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.06); color: #d4dcf0;
+  }
+  .hist-item .d { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .hist-restore {
+    display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;
+    background: none; border: none; color: inherit; font: inherit;
+    text-align: left; cursor: pointer; padding: 2px 4px; border-radius: 6px;
+  }
+  .hist-restore:hover { background: rgba(255,255,255,.08); }
+  .hist-del {
+    margin-left: auto; background: none; border: none; color: #6b769a;
+    cursor: pointer; font-size: .85rem; padding: 2px 8px; border-radius: 6px;
+  }
+  .hist-del:hover { color: #fff; background: rgba(255,255,255,.08); }
+
+  .pr { max-width: 420px; width: 100%; margin-top: 30px; }
+  .pr-head {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    color: #9aa6c4; font-size: .8rem; font-weight: 600;
+  }
+  .pr-badge {
+    font-size: .65rem; font-weight: 700; color: #0f1626; background: #9aa6c4;
+    padding: 1px 7px; border-radius: 4px; letter-spacing: .05em;
+  }
+  .pr-item {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px; padding: 12px 16px; color: #d4dcf0;
+    text-decoration: none; font-size: .85rem; line-height: 1.5; transition: background .15s;
+  }
+  .pr-item:hover { background: rgba(255,255,255,.11); }
+  .pr-item .pr-emoji { font-size: 1.4rem; flex-shrink: 0; }
+  .pr-item .pr-shop { margin-left: auto; color: #8a96b8; font-size: .72rem; flex-shrink: 0; }
+
+  .about { max-width: 560px; margin: 36px auto 0; color: #b6c0db; font-size: .9rem; line-height: 1.8; }
+  .about h2 { font-size: 1rem; color: #fff; margin: 22px 0 8px; }
+  .about p { margin-bottom: 10px; }
+  .about ul { margin: 0 0 10px 1.2em; }
+  footer { margin-top: 32px; color: #6b769a; font-size: .78rem; text-align: center; }
+  footer a { color: #9aa6c4; }
+
+  .share { margin-top: 20px; text-align: center; }
+  .share-label { display: block; color: #9aa6c4; font-size: .78rem; margin-bottom: 10px; }
+  .share-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .share-btns a, .share-btns button {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 18px; border-radius: 999px; font-size: .85rem; font-weight: 700;
+    border: none; cursor: pointer; text-decoration: none; color: #fff; transition: transform .1s, opacity .15s;
+  }
+  .share-btns a:active, .share-btns button:active { transform: scale(.95); }
+  .share-btns .x { background: #000; border: 1px solid #2a2a2a; }
+  .share-btns .line { background: #06C755; }
+  .share-btns .copy { background: rgba(255,255,255,.12); color: #d4dcf0; }
+  .share-btns svg { width: 16px; height: 16px; fill: currentColor; }
+
+  .spots { max-width: 420px; width: 100%; margin-top: 22px; }
+  .spots-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+  .spots-title { font-size: .8rem; color: #9aa6c4; font-weight: 600; }
+  .powered-by { font-size: .68rem; color: #6b769a; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+  .powered-by:hover { color: #9aa6c4; text-decoration: underline; }
+  .spots-status { color: #8a96b8; font-size: .82rem; padding: 4px 0; }
+  .spot-item {
+    display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px; padding: 10px 14px; color: #d4dcf0;
+    text-decoration: none; font-size: .85rem; line-height: 1.45; transition: background .15s;
+  }
+  .spot-item:hover { background: rgba(255,255,255,.11); }
+  .spot-thumb {
+    width: 44px; height: 44px; border-radius: 10px; object-fit: cover;
+    flex-shrink: 0; background: rgba(255,255,255,.08);
+  }
+  .spot-body { min-width: 0; flex: 1; }
+  .spot-name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .spot-meta { display: block; color: #8a96b8; font-size: .72rem; margin-top: 2px; }
+  .spot-tip {
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden; color: #b6c0db; font-size: .72rem; line-height: 1.4;
+    margin-top: 4px; white-space: normal;
+  }
+  .spot-dist { margin-left: auto; color: #8a96b8; font-size: .72rem; flex-shrink: 0; }
+</style>
+</head>
+<body>
+  <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="drawer">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="drawer-overlay" id="drawerOverlay" hidden></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h2 id="histTitle">History</h2>
+      <button class="drawer-close" id="drawerClose" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="hist">
+      <div class="hist-head" id="histHead" hidden>
+        <button class="hist-clear" id="histClear" type="button">Clear all</button>
+      </div>
+      <div id="hist"></div>
+      <p class="hist-empty" id="histEmpty">No history yet</p>
+    </div>
+  </aside>
+
+  <h1 id="appTitle">🚇 Osaka Metro Station Gacha</h1>
+  <div class="sub" id="appSub">Press the button to spin for a random line and station</div>
+
+  <div class="langs" id="langs">
+    <button type="button" data-lang="ja">日本語</button>
+    <button type="button" data-lang="en">English</button>
+    <button type="button" data-lang="zh">中文</button>
+  </div>
+
+  <div class="ops" id="ops" hidden></div>
+
+  <div class="lines" id="lines"></div>
+
+  <div class="card" id="card">
+    <div class="placeholder" id="placeholder">Press the button below to start</div>
+  </div>
+
+  <button class="go" id="go">Spin the Gacha</button>
+
+  <div class="share" id="share" hidden>
+    <span class="share-label" id="shareLabel">Share this result</span>
+    <div class="share-btns">
+      <a class="x" id="shareX" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <span id="shareXLabel">Post</span>
+      </a>
+      <a class="line" id="shareLine">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63h-1.752v1.125h1.752c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.383c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.38c.347 0 .63.285.63.63 0 .349-.283.63-.63.63h-1.752v1.125h1.752zm-3.855 3.016c0 .27-.174.51-.432.596a.62.62 0 0 1-.199.034c-.197 0-.381-.099-.495-.255l-2.42-3.293v2.918a.626.626 0 0 1-.629.628.625.625 0 0 1-.628-.628V8.108c0-.27.173-.51.43-.595a.643.643 0 0 1 .199-.033c.195 0 .375.104.495.254l2.42 3.291V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0a.63.63 0 0 1-.631.628.625.625 0 0 1-.626-.628V8.108c0-.345.282-.63.63-.63.346 0 .627.285.627.63v4.771zm-2.466.628H4.917a.63.63 0 0 1-.63-.628V8.108c0-.345.282-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63a.63.63 0 0 1-.629.628M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.072 9.436-6.974C23.176 14.393 24 12.458 24 10.314"/></svg>
+        LINE
+      </a>
+      <button class="copy" id="shareCopy" type="button">Copy link</button>
+    </div>
+  </div>
+
+  <section class="spots" id="spots" hidden>
+    <div class="spots-head">
+      <h2 class="spots-title" id="spotsTitle">Nearby spots</h2>
+      <a class="powered-by" href="https://www.swarmapp.com/" target="_blank" rel="noopener">Powered by Foursquare</a>
+    </div>
+    <div id="spotsList"></div>
+  </section>
+
+  <!-- 広告: 楽天アフィリエイトリンク -->
+  <section class="pr">
+    <div class="pr-head"><span id="prHeadLabel">For your outing</span> <span class="pr-badge">PR</span></div>
+    <a class="pr-item" href="https://a.r10.to/hFBRMP" target="_blank" rel="sponsored nofollow noopener">
+      <span class="pr-emoji">🌂</span>
+      <span>Fully light-blocking UV parasol — 100% shading, UV cut, heat shield<br>Sun protection for walks from the station</span>
+      <span class="pr-shop">Rakuten</span>
+    </a>
+    <a class="pr-item" href="https://a.r10.to/hRMlLZ" target="_blank" rel="sponsored nofollow noopener">
+      <span class="pr-emoji">🧴</span>
+      <span>Nivea UV Deep Protect &amp; Care Gel (80g × 2)<br>UV care before exploring the city</span>
+      <span class="pr-shop">Rakuten</span>
+    </a>
+  </section>
+
+  <section class="about">
+    <h2 id="aboutTitle">About Osaka Metro Station Gacha</h2>
+    <p id="aboutP1">Picks one random station from all 134 stations across Osaka Metro's 9 lines at the press of a button. Great for spontaneous stopovers, weekend walks, mini trips, choosing your next place to explore in Osaka — even YouTube video ideas. Filter by line to draw stations only from the ones you select. The name "gacha" comes from Japanese capsule-toy vending machines (gachapon) — you never know what comes out!</p>
+    <h2 id="aboutLinesTitle">Supported lines</h2>
+    <ul id="aboutLines">
+      <li>Midosuji Line (M)</li>
+      <li>Tanimachi Line (T)</li>
+      <li>Yotsubashi Line (Y)</li>
+      <li>Chuo Line (C)</li>
+      <li>Sennichimae Line (S)</li>
+      <li>Sakaisuji Line (K)</li>
+      <li>Nagahori Tsurumi-ryokuchi Line (N)</li>
+      <li>Imazatosuji Line (I)</li>
+      <li>Nanko Port Town Line (P)</li>
+    </ul>
+    <h2 id="howTitle">How to use</h2>
+    <p id="howP">Press the "Spin the Gacha" button and the roulette will cycle through lines and stations before landing on one. Tap the line chips to fine-tune which lines are included. Your recent results are kept in the history.</p>
+  </section>
+
+  <footer>
+    <p style="margin-bottom:8px">This is an unofficial fan site and is not affiliated with Osaka Metro Co., Ltd.</p>
+    Osaka Metro Station Gacha ・
+    <a href="/en/privacy/">Privacy Policy</a> ・
+    <a href="https://github.com/Suyama-Daichi/metro-random" rel="noopener">GitHub</a>
+  </footer>
+
+<script>
+const LINES = [
+  { key:"OM", name:"御堂筋線", color:"#E5171F", sym:"M", op:"osakametro", numStart:11, stations:[
+    ["江坂","Esaka"],["東三国","Higashi-mikuni"],["新大阪","Shin-osaka"],["西中島南方","Nishi-nakajima-minamigata"],["中津","Nakatsu"],["梅田","Umeda"],["淀屋橋","Yodoyabashi"],["本町","Hommachi"],["心斎橋","Shinsaibashi"],["なんば","Namba"],["大国町","Daikokucho"],["動物園前","Dobutsuen-mae"],["天王寺","Tennoji"],["昭和町","Showacho"],["西田辺","Nishi-tanabe"],["長居","Nagai"],["あびこ","Abiko"],["北花田","Kita-hanada"],["新金岡","Shin-kanaoka"],["なかもず","Nakamozu"]
+  ]},
+  { key:"OT", name:"谷町線", color:"#522886", sym:"T", op:"osakametro", numStart:11, stations:[
+    ["大日","Dainichi"],["守口","Moriguchi"],["太子橋今市","Taishibashi-imaichi"],["千林大宮","Senbayashi-omiya"],["関目高殿","Sekime-takadono"],["野江内代","Noe-uchindai"],["都島","Miyakojima"],["天神橋筋六丁目","Tenjimbashisuji-rokuchome"],["中崎町","Nakazakicho"],["東梅田","Higashi-umeda"],["南森町","Minami-morimachi"],["天満橋","Temmabashi"],["谷町四丁目","Tanimachi-yonchome"],["谷町六丁目","Tanimachi-rokuchome"],["谷町九丁目","Tanimachi-kyuchome"],["四天王寺前夕陽ヶ丘","Shitennoji-mae-yuhigaoka"],["天王寺","Tennoji"],["阿倍野","Abeno"],["文の里","Fuminosato"],["田辺","Tanabe"],["駒川中野","Komagawa-nakano"],["平野","Hirano"],["喜連瓜破","Kire-uriwari"],["出戸","Deto"],["長原","Nagahara"],["八尾南","Yao-minami"]
+  ]},
+  { key:"OY", name:"四つ橋線", color:"#0078BA", sym:"Y", op:"osakametro", numStart:11, stations:[
+    ["西梅田","Nishi-umeda"],["肥後橋","Higobashi"],["本町","Hommachi"],["四ツ橋","Yotsubashi"],["なんば","Namba"],["大国町","Daikokucho"],["花園町","Hanazonocho"],["岸里","Kishinosato"],["玉出","Tamade"],["北加賀屋","Kita-kagaya"],["住之江公園","Suminoe-koen"]
+  ]},
+  { key:"OC", name:"中央線", color:"#019A66", sym:"C", op:"osakametro", numStart:9, stations:[
+    ["夢洲","Yumeshima"],["コスモスクエア","Cosmosquare"],["大阪港","Osakako"],["朝潮橋","Asashiobashi"],["弁天町","Bentencho"],["九条","Kujo"],["阿波座","Awaza"],["本町","Hommachi"],["堺筋本町","Sakaisuji-hommachi"],["谷町四丁目","Tanimachi-yonchome"],["森ノ宮","Morinomiya"],["緑橋","Midoribashi"],["深江橋","Fukaebashi"],["高井田","Takaida"],["長田","Nagata"]
+  ]},
+  { key:"OS", name:"千日前線", color:"#E44D93", sym:"S", op:"osakametro", numStart:11, stations:[
+    ["野田阪神","Noda-hanshin"],["玉川","Tamagawa"],["阿波座","Awaza"],["西長堀","Nishi-nagahori"],["桜川","Sakuragawa"],["なんば","Namba"],["日本橋","Nippombashi"],["谷町九丁目","Tanimachi-kyuchome"],["鶴橋","Tsuruhashi"],["今里","Imazato"],["新深江","Shin-fukae"],["小路","Shoji"],["北巽","Kita-tatsumi"],["南巽","Minami-tatsumi"]
+  ]},
+  { key:"OK", name:"堺筋線", color:"#814721", sym:"K", op:"osakametro", numStart:11, stations:[
+    ["天神橋筋六丁目","Tenjimbashisuji-rokuchome"],["扇町","Ogimachi"],["南森町","Minami-morimachi"],["北浜","Kitahama"],["堺筋本町","Sakaisuji-hommachi"],["長堀橋","Nagahoribashi"],["日本橋","Nippombashi"],["恵美須町","Ebisucho"],["動物園前","Dobutsuen-mae"],["天下茶屋","Tengachaya"]
+  ]},
+  { key:"ON", name:"長堀鶴見緑地線", color:"#A9CC51", sym:"N", op:"osakametro", numStart:11, stations:[
+    ["大正","Taisho"],["ドーム前千代崎","Dome-mae-chiyozaki"],["西長堀","Nishi-nagahori"],["西大橋","Nishi-ohashi"],["心斎橋","Shinsaibashi"],["長堀橋","Nagahoribashi"],["松屋町","Matsuyamachi"],["谷町六丁目","Tanimachi-rokuchome"],["玉造","Tamatsukuri"],["森ノ宮","Morinomiya"],["大阪ビジネスパーク","Osaka Business Park"],["京橋","Kyobashi"],["蒲生四丁目","Gamo-yonchome"],["今福鶴見","Imafuku-tsurumi"],["横堤","Yokozutsumi"],["鶴見緑地","Tsurumi-ryokuchi"],["門真南","Kadoma-minami"]
+  ]},
+  { key:"OI", name:"今里筋線", color:"#EE7B1A", sym:"I", op:"osakametro", numStart:11, stations:[
+    ["井高野","Itakano"],["瑞光四丁目","Zuiko-yonchome"],["だいどう豊里","Daido-toyosato"],["太子橋今市","Taishibashi-imaichi"],["清水","Shimizu"],["新森古市","Shimmori-furuichi"],["関目成育","Sekime-seiiku"],["蒲生四丁目","Gamo-yonchome"],["鴫野","Shigino"],["緑橋","Midoribashi"],["今里","Imazato"]
+  ]},
+  { key:"OP", name:"南港ポートタウン線", color:"#00A0DE", sym:"P", op:"osakametro", numStart:9, stations:[
+    ["コスモスクエア","Cosmosquare"],["トレードセンター前","Trade Center-mae"],["中ふ頭","Naka-futo"],["ポートタウン西","Port Town-nishi"],["ポートタウン東","Port Town-higashi"],["フェリーターミナル","Ferry Terminal"],["南港東","Nanko-higashi"],["南港口","Nanko-guchi"],["平林","Hirabayashi"],["住之江公園","Suminoe-koen"]
+  ]}
+];
+
+// 大阪メトロは単一事業者のため事業者チップは1件のみ（.ops は非表示）。
+
+const OPERATORS = [
+  { key:'osakametro', name:'大阪メトロ' }
+];
+
+
+
+const GUIDES = {"江坂":["高層ビル林立、ダスキン本社もあるビジネス街。", "High-rise office towers, home to Duskin's headquarters."],"東三国":["新大阪のすぐ隣、庶民的な商店と住宅の街。", "A modest, workaday neighborhood just next to Shin-Osaka."],"新大阪":["新幹線が発着する大阪の玄関口。", "Osaka's gateway station where the Shinkansen bullet train arrives."],"西中島南方":["ラーメンや焼肉店が並ぶB級グルメ激戦区。", "A B-grade gourmet battleground packed with ramen and yakiniku joints."],"中津":["高架下の下町情緒と梅田スカイビルが同居。", "Old-school shops under the tracks sit near the striking Umeda Sky Building."],"梅田":["西日本最大のターミナル、百貨店とビル群。", "Western Japan's biggest terminal hub, ringed by department stores and skyscrapers."],"淀屋橋":["大阪市役所や中之島の重厚な官庁街。", "Home to Osaka City Hall and the stately Nakanoshima government district."],"本町":["船場の中心、問屋街とオフィスが並ぶ。", "Heart of the Semba district, lined with wholesale merchants and offices."],"心斎橋":["アーケード商店街とアメリカ村、若者で賑わう。", "A lively arcade shopping street next to America-mura, popular with young shoppers."],"なんば":["道頓堀とグリコの看板、ミナミの中心地。", "Dotonbori and the iconic Glico sign anchor the heart of Minami."],"大国町":["今宮戎神社と串カツの街、新世界にも近い。", "Near Imamiya Ebisu Shrine and kushikatsu eateries, close to Shinsekai."],"動物園前":["通天閣と新世界、ジャンジャン横丁が目の前。", "Right by Tsutenkaku Tower, Shinsekai and the retro Janjan Yokocho arcade."],"天王寺":["あべのハルカスと四天王寺、天王寺公園も。", "Abeno Harukas tower, Shitennoji Temple and Tennoji Park all nearby."],"昭和町":["長屋と純喫茶が残るレトロな下町風情。", "Century-old row houses and old-school kissaten cafes give this old town its retro feel."],"西田辺":["医院が多く暮らしやすい落ち着いた住宅街。", "A calm, convenient residential area known for its many clinics."],"長居":["長居公園と陸上競技場、植物園も広がる。", "Nagai Park spreads out here, with its athletics stadium and botanical garden."],"あびこ":["地下鉄あびこ中央商店街と大阪公立大学が近い。", "Near Osaka Metropolitan University, anchored by the local Abiko shopping arcade."],"北花田":["駅直結のイオンモールでお買い物三昧。", "AEON Mall sits right at the station, ideal for a shopping trip."],"新金岡":["大規模団地と公園が広がる緑豊かな街。", "A leafy area of large public housing complexes and spacious parks."],"なかもず":["世界遺産・百舌鳥古墳群の最寄り駅。", "Gateway to the Mozu Kofun Tumulus Cluster, a UNESCO World Heritage site."],"大日":["巨大イオンモールとモノレールが交わる終着駅。", "A terminus where a huge AEON Mall meets the Osaka Monorail."],"守口":["パナソニック本社にほど近い行政・医療の拠点。", "Close to Panasonic's headquarters, with the city hall and hospital nearby."],"太子橋今市":["淀川河川公園と大阪工業大学が近い住宅地。", "A residential area near the Yodo River park and Osaka Institute of Technology."],"千林大宮":["「日本一安い」との異名を持つ千林商店街。", "Home to Senbayashi Shopping Street, once dubbed Japan's cheapest arcade."],"関目高殿":["関目神社などの旧跡も残る住宅とマンションの街。", "A residential area of homes and condos, with historic sites like Sekime Shrine."],"野江内代":["淀川方面へ商店街が続く落ち着いた住宅地。", "A quiet residential area with a shopping street stretching toward the Yodo River."],"都島":["大阪市立総合医療センターがある都島区の中心。", "Heart of Miyakojima Ward, home to Osaka City General Medical Center."],"天神橋筋六丁目":["日本一長い天神橋筋商店街の北の起点。", "Northern end of Tenjinbashisuji, Japan's longest shopping arcade."],"中崎町":["古民家カフェが並ぶ昭和レトロな下町エリア。", "Retro Showa-era backstreets lined with cafes in renovated old houses."],"東梅田":["お初天神商店街近く、梅田地下街の東の玄関口。", "Gateway to Umeda's underground malls, right by the Ohatsu Tenjin shopping street."],"南森町":["大阪天満宮と天神橋筋商店街、天神さんの門前町。", "Osaka Temmangu shrine and the mile-long Tenjinbashi-suji shopping arcade."],"天満橋":["大川沿いの八軒家浜、水都大阪の舟運拠点。", "Hachikenya-hama riverbank on the Okawa, a historic boat-transport hub of Water City Osaka."],"谷町四丁目":["大阪城公園と大阪歴史博物館へのアクセス拠点。", "Gateway to Osaka Castle Park and the Osaka Museum of History."],"谷町六丁目":["上町台地の坂道と、レトロな空堀商店街。", "Hilly Uemachi Plateau streets and the retro Karahori shopping arcade."],"谷町九丁目":["生玉神社と高津宮、下寺町に連なる古社の街。", "Ikutama and Kozu shrines amid the historic temple lanes of Shitadera-machi."],"四天王寺前夕陽ヶ丘":["石鳥居越しに夕日が美しい、寺院が並ぶ丘。", "Temple-lined hilltop famed for sunsets seen through a stone torii gate."],"阿倍野":["日本一高いビルが目印の、賑やかな繁華街。", "Bustling shopping district anchored by Japan's tallest skyscraper."],"文の里":["学校や公園が点在する、落ち着いた住宅街。", "A calm residential neighborhood dotted with schools and small parks."],"田辺":["桃と桜の名所、桃ヶ池公園がある下町。", "Old-fashioned neighborhood home to Momogaike Park, known for peach and cherry blossoms."],"駒川中野":["花と緑があふれる駒川商店街、通称フラワーロード。", "Komagawa shopping street, nicknamed Flower Road for its greenery."],"平野":["環濠集落の面影残る、平安時代からの古い町。", "Ancient moated settlement dating back to the Heian era, one of Osaka's oldest towns."],"喜連瓜破":["大和川に近い、公園と学校が多いファミリー層の街。", "Family-friendly area near the Yamato River, with plenty of parks and schools."],"出戸":["駅直結の大型商業施設、イオン長吉がある住宅街。", "Residential area with the Aeon Nagayoshi shopping center right at the station."],"長原":["地下鉄工事で発見された、古墳が眠る閑静な住宅地。", "Quiet residential area built atop ancient burial mounds uncovered during subway construction."],"八尾南":["谷町線の終点、小型機が発着する空港が近い。", "Southern terminus of the Tanimachi Line, near a small-aircraft airport."],"西梅田":["ハービスやブリーゼが並ぶ、洗練されたビジネス街。", "Sophisticated business district anchored by the Herbis and Breeze towers."],"肥後橋":["土佐堀川越しに中之島を望む、オフィス街。", "Office district facing Nakanoshima across the Tosabori River."],"四ツ橋":["心斎橋やアメリカ村へも歩ける繁華街の一角。", "Lively downtown corner within walking distance of Shinsaibashi and Amerika-mura."],"花園町":["鶴見橋商店街が続く、昔ながらの下町情緒。", "Old-fashioned neighborhood along the long Tsurumibashi shopping arcade."],"岸里":["西成区役所直結、南海本線の駅も徒歩圏内。", "Directly connected to the Nishinari ward office, with a Nankai Line station within walking distance."],"玉出":["国道が交わる交差点、西成に続く下町の雰囲気。", "Busy intersection on Route 26 sharing the same working-class feel as neighboring Nishinari."],"北加賀屋":["旧造船所跡地に生まれた、アートの新名所。", "Former shipyard reborn as a creative arts hub at Creative Center Osaka."],"住之江公園":["競艇場に隣接、ニュートラムの乗換駅。", "Transfer point to the Nanko Port Town Line (Neutram), right next to the Suminoe boat race stadium."],"夢洲":["2025年開業、大阪・関西万博会場への玄関口。", "Gateway station to the Expo 2025 Osaka-Kansai site, opened in January 2025."],"コスモスクエア":["国際展示場やATCが集まる海辺の拠点。", "Bayside hub anchored by the INTEX Osaka convention center and the ATC complex."],"大阪港":["海遊館と天保山大観覧車、ベイエリアの観光拠点。", "Kaiyukan Aquarium and the giant Tempozan Ferris wheel anchor this bayside tourist spot."],"朝潮橋":["大阪プールと中央体育館、芝生広がる公園前。", "Home to Asahi Pool, the Chuo Gymnasium and a grassy park right outside."],"弁天町":["オーサカベイタワーの高層ビルと大型商業施設。", "Anchored by Osaka Bay Tower's high-rise and a sprawling shopping mall."],"九条":["キララ九条とナインモール、京セラドームも近い。", "Kirara and Nine Mall shopping arcades, with Kyocera Dome Osaka nearby."],"阿波座":["本町に続くオフィス街、靭公園も徒歩圏。", "Office district bordering Honmachi, with Utsubo Park within walking distance."],"堺筋本町":["船場センタービル直結、繊維問屋街の中心。", "Directly linked to Semba Center Building, hub of the textile wholesale district."],"森ノ宮":["大阪城公園はすぐそこ、天守閣も望める。", "Osaka Castle Park is right outside, with the castle tower in view."],"緑橋":["商店街が連なる住宅地、みどり公園も。", "Residential area with a string of shopping streets and a small riverside park."],"深江橋":["マンション立ち並ぶ静かな住宅街。", "A quiet residential neighborhood lined with apartment blocks."],"高井田":["ご当地ラーメン店が並ぶ下町エリア。", "Old-town area known for its local Takaida ramen shops."],"長田":["フレスポ長田や東大阪市役所も近い。", "Near the Fresupo Nagata mall and Higashi-Osaka city hall."],"野田阪神":["野田新橋筋商店街とアーケードの街。", "Arcade town centered on the Noda Shimbashisuji shopping street."],"玉川":["中央卸売市場や新橋筋商店街に近い。", "Close to the Osaka Central Wholesale Market and Shimbashisuji arcade."],"西長堀":["大阪市立中央図書館がすぐそば。", "Home to the Osaka City Central Library, just steps from the exit."],"桜川":["道頓堀川沿いのオフィスとマンション街。", "Office and apartment district beside the Dotonbori River."],"日本橋":["でんでんタウンに直結、電気とオタク文化の街。", "Gateway to Den Den Town, Osaka's electronics and otaku culture district."],"鶴橋":["コリアタウンと焼肉店がひしめく市場。", "Osaka's Koreatown market, packed with yakiniku restaurants."],"今里":["今里新橋通など商店街が連なる街。", "Shopping streets like Imazato-shimbashi-dori thread through the neighborhood."],"新深江":["今里から続く商店街のある住宅地。", "Residential area with a shopping street continuing from Imazato."],"小路":["区画整理された落ち着いた住宅地。", "A tidy, quiet residential neighborhood near the Kintetsu lines."],"北巽":["高層マンションと商業施設が並ぶ街。", "Urban district lined with high-rise apartments and shopping facilities."],"南巽":["千日前線の終着駅、巽東緑地が近い住宅地。", "Terminus of the Sennichimae Line, near Tatsumihigashi Green Park."],"扇町":["扇町公園とキッズプラザ大阪がある街。", "Home to Ogimachi Park and the Kids Plaza Osaka museum."],"北浜":["大阪取引所と適塾、金融と歴史の街。", "Finance district anchored by the Osaka Exchange and historic Tekijuku school."],"長堀橋":["アメリカ村や心斎橋筋にすぐ出られる。", "Steps from Amerika-mura and the Shinsaibashi-suji shopping arcade."],"恵美須町":["通天閣と新世界のレトロな下町。", "Retro old-town feel by Tsutenkaku Tower and Shinsekai."],"天下茶屋":["秀吉ゆかりの茶屋跡、南海と接続する下町。", "Old-town stop tied to Hideyoshi's teahouse legend, linking with Nankai lines."],"大正":["リトル沖縄と呼ばれる沖縄料理店の集まる街。", "Known as Little Okinawa, packed with Okinawan restaurants and culture."],"ドーム前千代崎":["京セラドーム大阪の目の前、野球観戦の街。", "Right at the gates of Kyocera Dome Osaka, home turf of the Orix Buffaloes."],"西大橋":["堀江・新町に近いおしゃれなエリア。", "Trendy Horie and Shinmachi neighborhoods are within walking distance."],"松屋町":["人形と玩具の問屋街、通称まっちゃまち。", "Historic wholesale street for dolls and toys, nicknamed Matchamachi."],"玉造":["真田の抜け穴で知られる三光神社が近い。", "Near Sanko Shrine, famed for Sanada Yukimura's legendary escape tunnel."],"大阪ビジネスパーク":["高層ビル群のオフィス街、大阪城公園も目前。", "High-rise office towers (OBP) right beside Osaka Castle Park."],"京橋":["JR・京阪が交差する繁華街、昭和レトロな横丁も。", "Bustling hub where JR and Keihan lines cross, with Showa-retro back alleys."],"蒲生四丁目":["古民家を再生した「がもよん」の飲食街。", "Renovated old machiya houses form the trendy \"Gamo-yon\" dining district."],"今福鶴見":["イオンモール鶴見緑地に近い住宅地。", "Residential area near the Aeon Mall Tsurumi Ryokuchi shopping complex."],"横堤":["鶴見区役所に近い落ち着いた住宅地。", "Quiet residential area next to the Tsurumi ward office."],"鶴見緑地":["花の万博跡地の大公園、咲くやこの花館も。", "Vast park on the old Expo '90 grounds, home to the Sakuya Konohana Kan greenhouse."],"門真南":["路線の終点、住宅地に囲まれた静かな駅。", "The line's terminus, a quiet stop surrounded by residential streets."],"井高野":["今里筋線の起点、大阪経済大学も近い。", "Northern terminus of the Imazatosuji Line, near Osaka University of Economics."],"瑞光四丁目":["瑞光寺の珍しい鯨橋、大阪経済大学も近い。", "Zuiko-ji temple's unusual whale-bone bridge, near Osaka University of Economics."],"だいどう豊里":["旧大道村と豊里村の境、住宅と商店が並ぶ。", "Straddles the old villages of Daido and Toyosato, a mix of homes and shops."],"清水":["旭区の落ち着いた住宅街。", "A quiet residential neighborhood in Asahi Ward."],"新森古市":["大阪三大商店街の千林商店街が徒歩圏。", "Senbayashi, one of Osaka's three great shopping streets, is a short walk away."],"関目成育":["京阪関目駅と隣接、関目商店街も近い。", "Adjoins Keihan's Sekime Station, with the Sekime shopping street nearby."],"鴫野":["JR学研都市線と接続、第二寝屋川沿いの住宅地。", "Connects with the JR Gakkentoshi Line, in a residential area along the Neya River."],"トレードセンター前":["ATCとコスモタワーに直結する咲洲の駅。", "Directly connected to the ATC mall and Cosmo Tower on Sakishima island."],"中ふ頭":["西日本最大級のインテックス大阪へ徒歩すぐ。", "A short walk from Intex Osaka, one of western Japan's largest expo halls."],"ポートタウン西":["無人自動運転のニュートラムが走る高層住宅街。", "High-rise new-town homes served by the driverless, automated New Tram line."],"ポートタウン東":["咲洲の住宅街、ショッピングセンターも併設。", "Residential heart of the Nanko new town, with its own shopping center."],"フェリーターミナル":["さんふらわあ号が発着する乗り場に直結。", "Directly connects to the Sunflower ferry landing for Beppu and Shibushi."],"南港東":["倉庫や物流拠点が広がる港湾エリア。", "Industrial port area lined with warehouses and logistics centers."],"南港口":["閑静な住宅地にある静かな駅。", "A quiet stop in a peaceful residential pocket of Nanko."],"平林":["かつて木材の貯木場で栄えた工業地帯。", "An industrial district that once thrived around Osaka's timber storage ponds."]};
+
+
+
+// ---------- i18n ----------
+
+const LINE_I18N = {
+  OM: { en: 'Midosuji Line', zh: '御堂筋线' },
+  OT: { en: 'Tanimachi Line', zh: '谷町线' },
+  OY: { en: 'Yotsubashi Line', zh: '四桥线' },
+  OC: { en: 'Chuo Line', zh: '中央线' },
+  OS: { en: 'Sennichimae Line', zh: '千日前线' },
+  OK: { en: 'Sakaisuji Line', zh: '堺筋线' },
+  ON: { en: 'Nagahori Tsurumi-ryokuchi Line', zh: '长堀鹤见绿地线' },
+  OI: { en: 'Imazatosuji Line', zh: '今里筋线' },
+  OP: { en: 'Nanko Port Town Line (New Tram)', zh: '南港港城线（新电车）' }
+};
+
+const OP_I18N = {
+  osakametro: { en: 'Osaka Metro', zh: '大阪地铁' }
+};
+
+const T = {
+  ja: {
+    docTitle: 'メトロ駅ガチャ | 東京メトロ・都営地下鉄の13路線からランダムに駅を選ぶ',
+    h1: '🚇 メトロ駅ガチャ',
+    sub: 'ボタンを押すと路線と駅のガチャを回せます',
+    placeholder: '下のボタンを押してスタート',
+    go: 'ガチャを回す',
+    shareLabel: 'この結果をシェア',
+    post: 'ポスト',
+    copy: 'リンクをコピー',
+    copied: 'コピーしました ✓',
+    mapLink: 'Googleマップで見る',
+    hist: '履歴',
+    clearAll: 'すべて削除',
+    restore: 'この駅を表示',
+    spotsTitle: '周辺スポット',
+    spotsLoading: '周辺スポットを探しています…',
+    prHead: 'お出かけのおともに',
+    aboutTitle: 'メトロ駅ガチャとは',
+    aboutP1: '東京メトロの全9路線と都営地下鉄の全4路線、あわせて13路線291駅の中から、ボタンひとつでランダムに1駅を選んでくれます。行き先に迷ったときの途中下車、休日のお散歩コース選び、近場の小旅行、街歩きの目的地決め、YouTubeの企画などに使えます。事業者や路線を絞り込めば、東京メトロだけ・都営地下鉄だけ・特定の沿線だけから駅を選ぶこともできます。',
+    aboutLinesTitle: '対応している路線',
+    howTitle: '使い方',
+    howP: '「ガチャを回す」ボタンを押すと、ルーレットのように路線と駅が回転し、最終的に1駅が決まります。上部の「東京メトロ」「都営地下鉄」チップで事業者ごとにまとめて、路線チップで個別にオン・オフを切り替えられます。直近の結果は履歴として表示されます。',
+    share: r => `メトロ駅ガチャの結果は「${lineName(r.line)} ${r.st[0]}駅（${r.line.sym}${num2(r.line, r.idx)}）」でした！🚇 #メトロ駅ガチャ`
+  },
+  en: {
+    docTitle: 'Osaka Metro Station Gacha | Random station picker across all 9 Osaka Metro lines',
+    h1: '🚇 Osaka Metro Station Gacha',
+    sub: 'Press the button to spin for a random line and station',
+    placeholder: 'Press the button below to start',
+    go: 'Spin the Gacha',
+    shareLabel: 'Share this result',
+    post: 'Post',
+    copy: 'Copy link',
+    copied: 'Copied ✓',
+    mapLink: 'View on Google Maps',
+    hist: 'History',
+    clearAll: 'Clear all',
+    restore: 'Show this station',
+    histEmpty: 'No history yet',
+    menu: 'Menu',
+    spotsTitle: 'Nearby spots',
+    spotsLoading: 'Finding nearby spots…',
+    prHead: 'For your outing',
+    aboutTitle: 'About Osaka Metro Station Gacha',
+    aboutP1: 'Picks one random station from all 134 stations across Osaka Metro\'s 9 lines at the press of a button. Great for spontaneous stopovers, weekend walks, mini trips, choosing your next place to explore in Osaka — even YouTube video ideas. Filter by line to draw stations only from the ones you select. The name "gacha" comes from Japanese capsule-toy vending machines (gachapon) — you never know what comes out!',
+    aboutLinesTitle: 'Supported lines',
+    howTitle: 'How to use',
+    howP: 'Press the "Spin the Gacha" button and the roulette will cycle through lines and stations before landing on one. Tap the line chips to fine-tune which lines are included. Your recent results are kept in the history.',
+    share: r => `I spun the Osaka Metro Station Gacha and got "${r.st[1]} Station (${lineName(r.line)}, ${r.line.sym}${num2(r.line,r.idx)})"! 🚇 #OsakaMetroStationGacha`
+  },
+  zh: {
+    docTitle: '地铁站扭蛋 | 从东京地铁·都营地铁13条线路随机抽选车站',
+    h1: '🚇 地铁站扭蛋',
+    sub: '按下按钮，随机抽选线路和车站',
+    placeholder: '点击下方按钮开始',
+    go: '转扭蛋',
+    shareLabel: '分享这个结果',
+    post: '发布',
+    copy: '复制链接',
+    copied: '已复制 ✓',
+    mapLink: '在谷歌地图中查看',
+    hist: '历史记录',
+    clearAll: '全部删除',
+    restore: '显示该车站',
+    spotsTitle: '周边地点',
+    spotsLoading: '正在查找周边地点…',
+    prHead: '出行好物',
+    aboutTitle: '关于地铁站扭蛋',
+    aboutP1: '只需按一下按钮，即可从东京地铁全部9条线路与都营地铁全部4条线路、共13条线路291个车站中随机抽选1站。适合随性下车、周末散步、近郊小旅行、为城市漫步挑选目的地，也可用于YouTube企划等。还可以按运营公司或线路筛选，只从特定线路中抽选车站。',
+    aboutLinesTitle: '支持的线路',
+    howTitle: '使用方法',
+    howP: '按下「转扭蛋」按钮，线路和车站会像轮盘一样旋转，最终确定1站。点击上方的「东京地铁」「都营地铁」标签可整体切换运营公司，点击线路标签可单独筛选。最近的结果会保存在历史记录中。',
+    share: r => `地铁站扭蛋抽到了「${r.st[0]}站（${lineName(r.line)} ${r.line.sym}${num2(r.line, r.idx)}）」！🚇 #地铁站扭蛋`
+  }
+};
+
+const LANG_KEY = 'metroGachaLang';
+// このページのURLが示す言語を常に表示（/ = ja, /en/ = en, /zh/ = zh）
+let lang = 'en';
+
+function t(key){ return T[lang][key]; }
+function num2(line, i){ return String(i + line.numStart).padStart(2,'0'); }
+function lineName(line){ return lang === 'ja' ? line.name : LINE_I18N[line.key][lang]; }
+function opName(op){ return lang === 'ja' ? op.name : OP_I18N[op.key][lang]; }
+// ---------- /i18n ----------
+
+const opsEl = document.getElementById('ops');
+const linesEl = document.getElementById('lines');
+const active = new Set(LINES.map(l=>l.key));
+const chipEls = [];
+const opChipEls = [];
+
+// 事業者チップ: 配下の路線をまとめてオン・オフする
+OPERATORS.forEach(op=>{
+  const c = document.createElement('div');
+  c.className = 'op-chip';
+  c.dataset.op = op.key;
+  c.onclick = ()=>{
+    const keys = LINES.filter(l=>l.op === op.key).map(l=>l.key);
+    const on = keys.filter(k=>active.has(k));
+    if(on.length){
+      if(on.length >= active.size) return; // 全路線オフになる操作は無視
+      keys.forEach(k=>active.delete(k));
+    } else {
+      keys.forEach(k=>active.add(k));
+    }
+    syncChips();
+  };
+  opChipEls.push([c, op]);
+  opsEl.appendChild(c);
+});
+
+LINES.forEach(l=>{
+  const c = document.createElement('div');
+  c.className = 'chip';
+  c.dataset.key = l.key;
+  c.onclick = ()=>{
+    if(active.has(l.key)){ if(active.size>1) active.delete(l.key); }
+    else active.add(l.key);
+    syncChips();
+  };
+  chipEls.push([c, l]);
+  linesEl.appendChild(c);
+});
+
+// active の内容をチップの表示状態へ反映する
+function syncChips(){
+  chipEls.forEach(([c, l])=> c.classList.toggle('off', !active.has(l.key)));
+  opChipEls.forEach(([c, op])=>
+    c.classList.toggle('off', !LINES.some(l=>l.op === op.key && active.has(l.key))));
+}
+
+function renderChips(){
+  chipEls.forEach(([c, l])=>{
+    c.innerHTML = `<span class="dot" style="background:${l.color}"></span>${lineName(l)}`;
+  });
+  opChipEls.forEach(([c, op])=>{ c.textContent = opName(op); });
+  syncChips();
+}
+
+const card = document.getElementById('card');
+const go = document.getElementById('go');
+const histEl = document.getElementById('hist');
+const histHead = document.getElementById('histHead');
+const histClear = document.getElementById('histClear');
+const histEmpty = document.getElementById('histEmpty');
+
+// ---------- ハンバーガーメニュー（履歴ドロワー） ----------
+const menuBtn = document.getElementById('menuBtn');
+const drawer = document.getElementById('drawer');
+const drawerOverlay = document.getElementById('drawerOverlay');
+const drawerClose = document.getElementById('drawerClose');
+function openDrawer(){
+  drawer.classList.add('open');
+  drawerOverlay.hidden = false;
+  drawer.setAttribute('aria-hidden', 'false');
+  menuBtn.setAttribute('aria-expanded', 'true');
+}
+function closeDrawer(){
+  drawer.classList.remove('open');
+  drawerOverlay.hidden = true;
+  drawer.setAttribute('aria-hidden', 'true');
+  menuBtn.setAttribute('aria-expanded', 'false');
+}
+menuBtn.addEventListener('click', ()=> drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+drawerOverlay.addEventListener('click', closeDrawer);
+drawerClose.addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeDrawer(); });
+
+const LINE_MAP = Object.fromEntries(LINES.map(l=>[l.key, l]));
+const HIST_KEY = 'metroGachaHistory';
+const HIST_MAX = 10;
+let history = [];
+try {
+  const saved = JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
+  if (Array.isArray(saved)) {
+    history = saved.filter(h => h && LINE_MAP[h.k] && LINE_MAP[h.k].stations[h.i]).slice(0, HIST_MAX);
+  }
+} catch(e) { history = []; }
+
+function saveHist(){
+  try {
+    if (history.length) localStorage.setItem(HIST_KEY, JSON.stringify(history));
+    else localStorage.removeItem(HIST_KEY);
+  } catch(e) { /* プライベートモード等で保存できない場合は無視 */ }
+}
+
+function renderHist(){
+  const empty = history.length === 0;
+  histHead.hidden = empty;
+  histEmpty.hidden = !empty;
+  histEl.innerHTML = history.map((h, i)=>{
+    const line = LINE_MAP[h.k];
+    const st = line.stations[h.i];
+    const n = num2(line, h.i);
+    const stName = lang === 'en' ? st[1] : st[0];
+    return `<div class="hist-item"><button class="hist-restore" data-i="${i}" type="button" title="${t('restore')}"><span class="d" style="background:${line.color}"></span>${stName} <span style="color:#8a96b8">（${lineName(line)} ${line.sym}${n}）</span></button><button class="hist-del" data-i="${i}" type="button" aria-label="delete">✕</button></div>`;
+  }).join('');
+}
+
+histEl.addEventListener('click', e=>{
+  const del = e.target.closest('.hist-del');
+  if(del){
+    history.splice(Number(del.dataset.i), 1);
+    saveHist();
+    renderHist();
+    return;
+  }
+  const restore = e.target.closest('.hist-restore');
+  if(!restore) return;
+  const h = history[Number(restore.dataset.i)];
+  const line = h && LINE_MAP[h.k];
+  if(!line || !line.stations[h.i]) return;
+  const r = { line, st: line.stations[h.i], idx: h.i };
+  lastResult = r;
+  render(r, false);
+  updateShare(r);
+  loadNearby(r);
+  closeDrawer();
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+
+histClear.onclick = ()=>{
+  history = [];
+  saveHist();
+  renderHist();
+};
+
+const SITE_URL = 'https://metrandom.com/en/';
+const shareEl = document.getElementById('share');
+const shareX = document.getElementById('shareX');
+const shareLine = document.getElementById('shareLine');
+const shareCopy = document.getElementById('shareCopy');
+
+
+// 結果の共有URL。全駅に静的な結果ページがあるためそちらを使う（?s= は旧リンクの後方互換用）。
+function shareUrl(r){
+  const base = `https://metrandom.com/${lang === 'ja' ? '' : lang + '/'}`;
+  const code = r.line.key + num2(r.line, r.idx);
+  return `${base}s/${code}/`;
+}
+function updateShare(r){
+  const text = T[lang].share(r);
+  const resultUrl = shareUrl(r);
+  const full = text + ' ' + resultUrl;
+  shareX.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(resultUrl)}`;
+  shareLine.href = `https://line.me/R/share?text=${encodeURIComponent(full)}`;
+  shareLine.target = '_blank'; shareLine.rel = 'noopener';
+  shareCopy.textContent = t('copy');
+  shareCopy.onclick = async ()=>{
+    try {
+      if (navigator.share) { await navigator.share({ text, url: resultUrl }); return; }
+      await navigator.clipboard.writeText(full);
+      shareCopy.textContent = t('copied');
+      setTimeout(()=>{ shareCopy.textContent = t('copy'); }, 1600);
+    } catch(e){ /* ユーザーがキャンセルした場合などは無視 */ }
+  };
+  shareEl.hidden = false;
+}
+
+function pick(){
+  // 全駅均等: 有効路線の全駅を1つのプールにして一律確率で選ぶ
+  const pool = [];
+  LINES.forEach(l => {
+    if (!active.has(l.key)) return;
+    l.stations.forEach((st, idx) => pool.push({ line: l, st, idx }));
+  });
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+let lastResult = null;
+
+function render(r, spinning){
+  const num = num2(r.line, r.idx);
+  card.className = 'card' + (spinning?' spinning':'');
+  card.innerHTML = `
+    <div class="line-badge" style="background:${r.line.color}">
+      <span class="sym" style="color:${r.line.color}">${r.line.sym}${num}</span>${lineName(r.line)}
+    </div>
+    <div class="station">${r.st[0]}</div>
+    <div class="station-en">${r.st[1]}</div>
+    <div class="num">${lineName(r.line)} ${r.line.sym}${num}</div>
+    ${spinning ? '' : `<div class="card-guide">${(GUIDES[r.st[0]] || ['',''])[lang === 'ja' ? 0 : 1]}</div><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.st[0]+'駅 '+r.line.name)}" target="_blank" rel="noopener">📍 ${t('mapLink')}</a>`}`;
+}
+
+go.onclick = ()=>{
+  go.disabled = true;
+  shareEl.hidden = true;
+  spotsEl.hidden = true;
+  spotsReqId++;
+  let n = 0;
+  const total = 14;
+  const timer = setInterval(()=>{
+    render(pick(), true);
+    if(++n >= total){
+      clearInterval(timer);
+      const final = pick();
+      lastResult = final;
+      render(final, false);
+      addHist(final);
+      updateShare(final);
+      loadNearby(final);
+      go.disabled = false;
+    }
+  }, 70);
+};
+
+function addHist(r){
+  history.unshift({ k: r.line.key, i: r.idx });
+  if(history.length > HIST_MAX) history.pop();
+  saveHist();
+  renderHist();
+}
+
+// ---------- 周辺スポット (Foursquare) ----------
+// Worker のエンドポイント。独自ドメインを Cloudflare 管理にしている場合は
+// 同一オリジンの /api/spots に割り当て可能。workers.dev を使う場合はそのURLに変更。
+const SPOTS_API = '/api/spots';
+const spotsEl = document.getElementById('spots');
+const spotsList = document.getElementById('spotsList');
+const spotsTitleEl = document.getElementById('spotsTitle');
+const spotsCache = {};
+let spotsReqId = 0;
+
+function stationCode(r){ return r.line.key + num2(r.line, r.idx); }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function distLabel(d){ if(d == null) return ''; return d < 1000 ? `${d}m` : `${(d/1000).toFixed(1)}km`; }
+
+function renderSpots(list, stationName){
+  if(!list || !list.length){ spotsEl.hidden = true; return; }
+  spotsEl.hidden = false;
+  spotsTitleEl.textContent = t('spotsTitle');
+  spotsList.innerHTML = list.map(s => {
+    // クリック時は Google マップを「スポット名 + 駅名」で検索して開く。
+    const query = stationName ? `${s.name} ${stationName}` : s.name;
+    const href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+    return `<a class="spot-item" href="${href}" target="_blank" rel="noopener">`
+      + (s.photo ? `<img class="spot-thumb" src="${esc(s.photo)}" alt="" loading="lazy">` : '')
+      + `<span class="spot-body"><span class="spot-name">${esc(s.name)}</span>`
+      + (s.category ? `<span class="spot-meta">${esc(s.category)}</span>` : '')
+      + (s.tip ? `<span class="spot-tip">💬 ${esc(s.tip)}</span>` : '')
+      + `</span><span class="spot-dist">${distLabel(s.distance)}</span></a>`;
+  }).join('');
+}
+
+async function loadNearby(r){
+  const code = stationCode(r);
+  const stationName = r.st[0];
+  if(spotsCache[code]){ renderSpots(spotsCache[code], stationName); return; }
+  const reqId = ++spotsReqId;
+  spotsEl.hidden = false;
+  spotsTitleEl.textContent = t('spotsTitle');
+  spotsList.innerHTML = `<div class="spots-status">${esc(t('spotsLoading'))}</div>`;
+  try {
+    const res = await fetch(`${SPOTS_API}?code=${encodeURIComponent(code)}&lang=${encodeURIComponent(lang)}`);
+    if(!res.ok) throw new Error('http ' + res.status);
+    const data = await res.json();
+    if(reqId !== spotsReqId) return; // 新しい駅が選ばれていたら破棄
+    const spots = Array.isArray(data.spots) ? data.spots : [];
+    spotsCache[code] = spots;
+    renderSpots(spots, stationName);
+  } catch(e){
+    if(reqId !== spotsReqId) return;
+    spotsEl.hidden = true; // 取得失敗時は静かに非表示（ガチャ本体には影響させない）
+  }
+}
+
+// ---------- 言語適用 ----------
+const langsEl = document.getElementById('langs');
+
+function applyLang(){
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+  document.title = t('docTitle');
+  document.getElementById('appTitle').textContent = t('h1');
+  document.getElementById('appSub').textContent = t('sub');
+  const ph = document.getElementById('placeholder');
+  if (ph) ph.textContent = t('placeholder');
+  go.textContent = t('go');
+  document.getElementById('shareLabel').textContent = t('shareLabel');
+  document.getElementById('shareXLabel').textContent = t('post');
+  document.getElementById('histTitle').textContent = t('hist');
+  histClear.textContent = t('clearAll');
+  histEmpty.textContent = t('histEmpty');
+  menuBtn.setAttribute('aria-label', t('menu'));
+  spotsTitleEl.textContent = t('spotsTitle');
+  document.getElementById('prHeadLabel').textContent = t('prHead');
+  document.getElementById('aboutTitle').textContent = t('aboutTitle');
+  document.getElementById('aboutP1').textContent = t('aboutP1');
+  document.getElementById('aboutLinesTitle').textContent = t('aboutLinesTitle');
+  document.getElementById('howTitle').textContent = t('howTitle');
+  document.getElementById('howP').textContent = t('howP');
+  document.getElementById('aboutLines').innerHTML =
+    LINES.map(l => `<li>${lineName(l)}（${l.sym}）</li>`).join('');
+  langsEl.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  renderChips();
+  renderHist();
+  if (lastResult) { render(lastResult, false); updateShare(lastResult); }
+}
+
+langsEl.addEventListener('click', e=>{
+  const b = e.target.closest('button[data-lang]');
+  if(!b || b.dataset.lang === lang) return;
+  const next = b.dataset.lang;
+  try { localStorage.setItem(LANG_KEY, next); } catch(err){}
+  // 言語に対応するパスへ遷移（/ = ja, /en/ = en, /zh/ = zh）
+  location.href = next === 'ja' ? '/osaka/' : '/' + next + '/osaka/';
+});
+
+// 共有リンク(?s=E23)で開かれたときは、その駅の結果を復元して表示する
+(function restoreFromQuery(){
+  const code = (new URLSearchParams(location.search).get('s') || '').toUpperCase();
+  const m = /^([A-Z]{1,2})(\d{2})$/.exec(code);
+  if(!m) return;
+  const line = LINE_MAP[m[1]];
+  if(!line) return;
+  const idx = Number(m[2]) - line.numStart;
+  if(!line.stations[idx]) return;
+  lastResult = { line, st: line.stations[idx], idx };
+  render(lastResult, false);
+  updateShare(lastResult);
+  loadNearby(lastResult);
+})();
+
+applyLang();
+
+// Service Worker 登録（PWA）
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
