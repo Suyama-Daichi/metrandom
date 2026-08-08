@@ -1,9 +1,11 @@
-// 全291駅ぶんの駅別シェアページ (/s, /en/s, /zh/s) を生成し、
+// 全291駅（東京メトロ・都営）+ 134駅（大阪メトロ）ぶんの駅別シェアページ
+// (/s, /en/s, /zh/s, /osaka/s, /en/osaka/s, /zh/osaka/s) を生成し、
 // sitemap.xml に未掲載のURLがあれば追記するスクリプト。
 //
-// index.html の LINES/GUIDES/LINE_I18N を読み込んで、東京メトロ・都営地下鉄
-// 両方の駅ページを再生成する（駅名やガイド文を更新したときの再実行用）。
-// OGP画像 (og/{code}.jpg) は別途生成が必要（このスクリプトでは作らない）。
+// index.html / osaka/index.html それぞれの LINES/GUIDES/LINE_I18N を読み込んで
+// 駅ページを再生成する（駅名やガイド文を更新したときの再実行用）。
+// OGP画像 (og/{code}.jpg, og/osaka/{code}.jpg) は別途生成が必要
+// （このスクリプトでは作らない）。
 //
 // 実行: node scripts/generate-station-pages.mjs
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
@@ -13,24 +15,29 @@ import { dirname, join } from 'node:path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 
-const html = await readFile(join(ROOT, 'index.html'), 'utf8');
-
-function extract(name) {
+function extractFrom(html, name) {
   const m = html.match(new RegExp(`const ${name} = (\\{[\\s\\S]*?\\});\\n`));
-  if (!m) throw new Error(`${name} not found in index.html`);
+  if (!m) throw new Error(`${name} not found`);
   return (0, eval)(`(${m[1]})`);
 }
-function extractLines() {
+function extractLinesFrom(html) {
   const m = html.match(/const LINES = (\[[\s\S]*?\n\]);/);
-  if (!m) throw new Error('LINES not found in index.html');
+  if (!m) throw new Error('LINES not found');
   return (0, eval)(m[1]);
 }
 
-const LINES = extractLines();
-const GUIDES = extract('GUIDES');
-const LINE_I18N = extract('LINE_I18N');
+const tokyoHtml = await readFile(join(ROOT, 'index.html'), 'utf8');
+const LINES = extractLinesFrom(tokyoHtml);
+const GUIDES = extractFrom(tokyoHtml, 'GUIDES');
+const LINE_I18N = extractFrom(tokyoHtml, 'LINE_I18N');
+
+const osakaHtml = await readFile(join(ROOT, 'osaka', 'index.html'), 'utf8');
+const OSAKA_LINES = extractLinesFrom(osakaHtml);
+const OSAKA_GUIDES = extractFrom(osakaHtml, 'GUIDES');
+const OSAKA_LINE_I18N = extractFrom(osakaHtml, 'LINE_I18N');
 
 const num2 = i => String(i + 1).padStart(2, '0');
+const num2Osaka = (line, i) => String(i + line.numStart).padStart(2, '0');
 
 function mapsQuery(stationJa, lineNameJa) {
   return encodeURIComponent(`${stationJa}駅 ${lineNameJa}`);
@@ -384,6 +391,332 @@ ${jsonLd({
 `;
 }
 
+// ---------- 大阪メトロ版（/osaka/s, /en/osaka/s, /zh/osaka/s） ----------
+// 東京版とほぼ同じテンプレートだが、ブランド名・免責事項・OGP画像パス
+// (og/osaka/{code}.jpg)・駅数などが異なるため専用関数として複製している
+// （このファイルの他関数と同様、多少の重複は許容するスタイル）。
+
+function pageJaOsaka({ code, stationJa, stationEn, lineNameJa, lineColor, guideJa }) {
+  return `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZFZ05FF6E9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZFZ05FF6E9');
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x2pr31qy85");
+</script>
+<title>${stationJa}駅（${lineNameJa} ${code}）が出ました！ | 大阪メトロ駅ガチャ</title>
+<meta name="description" content="大阪メトロ駅ガチャの結果は「${lineNameJa} ${stationJa}駅（${code}）」でした。大阪メトロ全9路線・134駅からランダムに1駅を選ぶ無料Webアプリ。あなたも回してみよう！">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://metrandom.com/osaka/s/${code}/">
+<link rel="alternate" hreflang="ja" href="https://metrandom.com/osaka/s/${code}/">
+<link rel="alternate" hreflang="en" href="https://metrandom.com/en/osaka/s/${code}/">
+<link rel="alternate" hreflang="zh" href="https://metrandom.com/zh/osaka/s/${code}/">
+<link rel="alternate" hreflang="x-default" href="https://metrandom.com/en/osaka/s/${code}/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="大阪メトロ駅ガチャ">
+<meta property="og:title" content="${stationJa}駅が出ました！｜大阪メトロ駅ガチャ">
+<meta property="og:description" content="ガチャ結果:「${lineNameJa} ${stationJa}駅（${code}）」。大阪メトロ全9路線・134駅からランダムに1駅。あなたも回してみよう！">
+<meta property="og:url" content="https://metrandom.com/osaka/s/${code}/">
+<meta property="og:image" content="https://metrandom.com/og/osaka/${code}.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${stationJa}駅が出ました！｜大阪メトロ駅ガチャ">
+<meta name="twitter:description" content="ガチャ結果:「${lineNameJa} ${stationJa}駅（${code}）」。大阪メトロ全9路線・134駅からランダムに1駅。あなたも回してみよう！">
+<meta name="twitter:image" content="https://metrandom.com/og/osaka/${code}.jpg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0f1626">
+<!-- 構造化データ -->
+${jsonLd({
+    lang: 'ja',
+    code,
+    stationJa,
+    stationEn,
+    pageTitle: `${stationJa}駅（${lineNameJa} ${code}）が出ました！ | 大阪メトロ駅ガチャ`,
+    pageUrl: `https://metrandom.com/osaka/s/${code}/`,
+    siteName: '大阪メトロ駅ガチャ',
+    siteUrl: 'https://metrandom.com/osaka/',
+    homeLabel: '大阪メトロ駅ガチャ',
+    stationLabel: `${stationJa}駅（${lineNameJa} ${code}）`,
+  })}
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    background: linear-gradient(160deg, #1a2238 0%, #0f1626 100%); color: #fff; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px 48px; }
+  h1 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+  .label { color: #9aa6c4; font-size: .8rem; margin-bottom: 20px; }
+  .card { width: 100%; max-width: 420px; background: rgba(255,255,255,.06); border-radius: 24px;
+    padding: 36px 28px; text-align: center; border: 1px solid rgba(255,255,255,.1);
+    box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+  .line-badge { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px;
+    border-radius: 999px; font-weight: 700; font-size: 1rem; margin-bottom: 18px; color: #fff; }
+  .line-badge .sym { width: 44px; height: 30px; border-radius: 15px; background: #fff;
+    display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: .85rem; }
+  .station { font-size: 2.6rem; font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .station-en { color: #9aa6c4; font-size: .95rem; letter-spacing: .05em; }
+  .guide { margin-top: 14px; color: #b6c0db; font-size: .85rem; line-height: 1.6; }
+  a.map { display: inline-block; margin-top: 20px; padding: 12px 32px; font-size: .95rem;
+    border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: #d4dcf0; text-decoration: none; }
+  a.go { display: inline-block; margin-top: 16px; padding: 16px 48px; font-size: 1.1rem; font-weight: 700;
+    border-radius: 999px; color: #1a2238; text-decoration: none;
+    background: linear-gradient(135deg, #ffd84d, #ffb300); box-shadow: 0 8px 24px rgba(255,180,0,.35); }
+  footer { margin-top: 36px; color: #6b769a; font-size: .78rem; text-align: center; }
+  footer a { color: #9aa6c4; }
+</style>
+</head>
+<body>
+  <h1>🚇 大阪メトロ駅ガチャ</h1>
+  <div class="label">ガチャ結果</div>
+  <div class="card">
+    <div class="line-badge" style="background:${lineColor}">
+      <span class="sym" style="color:${lineColor}">${code}</span>${lineNameJa}
+    </div>
+    <div class="station">${stationJa}</div>
+    <div class="station-en">${stationEn}</div>
+    <div class="guide">${guideJa}</div>
+  </div>
+  <a class="map" href="https://www.google.com/maps/search/?api=1&query=${mapsQuery(stationJa, lineNameJa)}" target="_blank" rel="noopener">📍 Googleマップで見る</a>
+  <a class="go" href="/osaka/">自分もガチャを回す 🎲</a>
+  <footer>
+    <p style="margin-bottom:8px">本サイトは非公式のファンサイトであり、大阪市高速電気軌道株式会社（Osaka Metro）とは一切関係ありません。</p>
+    <a href="/osaka/">大阪メトロ駅ガチャ</a> ・ <a href="/privacy/">プライバシーポリシー</a>
+  </footer>
+</body>
+</html>
+`;
+}
+
+function pageEnOsaka({ code, stationJa, stationEn, lineNameJa, lineNameEn, lineColor, guideEn }) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZFZ05FF6E9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZFZ05FF6E9');
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x2pr31qy85");
+</script>
+<title>You got ${stationEn} Station (${lineNameEn} ${code})! | Osaka Metro Station Gacha</title>
+<meta name="description" content="Osaka Metro Station Gacha result: ${stationEn} Station (${lineNameEn}, ${code}). A free web app that picks one random station from 134 Osaka Metro stations. Spin yours!">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://metrandom.com/en/osaka/s/${code}/">
+<link rel="alternate" hreflang="ja" href="https://metrandom.com/osaka/s/${code}/">
+<link rel="alternate" hreflang="en" href="https://metrandom.com/en/osaka/s/${code}/">
+<link rel="alternate" hreflang="zh" href="https://metrandom.com/zh/osaka/s/${code}/">
+<link rel="alternate" hreflang="x-default" href="https://metrandom.com/en/osaka/s/${code}/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Osaka Metro Station Gacha">
+<meta property="og:title" content="You got ${stationEn} Station! | Osaka Metro Station Gacha">
+<meta property="og:description" content="Gacha result: ${stationEn} Station (${lineNameEn}, ${code}). One random pick from 134 Osaka Metro stations — try your luck!">
+<meta property="og:url" content="https://metrandom.com/en/osaka/s/${code}/">
+<meta property="og:image" content="https://metrandom.com/og/osaka/${code}.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="You got ${stationEn} Station! | Osaka Metro Station Gacha">
+<meta name="twitter:description" content="Gacha result: ${stationEn} Station (${lineNameEn}, ${code}). One random pick from 134 Osaka Metro stations — try your luck!">
+<meta name="twitter:image" content="https://metrandom.com/og/osaka/${code}.jpg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0f1626">
+<!-- 構造化データ -->
+${jsonLd({
+    lang: 'en',
+    code,
+    stationJa,
+    stationEn,
+    pageTitle: `You got ${stationEn} Station (${lineNameEn} ${code})! | Osaka Metro Station Gacha`,
+    pageUrl: `https://metrandom.com/en/osaka/s/${code}/`,
+    siteName: 'Osaka Metro Station Gacha',
+    siteUrl: 'https://metrandom.com/en/osaka/',
+    homeLabel: 'Osaka Metro Station Gacha',
+    stationLabel: `${stationEn} Station (${lineNameEn} ${code})`,
+  })}
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    background: linear-gradient(160deg, #1a2238 0%, #0f1626 100%); color: #fff; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px 48px; }
+  h1 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+  .label { color: #9aa6c4; font-size: .8rem; margin-bottom: 20px; }
+  .card { width: 100%; max-width: 420px; background: rgba(255,255,255,.06); border-radius: 24px;
+    padding: 36px 28px; text-align: center; border: 1px solid rgba(255,255,255,.1);
+    box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+  .line-badge { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px;
+    border-radius: 999px; font-weight: 700; font-size: 1rem; margin-bottom: 18px; color: #fff; }
+  .line-badge .sym { width: 44px; height: 30px; border-radius: 15px; background: #fff;
+    display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: .85rem; }
+  .station { font-size: 2.6rem; font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .station-en { color: #9aa6c4; font-size: .95rem; letter-spacing: .05em; }
+  .guide { margin-top: 14px; color: #b6c0db; font-size: .85rem; line-height: 1.6; }
+  a.map { display: inline-block; margin-top: 20px; padding: 12px 32px; font-size: .95rem;
+    border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: #d4dcf0; text-decoration: none; }
+  a.go { display: inline-block; margin-top: 16px; padding: 16px 48px; font-size: 1.1rem; font-weight: 700;
+    border-radius: 999px; color: #1a2238; text-decoration: none;
+    background: linear-gradient(135deg, #ffd84d, #ffb300); box-shadow: 0 8px 24px rgba(255,180,0,.35); }
+  footer { margin-top: 36px; color: #6b769a; font-size: .78rem; text-align: center; }
+  footer a { color: #9aa6c4; }
+</style>
+</head>
+<body>
+  <h1>🚇 Osaka Metro Station Gacha</h1>
+  <div class="label">Gacha result</div>
+  <div class="card">
+    <div class="line-badge" style="background:${lineColor}">
+      <span class="sym" style="color:${lineColor}">${code}</span>${lineNameEn}
+    </div>
+    <div class="station">${stationJa}</div>
+    <div class="station-en">${stationEn}</div>
+    <div class="guide">${guideEn}</div>
+  </div>
+  <a class="map" href="https://www.google.com/maps/search/?api=1&query=${mapsQuery(stationJa, lineNameJa)}" target="_blank" rel="noopener">📍 View on Google Maps</a>
+  <a class="go" href="/en/osaka/">Spin the Gacha yourself 🎲</a>
+  <footer>
+    <p style="margin-bottom:8px">This is an unofficial fan site and is not affiliated with Osaka Metro Co., Ltd.</p>
+    <a href="/en/osaka/">Osaka Metro Station Gacha</a> ・ <a href="/en/privacy/">Privacy Policy</a>
+  </footer>
+</body>
+</html>
+`;
+}
+
+function pageZhOsaka({ code, stationJa, stationEn, lineNameJa, lineNameZh, lineColor, guideEn }) {
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZFZ05FF6E9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZFZ05FF6E9');
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x2pr31qy85");
+</script>
+<title>抽到了${stationJa}站（${lineNameZh} ${code}）！ | 大阪地铁站扭蛋</title>
+<meta name="description" content="大阪地铁站扭蛋的结果是「${lineNameZh} ${stationJa}站（${code}）」。从大阪地铁全部9条线路134个车站中随机抽选1站的免费网页应用。你也来抽一发！">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://metrandom.com/zh/osaka/s/${code}/">
+<link rel="alternate" hreflang="ja" href="https://metrandom.com/osaka/s/${code}/">
+<link rel="alternate" hreflang="en" href="https://metrandom.com/en/osaka/s/${code}/">
+<link rel="alternate" hreflang="zh" href="https://metrandom.com/zh/osaka/s/${code}/">
+<link rel="alternate" hreflang="x-default" href="https://metrandom.com/en/osaka/s/${code}/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="大阪地铁站扭蛋">
+<meta property="og:title" content="抽到了${stationJa}站！｜大阪地铁站扭蛋">
+<meta property="og:description" content="扭蛋结果：「${lineNameZh} ${stationJa}站（${code}）」。从134个车站中随机抽选——你也试试手气！">
+<meta property="og:url" content="https://metrandom.com/zh/osaka/s/${code}/">
+<meta property="og:image" content="https://metrandom.com/og/osaka/${code}.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="抽到了${stationJa}站！｜大阪地铁站扭蛋">
+<meta name="twitter:description" content="扭蛋结果：「${lineNameZh} ${stationJa}站（${code}）」。从134个车站中随机抽选——你也试试手气！">
+<meta name="twitter:image" content="https://metrandom.com/og/osaka/${code}.jpg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0f1626">
+<!-- 構造化データ -->
+${jsonLd({
+    lang: 'zh',
+    code,
+    stationJa,
+    stationEn,
+    pageTitle: `抽到了${stationJa}站（${lineNameZh} ${code}）！ | 大阪地铁站扭蛋`,
+    pageUrl: `https://metrandom.com/zh/osaka/s/${code}/`,
+    siteName: '大阪地铁站扭蛋',
+    siteUrl: 'https://metrandom.com/zh/osaka/',
+    homeLabel: '大阪地铁站扭蛋',
+    stationLabel: `${stationJa}站（${lineNameZh} ${code}）`,
+  })}
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    background: linear-gradient(160deg, #1a2238 0%, #0f1626 100%); color: #fff; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px 48px; }
+  h1 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+  .label { color: #9aa6c4; font-size: .8rem; margin-bottom: 20px; }
+  .card { width: 100%; max-width: 420px; background: rgba(255,255,255,.06); border-radius: 24px;
+    padding: 36px 28px; text-align: center; border: 1px solid rgba(255,255,255,.1);
+    box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+  .line-badge { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px;
+    border-radius: 999px; font-weight: 700; font-size: 1rem; margin-bottom: 18px; color: #fff; }
+  .line-badge .sym { width: 44px; height: 30px; border-radius: 15px; background: #fff;
+    display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: .85rem; }
+  .station { font-size: 2.6rem; font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .station-en { color: #9aa6c4; font-size: .95rem; letter-spacing: .05em; }
+  .guide { margin-top: 14px; color: #b6c0db; font-size: .85rem; line-height: 1.6; }
+  a.map { display: inline-block; margin-top: 20px; padding: 12px 32px; font-size: .95rem;
+    border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: #d4dcf0; text-decoration: none; }
+  a.go { display: inline-block; margin-top: 16px; padding: 16px 48px; font-size: 1.1rem; font-weight: 700;
+    border-radius: 999px; color: #1a2238; text-decoration: none;
+    background: linear-gradient(135deg, #ffd84d, #ffb300); box-shadow: 0 8px 24px rgba(255,180,0,.35); }
+  footer { margin-top: 36px; color: #6b769a; font-size: .78rem; text-align: center; }
+  footer a { color: #9aa6c4; }
+</style>
+</head>
+<body>
+  <h1>🚇 大阪地铁站扭蛋</h1>
+  <div class="label">抽选结果</div>
+  <div class="card">
+    <div class="line-badge" style="background:${lineColor}">
+      <span class="sym" style="color:${lineColor}">${code}</span>${lineNameZh}
+    </div>
+    <div class="station">${stationJa}</div>
+    <div class="station-en">${stationEn}</div>
+    <div class="guide">${guideEn}</div>
+  </div>
+  <a class="map" href="https://www.google.com/maps/search/?api=1&query=${mapsQuery(stationJa, lineNameJa)}" target="_blank" rel="noopener">📍 在谷歌地图中查看</a>
+  <a class="go" href="/zh/osaka/">我也要转扭蛋 🎲</a>
+  <footer>
+    <p style="margin-bottom:8px">本网站为非官方粉丝网站，与大阪市高速电气轨道株式会社（Osaka Metro）无任何关联。</p>
+    <a href="/zh/osaka/">大阪地铁站扭蛋</a> ・ <a href="/en/privacy/">隐私政策</a>
+  </footer>
+</body>
+</html>
+`;
+}
+
 const stationsWritten = [];
 
 for (const line of LINES) {
@@ -406,6 +739,28 @@ for (const line of LINES) {
   });
 }
 
+const osakaStationsWritten = [];
+
+for (const line of OSAKA_LINES) {
+  const i18n = OSAKA_LINE_I18N[line.key];
+  line.stations.forEach(([stationJa, stationEn], idx) => {
+    const code = line.key + num2Osaka(line, idx);
+    const guide = OSAKA_GUIDES[stationJa] || ['', ''];
+    const params = {
+      code,
+      stationJa,
+      stationEn,
+      lineNameJa: line.name,
+      lineNameEn: i18n.en,
+      lineNameZh: i18n.zh,
+      lineColor: line.color,
+      guideJa: guide[0],
+      guideEn: guide[1],
+    };
+    osakaStationsWritten.push(params);
+  });
+}
+
 for (const p of stationsWritten) {
   const jaDir = join(ROOT, 's', p.code);
   const enDir = join(ROOT, 'en', 's', p.code);
@@ -420,26 +775,58 @@ for (const p of stationsWritten) {
 
 console.log(`Wrote ${stationsWritten.length * 3} station share pages (${stationsWritten.length} stations x ja/en/zh).`);
 
+for (const p of osakaStationsWritten) {
+  const jaDir = join(ROOT, 'osaka', 's', p.code);
+  const enDir = join(ROOT, 'en', 'osaka', 's', p.code);
+  const zhDir = join(ROOT, 'zh', 'osaka', 's', p.code);
+  await mkdir(jaDir, { recursive: true });
+  await mkdir(enDir, { recursive: true });
+  await mkdir(zhDir, { recursive: true });
+  await writeFile(join(jaDir, 'index.html'), pageJaOsaka(p), 'utf8');
+  await writeFile(join(enDir, 'index.html'), pageEnOsaka(p), 'utf8');
+  await writeFile(join(zhDir, 'index.html'), pageZhOsaka(p), 'utf8');
+}
+
+console.log(`Wrote ${osakaStationsWritten.length * 3} Osaka station share pages (${osakaStationsWritten.length} stations x ja/en/zh).`);
+
 // ---------- sitemap.xml ----------
 const sitemapPath = join(ROOT, 'sitemap.xml');
 let sitemap = await readFile(sitemapPath, 'utf8');
 
-const TODAY = '2026-08-08';
-function urlBlock(loc) {
-  return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>yearly</changefreq>\n    <priority>0.3</priority>\n  </url>\n`;
+const TODAY = new Date().toISOString().slice(0, 10);
+function urlBlock(loc, { changefreq = 'yearly', priority = '0.3' } = {}) {
+  return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>\n`;
 }
 
-const allLocs = stationsWritten.flatMap(p => [
-  `https://metrandom.com/s/${p.code}/`,
-  `https://metrandom.com/en/s/${p.code}/`,
-  `https://metrandom.com/zh/s/${p.code}/`,
-]);
-const missingLocs = allLocs.filter(loc => !sitemap.includes(`<loc>${loc}</loc>`));
+const homeLocs = [
+  ['https://metrandom.com/osaka/', '0.9'],
+  ['https://metrandom.com/en/osaka/', '0.8'],
+  ['https://metrandom.com/zh/osaka/', '0.8'],
+];
+const missingHomeBlocks = homeLocs
+  .filter(([loc]) => !sitemap.includes(`<loc>${loc}</loc>`))
+  .map(([loc, priority]) => urlBlock(loc, { changefreq: 'monthly', priority }));
 
-if (missingLocs.length === 0) {
-  console.log('sitemap.xml already contains all station URLs, nothing to append.');
+const allLocs = [
+  ...stationsWritten.flatMap(p => [
+    `https://metrandom.com/s/${p.code}/`,
+    `https://metrandom.com/en/s/${p.code}/`,
+    `https://metrandom.com/zh/s/${p.code}/`,
+  ]),
+  ...osakaStationsWritten.flatMap(p => [
+    `https://metrandom.com/osaka/s/${p.code}/`,
+    `https://metrandom.com/en/osaka/s/${p.code}/`,
+    `https://metrandom.com/zh/osaka/s/${p.code}/`,
+  ]),
+];
+const missingLocs = allLocs.filter(loc => !sitemap.includes(`<loc>${loc}</loc>`));
+const newBlocks = missingHomeBlocks.join('') + missingLocs.map(loc => urlBlock(loc)).join('');
+const addedCount = missingHomeBlocks.length + missingLocs.length;
+
+if (addedCount === 0) {
+  console.log('sitemap.xml already contains all URLs, nothing to append.');
 } else {
-  sitemap = sitemap.replace('</urlset>', missingLocs.map(urlBlock).join('') + '</urlset>');
+  sitemap = sitemap.replace('</urlset>', newBlocks + '</urlset>');
   await writeFile(sitemapPath, sitemap, 'utf8');
-  console.log(`Appended ${missingLocs.length} URLs to sitemap.xml.`);
+  console.log(`Appended ${addedCount} URLs to sitemap.xml.`);
 }
