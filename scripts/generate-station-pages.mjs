@@ -1,11 +1,11 @@
-// 都営地下鉄106駅ぶんの駅別シェアページ (/s, /en/s, /zh/s) を生成し、
-// sitemap.xml に新規URLを追記するスクリプト。
+// 全291駅ぶんの駅別シェアページ (/s, /en/s, /zh/s) を生成し、
+// sitemap.xml に未掲載のURLがあれば追記するスクリプト。
 //
-// 東京メトロ185駅ぶんの静的ページは既に存在するため、このスクリプトは
-// LINES 配列の op:"toei" の駅だけを対象にする。OGP画像 (og/{code}.jpg) は
-// 別途生成が必要（このスクリプトでは作らない）。
+// index.html の LINES/GUIDES/LINE_I18N を読み込んで、東京メトロ・都営地下鉄
+// 両方の駅ページを再生成する（駅名やガイド文を更新したときの再実行用）。
+// OGP画像 (og/{code}.jpg) は別途生成が必要（このスクリプトでは作らない）。
 //
-// 実行: node scripts/generate-toei-station-pages.mjs
+// 実行: node scripts/generate-station-pages.mjs
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -34,6 +34,33 @@ const num2 = i => String(i + 1).padStart(2, '0');
 
 function mapsQuery(stationJa, lineNameJa) {
   return encodeURIComponent(`${stationJa}駅 ${lineNameJa}`);
+}
+
+// 駅別シェアページの構造化データ (WebPage + BreadcrumbList + about:TrainStation)。
+// JSON.stringify を使うことで、記号を含む駅名・路線名でも安全にエスケープする。
+function jsonLd({ lang, code, stationJa, stationEn, lineNameJa, lineNameLocal, pageTitle, pageUrl, siteName, siteUrl, homeLabel, stationLabel }) {
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: pageTitle,
+    url: pageUrl,
+    inLanguage: lang,
+    isPartOf: { '@type': 'WebApplication', name: siteName, url: siteUrl },
+    about: {
+      '@type': 'TrainStation',
+      name: stationJa,
+      alternateName: stationEn,
+      url: pageUrl,
+    },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: homeLabel, item: siteUrl },
+        { '@type': 'ListItem', position: 2, name: stationLabel },
+      ],
+    },
+  };
+  return `<script type="application/ld+json">\n${JSON.stringify(data, null, 2)}\n</script>`;
 }
 
 function pageJa({ code, stationJa, stationEn, lineNameJa, lineColor, guideJa }) {
@@ -82,6 +109,19 @@ function pageJa({ code, stationJa, stationEn, lineNameJa, lineColor, guideJa }) 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#0f1626">
+<!-- 構造化データ -->
+${jsonLd({
+    lang: 'ja',
+    code,
+    stationJa,
+    stationEn,
+    pageTitle: `${stationJa}駅（${lineNameJa} ${code}）が出ました！ | メトロ駅ガチャ`,
+    pageUrl: `https://metrandom.com/s/${code}/`,
+    siteName: 'メトロ駅ガチャ',
+    siteUrl: 'https://metrandom.com/',
+    homeLabel: 'メトロ駅ガチャ',
+    stationLabel: `${stationJa}駅（${lineNameJa} ${code}）`,
+  })}
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
@@ -176,6 +216,19 @@ function pageEn({ code, stationJa, stationEn, lineNameJa, lineNameEn, lineColor,
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#0f1626">
+<!-- 構造化データ -->
+${jsonLd({
+    lang: 'en',
+    code,
+    stationJa,
+    stationEn,
+    pageTitle: `You got ${stationEn} Station (${lineNameEn} ${code})! | Metro Station Gacha`,
+    pageUrl: `https://metrandom.com/en/s/${code}/`,
+    siteName: 'Metro Station Gacha',
+    siteUrl: 'https://metrandom.com/en/',
+    homeLabel: 'Metro Station Gacha',
+    stationLabel: `${stationEn} Station (${lineNameEn} ${code})`,
+  })}
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
@@ -270,6 +323,19 @@ function pageZh({ code, stationJa, stationEn, lineNameJa, lineNameZh, lineColor,
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#0f1626">
+<!-- 構造化データ -->
+${jsonLd({
+    lang: 'zh',
+    code,
+    stationJa,
+    stationEn,
+    pageTitle: `抽到了${stationJa}站（${lineNameZh} ${code}）！ | 地铁站扭蛋`,
+    pageUrl: `https://metrandom.com/zh/s/${code}/`,
+    siteName: '地铁站扭蛋',
+    siteUrl: 'https://metrandom.com/zh/',
+    homeLabel: '地铁站扭蛋',
+    stationLabel: `${stationJa}站（${lineNameZh} ${code}）`,
+  })}
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
@@ -321,7 +387,6 @@ function pageZh({ code, stationJa, stationEn, lineNameJa, lineNameZh, lineColor,
 const stationsWritten = [];
 
 for (const line of LINES) {
-  if (line.op !== 'toei') continue;
   const i18n = LINE_I18N[line.key];
   line.stations.forEach(([stationJa, stationEn], idx) => {
     const code = line.sym + num2(idx);
@@ -364,13 +429,17 @@ function urlBlock(loc) {
   return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>yearly</changefreq>\n    <priority>0.3</priority>\n  </url>\n`;
 }
 
-if (sitemap.includes('https://metrandom.com/s/A01/')) {
-  console.log('sitemap.xml already contains Toei station URLs, skipping insert.');
+const allLocs = stationsWritten.flatMap(p => [
+  `https://metrandom.com/s/${p.code}/`,
+  `https://metrandom.com/en/s/${p.code}/`,
+  `https://metrandom.com/zh/s/${p.code}/`,
+]);
+const missingLocs = allLocs.filter(loc => !sitemap.includes(`<loc>${loc}</loc>`));
+
+if (missingLocs.length === 0) {
+  console.log('sitemap.xml already contains all station URLs, nothing to append.');
 } else {
-  const jaBlocks = stationsWritten.map(p => urlBlock(`https://metrandom.com/s/${p.code}/`)).join('');
-  const enBlocks = stationsWritten.map(p => urlBlock(`https://metrandom.com/en/s/${p.code}/`)).join('');
-  const zhBlocks = stationsWritten.map(p => urlBlock(`https://metrandom.com/zh/s/${p.code}/`)).join('');
-  sitemap = sitemap.replace('</urlset>', jaBlocks + enBlocks + zhBlocks + '</urlset>');
+  sitemap = sitemap.replace('</urlset>', missingLocs.map(urlBlock).join('') + '</urlset>');
   await writeFile(sitemapPath, sitemap, 'utf8');
-  console.log(`Appended ${stationsWritten.length * 3} URLs to sitemap.xml.`);
+  console.log(`Appended ${missingLocs.length} URLs to sitemap.xml.`);
 }
