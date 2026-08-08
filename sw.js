@@ -1,11 +1,22 @@
 // メトロ駅ガチャ Service Worker
-const VERSION = 'v3';
+const VERSION = 'v4';
 const CACHE = `metro-gacha-${VERSION}`;
 const PRECACHE = [
   '/', '/en/', '/zh/',
+  '/osaka/', '/en/osaka/', '/zh/osaka/',
   '/favicon.svg', '/favicon.png', '/apple-touch-icon.png',
   '/icons/icon-192.png', '/icons/icon-512.png'
 ];
+
+// オフライン時のナビゲーションフォールバック先（大阪版は大阪版トップへ）
+function offlineFallback(pathname) {
+  if (pathname.startsWith('/osaka/')) return '/osaka/';
+  if (pathname.startsWith('/en/osaka/')) return '/en/osaka/';
+  if (pathname.startsWith('/zh/osaka/')) return '/zh/osaka/';
+  if (pathname.startsWith('/en/')) return '/en/';
+  if (pathname.startsWith('/zh/')) return '/zh/';
+  return '/';
+}
 
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -37,7 +48,7 @@ self.addEventListener('fetch', e => {
           caches.open(CACHE).then(c => c.put(e.request, copy));
           return res;
         })
-        .catch(() => caches.match(e.request).then(r => r || caches.match('/')))
+        .catch(() => caches.match(e.request).then(r => r || caches.match(offlineFallback(url.pathname))))
     );
   } else {
     // 静的アセット: キャッシュ優先（高速化・オフライン対応）
