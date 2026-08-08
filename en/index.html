@@ -715,7 +715,7 @@ const shareCopy = document.getElementById('shareCopy');
 // 結果の共有URL。全駅に静的な結果ページがあるためそちらを使う（?s= は旧リンクの後方互換用）。
 function shareUrl(r){
   const base = `https://metrandom.com/${lang === 'ja' ? '' : lang + '/'}`;
-  const code = r.line.sym + num2(r.idx);
+  const code = r.line.key + num2(r.idx);
   return `${base}s/${code}/`;
 }
 function updateShare(r){

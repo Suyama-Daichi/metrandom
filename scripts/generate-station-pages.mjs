@@ -389,7 +389,7 @@ const stationsWritten = [];
 for (const line of LINES) {
   const i18n = LINE_I18N[line.key];
   line.stations.forEach(([stationJa, stationEn], idx) => {
-    const code = line.sym + num2(idx);
+    const code = line.key + num2(idx);
     const guide = GUIDES[stationJa] || ['', ''];
     const params = {
       code,

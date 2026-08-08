@@ -164,7 +164,7 @@ export async function handleGet(context) {
   const origin = request.headers.get('Origin') || '';
 
   const code = (url.searchParams.get('code') || '').toUpperCase();
-  if (!/^[A-Z]\d{2}$/.test(code) || !STATION_GEO[code]) {
+  if (!/^[A-Z]{1,2}\d{2}$/.test(code) || !STATION_GEO[code]) {
     return json({ error: 'invalid_code', spots: [] }, { status: 400, origin });
   }
   if (!env.FSQ_SERVICE_KEY) {
