@@ -95,6 +95,14 @@
   }
   .langs button.active { color: #1a2238; background: #ffd84d; }
 
+  .city-switch { margin-bottom: 16px; }
+  .city-switch a {
+    display: inline-block; color: #9aa6c4; font-size: .72rem; font-weight: 600;
+    text-decoration: none; border: 1.5px solid rgba(255,255,255,.18);
+    padding: 4px 12px; border-radius: 999px;
+  }
+  .city-switch a:hover { color: #ffd84d; border-color: #ffd84d; }
+
   .lines {
     display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
     max-width: 560px; margin-bottom: 20px;
@@ -311,6 +319,8 @@
     <button type="button" data-lang="zh">中文</button>
   </div>
 
+  <div class="city-switch"><a href="/en/">🚇 Try Tokyo Metro Gacha →</a></div>
+
   <div class="ops" id="ops" hidden></div>
 
   <div class="lines" id="lines"></div>
@@ -381,6 +391,7 @@
   <footer>
     <p style="margin-bottom:8px">This is an unofficial fan site and is not affiliated with Osaka Metro Co., Ltd.</p>
     Osaka Metro Station Gacha ・
+    <a href="/en/">Metro Station Gacha</a> ・
     <a href="/en/privacy/">Privacy Policy</a> ・
     <a href="https://github.com/Suyama-Daichi/metro-random" rel="noopener">GitHub</a>
   </footer>
