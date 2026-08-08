@@ -105,14 +105,15 @@ APIの Pages Functions を同一プロジェクトで配信）。
 .
 ├── index.html              # アプリ本体（HTML / CSS / JS を1ファイルに同梱）
 ├── en/ , zh/               # 各言語版（同構成）
-├── s/ , en/s/ , zh/s/      # 駅別シェアページ（東京メトロ185駅 × 3言語）
+├── s/ , en/s/ , zh/s/      # 駅別シェアページ（全291駅 × 3言語）
 ├── functions/              # Cloudflare Pages Functions
 │   ├── api/spots.js        #   GET /api/spots?code=C01（周辺スポットAPI）
 │   └── _lib/
 │       ├── spots.js        #   Foursquare 呼び出し・正規化・キャッシュ
 │       └── stationGeo.js   #   全291駅の座標テーブル（自動生成）
 ├── scripts/
-│   └── generate-station-geo.mjs  # 座標テーブル再生成スクリプト
+│   ├── generate-station-geo.mjs        # 座標テーブル再生成スクリプト
+│   └── generate-toei-station-pages.mjs # 都営地下鉄駅の共有ページ再生成スクリプト
 ├── .dev.vars.example       # ローカル開発用の環境変数テンプレート
 ├── favicon.svg / favicon.png / apple-touch-icon.png / og-image.png
 ├── robots.txt / sitemap.xml
@@ -122,10 +123,10 @@ APIの Pages Functions を同一プロジェクトで配信）。
 
 ### 結果の共有URL
 
-- 東京メトロの駅: 静的な結果ページ `/s/{駅コード}/`（例 `/s/G19/`）を共有します。
-- 都営地下鉄の駅: 静的ページが未生成のため、トップページに `?s={駅コード}`（例 `/?s=E23`）
-  を付けたURLを共有します。開くとその駅の結果が復元されます。都営の駅別ページを
-  生成したら、`shareUrl()` の分岐を外して統一できます。
+- 東京メトロ・都営地下鉄いずれの駅も、静的な結果ページ `/s/{駅コード}/`（例 `/s/G19/`、
+  `/s/E23/`）を共有します。OGP画像は `og/{駅コード}.jpg`。
+- 旧形式の `?s={駅コード}`（例 `/?s=E23`）付きURLも後方互換のため引き続き復元表示に対応
+  しています（`restoreFromQuery()`）。
 
 ## 周辺スポット機能（Foursquare）
 
