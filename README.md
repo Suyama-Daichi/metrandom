@@ -9,7 +9,6 @@
 - ボタンを押すとルーレットのように路線と駅が回転し、最終的に1駅が決まる
 - 事業者チップ（東京メトロ／都営地下鉄）でまとめて、路線チップで個別に絞り込み可能
 - 直近の結果を履歴として表示（履歴の駅をタップすると結果を再表示）
-- 選ばれた駅の**周辺スポット**（飲食店・カフェ・観光名所・ショッピング）を表示（Foursquare）
 - 各路線は公式ラインカラーと駅ナンバリング（例: G19）付き
 - 単一の `index.html` で完結（ビルド不要・依存ライブラリなし）
 - レスポンシブ対応でスマホでも利用可能
@@ -68,13 +67,11 @@ python3 -m http.server 8000
 
 ## ホスティング
 
-このサイトは **Cloudflare Pages** でホスティングしています（静的サイト＋周辺スポット
-APIの Pages Functions を同一プロジェクトで配信）。
+このサイトは **Cloudflare Pages** でホスティングしています（静的サイトのみ）。
 
 - リポジトリ: GitHub 連携（`main` への push で自動デプロイ）
 - ビルド: なし（ビルドコマンド空・出力ディレクトリはルート `/`）
 - 公開URL: https://metrandom.com/
-- API: `functions/api/spots.js`（同一オリジン `/api/spots`）
 
 ### Cloudflare Pages のセットアップ
 
@@ -84,9 +81,7 @@ APIの Pages Functions を同一プロジェクトで配信）。
    - **Framework preset**: None
    - **Build command**: （空）
    - **Build output directory**: `/`
-3. **環境変数** に `FSQ_SERVICE_KEY`（Foursquare の Service API Key）を登録（暗号化）。
-   周辺スポット機能に必要です。
-4. **Custom domains** で `metrandom.com`（と必要なら `www`）を追加。apex ドメインを
+3. **Custom domains** で `metrandom.com`（と必要なら `www`）を追加。apex ドメインを
    使うには、ドメインの DNS を Cloudflare 管理にするのが前提です（ネームサーバを
    Cloudflare に向ける）。Pages が DNS レコードを自動設定します。
 
@@ -106,15 +101,8 @@ APIの Pages Functions を同一プロジェクトで配信）。
 ├── index.html              # アプリ本体（HTML / CSS / JS を1ファイルに同梱）
 ├── en/ , zh/               # 各言語版（同構成）
 ├── s/ , en/s/ , zh/s/      # 駅別シェアページ（全291駅 × 3言語）
-├── functions/              # Cloudflare Pages Functions
-│   ├── api/spots.js        #   GET /api/spots?code=C01（周辺スポットAPI）
-│   └── _lib/
-│       ├── spots.js        #   Foursquare 呼び出し・正規化・キャッシュ
-│       └── stationGeo.js   #   全291駅の座標テーブル（自動生成）
 ├── scripts/
-│   ├── generate-station-geo.mjs        # 座標テーブル再生成スクリプト
 │   └── generate-toei-station-pages.mjs # 都営地下鉄駅の共有ページ再生成スクリプト
-├── .dev.vars.example       # ローカル開発用の環境変数テンプレート
 ├── favicon.svg / favicon.png / apple-touch-icon.png / og-image.png
 ├── robots.txt / sitemap.xml
 ├── CNAME                   # （旧 GitHub Pages 用・Cloudflare では未使用）
@@ -128,38 +116,10 @@ APIの Pages Functions を同一プロジェクトで配信）。
 - 旧形式の `?s={駅コード}`（例 `/?s=E23`）付きURLも後方互換のため引き続き復元表示に対応
   しています（`restoreFromQuery()`）。
 
-## 周辺スポット機能（Foursquare）
-
-選ばれた駅の周辺スポットは Foursquare Places API から取得します。API キーを秘匿する
-ため、**Cloudflare Pages Functions**（`functions/api/spots.js`）をプロキシとして使い、
-ブラウザからは同一オリジンの `/api/spots` を呼びます。
-
-- `functions/api/spots.js` … ルート（`GET /api/spots?code=G19` → 周辺スポットJSON）
-- `functions/_lib/spots.js` … Foursquare 呼び出し・正規化・7日キャッシュ・CORS
-- `functions/_lib/stationGeo.js` … 全291駅の座標テーブル（駅コード→緯度経度）。
-  出典: [Seo-4d696b75/station_database](https://github.com/Seo-4d696b75/station_database)。
-  `node scripts/generate-station-geo.mjs` で再生成可能。
-- フロント側は `index.html` の定数 `SPOTS_API`（既定 `/api/spots`）で参照します。
-  API 未設定（`FSQ_SERVICE_KEY` 無し）や取得失敗時はスポット欄が出ないだけで、
-  ガチャ本体は通常どおり動作します。
-
-### ローカルで動かす（Functions込み）
-
-```bash
-cp .dev.vars.example .dev.vars   # FSQ_SERVICE_KEY=... を記入
-npx wrangler pages dev .
-# 表示された URL（例 http://localhost:8788）を開く
-#   API 単体確認: curl "http://localhost:8788/api/spots?code=G19"
-```
-
-静的サイト部分だけ確認するなら、従来どおり任意の静的サーバー（`python3 -m http.server`
-など）でも動きます（その場合 `/api/spots` は応答しないためスポット欄は非表示）。
-
 ## 技術構成
 
 - HTML / CSS / Vanilla JavaScript のみ（フレームワーク・ビルドツールなし）
 - 駅データは `index.html` 内に内蔵
-- 周辺スポットは Foursquare Places API（Cloudflare Pages Functions 経由）
 - ホスティング: Cloudflare Pages（GitHub 連携で自動デプロイ）
 - SEO 対応: メタ情報・OGP・Twitter カード・JSON-LD（`WebApplication`）・robots.txt・sitemap.xml
 
