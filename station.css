@@ -1,0 +1,23 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: linear-gradient(160deg, #1a2238 0%, #0f1626 100%); color: #fff; min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px 48px; }
+h1 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+.label { color: #9aa6c4; font-size: .8rem; margin-bottom: 20px; }
+.card { width: 100%; max-width: 420px; background: rgba(255,255,255,.06); border-radius: 24px;
+  padding: 36px 28px; text-align: center; border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+.line-badge { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px;
+  border-radius: 999px; font-weight: 700; font-size: 1rem; margin-bottom: 18px; color: #fff; }
+.line-badge .sym { width: 44px; height: 30px; border-radius: 15px; background: #fff;
+  display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: .85rem; }
+.station { font-size: 2.6rem; font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+.station-en { color: #9aa6c4; font-size: .95rem; letter-spacing: .05em; }
+.guide { margin-top: 14px; color: #b6c0db; font-size: .85rem; line-height: 1.6; }
+a.map { display: inline-block; margin-top: 20px; padding: 12px 32px; font-size: .95rem;
+  border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: #d4dcf0; text-decoration: none; }
+a.go { display: inline-block; margin-top: 16px; padding: 16px 48px; font-size: 1.1rem; font-weight: 700;
+  border-radius: 999px; color: #1a2238; text-decoration: none;
+  background: linear-gradient(135deg, #ffd84d, #ffb300); box-shadow: 0 8px 24px rgba(255,180,0,.35); }
+footer { margin-top: 36px; color: #6b769a; font-size: .78rem; text-align: center; }
+footer a { color: #9aa6c4; }

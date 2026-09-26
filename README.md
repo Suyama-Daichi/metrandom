@@ -10,7 +10,7 @@
 - 事業者チップ（東京メトロ／都営地下鉄）でまとめて、路線チップで個別に絞り込み可能
 - 直近の結果を履歴として表示（履歴の駅をタップすると結果を再表示）
 - 各路線は公式ラインカラーと駅ナンバリング（例: G19）付き
-- 単一の `index.html` で完結（ビルド不要・依存ライブラリなし）
+- 静的ファイルのみで完結（ビルド不要・依存ライブラリなし）
 - レスポンシブ対応でスマホでも利用可能
 - 多言語対応（日本語・英語・中国語簡体字）。ブラウザ言語を自動判定し、手動切替も可能
 
@@ -50,17 +50,11 @@
 
 ## ローカルで動かす
 
-ビルド不要です。リポジトリを取得してブラウザで `index.html` を開くだけで動作します。
+ビルド不要です。`/app.js` などをルート相対パスで読み込むため、任意の静的サーバーで開いてください。
 
 ```bash
 git clone https://github.com/Suyama-Daichi/metro-random.git
 cd metro-random
-open index.html   # macOS の場合（Windows は start、Linux は xdg-open）
-```
-
-ローカルサーバーで確認したい場合は、任意の静的サーバーを利用してください。
-
-```bash
 python3 -m http.server 8000
 # http://localhost:8000 を開く
 ```
@@ -87,25 +81,19 @@ python3 -m http.server 8000
 
 > `main` への push で自動的に再デプロイされます。プルリクのプレビューデプロイも利用可。
 
-### GitHub Pages からの移行メモ
-
-- 旧 `CNAME` ファイルは GitHub Pages 用で、Cloudflare Pages では未使用です（カスタム
-  ドメインはダッシュボードで設定）。残してあっても無害なので当面そのままにしています。
-- 移行が完了するまでは、DNS の切り替えタイミングで一時的に旧 GitHub Pages 側が
-  見えることがあります。
-
 ## ファイル構成
 
 ```
 .
-├── index.html              # アプリ本体（HTML / CSS / JS を1ファイルに同梱）
+├── index.html              # アプリ本体（日本語）
 ├── en/ , zh/               # 各言語版（同構成）
+├── app.js / app.css        # 3言語共通のスクリプト・スタイル（駅データも app.js に内蔵）
+├── station.css             # 駅別シェアページ共通のスタイル
 ├── s/ , en/s/ , zh/s/      # 駅別シェアページ（全291駅 × 3言語）
 ├── scripts/
-│   └── generate-toei-station-pages.mjs # 都営地下鉄駅の共有ページ再生成スクリプト
+│   └── generate-station-pages.mjs # 駅別シェアページ再生成スクリプト
 ├── favicon.svg / favicon.png / apple-touch-icon.png / og-image.png
 ├── robots.txt / sitemap.xml
-├── CNAME                   # （旧 GitHub Pages 用・Cloudflare では未使用）
 └── README.md
 ```
 
@@ -119,7 +107,7 @@ python3 -m http.server 8000
 ## 技術構成
 
 - HTML / CSS / Vanilla JavaScript のみ（フレームワーク・ビルドツールなし）
-- 駅データは `index.html` 内に内蔵
+- 駅データは `app.js` 内に内蔵
 - ホスティング: Cloudflare Pages（GitHub 連携で自動デプロイ）
 - SEO 対応: メタ情報・OGP・Twitter カード・JSON-LD（`WebApplication`）・robots.txt・sitemap.xml
 
