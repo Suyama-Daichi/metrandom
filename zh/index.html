@@ -99,16 +99,21 @@
     display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
     max-width: 560px; margin-bottom: 20px;
   }
+  /* 路線チップ: 公式の路線記号風マーカー＋路線名（コンパクト） */
+  .lines { gap: 6px; }
   .chip {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 12px; border-radius: 999px; cursor: pointer;
-    font-size: .8rem; font-weight: 600; user-select: none;
-    background: rgba(255,255,255,.08); border: 1.5px solid transparent;
-    transition: .15s;
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 9px 3px 3px; border-radius: 999px; cursor: pointer; user-select: none;
+    font-size: .72rem; font-weight: 600;
+    background: rgba(255,255,255,.08); transition: .15s;
   }
-  .chip .dot { width: 12px; height: 12px; border-radius: 50%; }
-  .chip.off { opacity: .35; }
-  .chip.off .dot { filter: grayscale(1); }
+  .chip .sym {
+    width: 20px; height: 20px; border-radius: 50%; box-sizing: border-box;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: #fff; color: #1a2238; border: 3px solid; font-size: .62rem; font-weight: 800;
+  }
+  .chip.off { opacity: .3; filter: grayscale(1); }
+  .lines .sep { width: 1px; align-self: stretch; margin: 2px 3px; background: rgba(255,255,255,.3); }
 
   .ops {
     display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 10px;
@@ -548,7 +553,9 @@ OPERATORS.forEach(op=>{
   opsEl.appendChild(c);
 });
 
-LINES.forEach(l=>{
+LINES.forEach((l, i)=>{
+  // 事業者の切れ目に縦の区切り線を入れる
+  if(i && LINES[i-1].op !== l.op) linesEl.appendChild(Object.assign(document.createElement('span'), {className: 'sep'}));
   const c = document.createElement('div');
   c.className = 'chip';
   c.dataset.key = l.key;
@@ -570,7 +577,7 @@ function syncChips(){
 
 function renderChips(){
   chipEls.forEach(([c, l])=>{
-    c.innerHTML = `<span class="dot" style="background:${l.color}"></span>${lineName(l)}`;
+    c.innerHTML = `<span class="sym" style="border-color:${l.color}">${l.sym}</span>${lineName(l).replace(/ Line$/, "")}`;
   });
   opChipEls.forEach(([c, op])=>{ c.textContent = opName(op); });
   syncChips();
