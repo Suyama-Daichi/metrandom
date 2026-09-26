@@ -1,8 +1,7 @@
 // メトロ駅ガチャ Service Worker
-const VERSION = 'v3';
-const CACHE = `metro-gacha-${VERSION}`;
+const CACHE = 'metro-gacha-v4';
 const PRECACHE = [
-  '/', '/en/', '/zh/',
+  '/', '/en/', '/zh/', '/app.js', '/app.css', '/station.css',
   '/favicon.svg', '/favicon.png', '/apple-touch-icon.png',
   '/icons/icon-192.png', '/icons/icon-512.png'
 ];
@@ -28,8 +27,8 @@ self.addEventListener('fetch', e => {
   // 外部オリジン（広告・解析・フォント等）はService Workerで扱わない
   if (e.request.method !== 'GET' || url.origin !== location.origin) return;
 
-  if (e.request.mode === 'navigate' || url.pathname.endsWith('/') || url.pathname.endsWith('.html')) {
-    // HTML: ネットワーク優先（常に最新版を取得、オフライン時のみキャッシュ）
+  if (e.request.mode === 'navigate' || /(\/|\.html|\.js|\.css)$/.test(url.pathname)) {
+    // HTML/JS/CSS: ネットワーク優先（常に最新版を取得、オフライン時のみキャッシュ）
     e.respondWith(
       fetch(e.request)
         .then(res => {
