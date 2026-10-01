@@ -13,7 +13,7 @@ import { tmpdir } from 'node:os';
 const run = promisify(execFile);
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CHROME = process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const SITE = { osaka: ['大阪メトロ', '駅ガチャ'], nagoya: ['名古屋地下鉄', '駅ガチャ'] };
+const SITE = { osaka: ['大阪メトロ', '駅ガチャ'], nagoya: ['名古屋市営地下鉄', '駅ガチャ'] };
 const cities = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(SITE);
 
 const icon = (await readFile(join(ROOT, 'favicon.svg'), 'utf8')).replace(/<\?xml[^>]*>/, '');
