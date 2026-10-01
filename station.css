@@ -21,3 +21,18 @@ a.go { display: inline-block; margin-top: 16px; padding: 16px 48px; font-size: 1
   background: linear-gradient(135deg, #ffd84d, #ffb300); box-shadow: 0 8px 24px rgba(255,180,0,.35); }
 footer { margin-top: 36px; color: #6b769a; font-size: .78rem; text-align: center; }
 footer a { color: #9aa6c4; }
+a.hotel { display: inline-block; margin-top: 12px; padding: 10px 24px; font-size: .9rem;
+  border-radius: 999px; color: #1a2238; background: #fff; text-decoration: none; font-weight: 700; }
+.pr-badge { font-size: .62rem; font-weight: 700; color: #6b769a; border: 1px solid #b6c0db;
+  border-radius: 4px; padding: 0 4px; vertical-align: 2px; }
+.rel { width: 100%; max-width: 420px; margin-top: 36px; }
+.rel h2 { font-size: .8rem; color: #9aa6c4; margin: 20px 0 8px; }
+.rel .adj { display: flex; justify-content: space-between; gap: 12px; }
+.rel .adj a { color: #9aa6c4; font-size: .75rem; text-decoration: none; }
+.rel .adj a.next { text-align: right; }
+.rel .adj b { display: block; color: #fff; font-size: .95rem; }
+.rel .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.rel .chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px 4px 8px;
+  border-radius: 999px; font-size: .75rem; background: rgba(255,255,255,.08); color: #d4dcf0; text-decoration: none; }
+.rel .chip.cur { background: rgba(255,216,77,.2); color: #ffd84d; font-weight: 700; }
+.rel .dot { width: 9px; height: 9px; border-radius: 50%; }

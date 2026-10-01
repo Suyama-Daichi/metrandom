@@ -5,6 +5,7 @@ const T = {
     copy: 'リンクをコピー',
     copied: 'コピーしました ✓',
     mapLink: 'Googleマップで見る',
+    hotel: st => `${st[0]}駅周辺のホテルを探す`,
     restore: 'この駅を表示',
     share: r => `メトロ駅ガチャの結果は「${lineName(r.line)} ${r.st[0]}駅（${stationCode(r.line, r.idx)}）」でした！🚇 #メトロ駅ガチャ`
   },
@@ -12,6 +13,7 @@ const T = {
     copy: 'Copy link',
     copied: 'Copied ✓',
     mapLink: 'View on Google Maps',
+    hotel: st => `Find hotels near ${st[1]} Station`,
     restore: 'Show this station',
     share: r => `I spun the Metro Station Gacha and got "${r.st[1]} Station (${lineName(r.line)}, ${stationCode(r.line, r.idx)})"! 🚇 #MetroStationGacha`
   },
@@ -19,6 +21,7 @@ const T = {
     copy: '复制链接',
     copied: '已复制 ✓',
     mapLink: '在谷歌地图中查看',
+    hotel: st => `查找${st[0]}站附近的酒店`,
     restore: '显示该车站',
     share: r => `地铁站扭蛋抽到了「${r.st[0]}站（${lineName(r.line)} ${stationCode(r.line, r.idx)}）」！🚇 #地铁站扭蛋`
   }
@@ -200,6 +203,14 @@ function pick(){
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
+// 楽天トラベルのホテル検索。アフィリエイトIDを入れると楽天アフィリエイト経由のリンクになる
+// （scripts/generate-station-pages.mjs もこの値を読んで駅ページに使う）
+const RAKUTEN_AFFILIATE_ID = '5516128b.31e208e8.5516128c.89a7d37f';
+function hotelUrl(stationJa){
+  const url = `https://kw.travel.rakuten.co.jp/keyword/Search.do?charset=utf-8&f_query=${encodeURIComponent(stationJa + '駅')}`;
+  return RAKUTEN_AFFILIATE_ID ? `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_AFFILIATE_ID}/?pc=${encodeURIComponent(url)}` : url;
+}
+
 function render(r, spinning){
   const code = stationCode(r.line, r.idx);
   card.className = 'card' + (spinning?' spinning':'');
@@ -210,7 +221,7 @@ function render(r, spinning){
     <div class="station">${r.st[0]}</div>
     <div class="station-en">${r.st[1]}</div>
     <div class="num">${lineName(r.line)} ${code}</div>
-    ${spinning ? '' : `<div class="card-guide">${(GUIDES[r.st[0]] || ['',''])[lang === 'ja' ? 0 : 1]}</div><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.st[0]+'駅 '+r.line.name)}" target="_blank" rel="noopener">📍 ${t('mapLink')}</a>`}`;
+    ${spinning ? '' : `<div class="card-guide">${(GUIDES[r.st[0]] || ['',''])[lang === 'ja' ? 0 : 1]}</div><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.st[0]+'駅 '+r.line.name)}" target="_blank" rel="noopener">📍 ${t('mapLink')}</a><a class="hotel-link" href="${hotelUrl(r.st[0])}" target="_blank" rel="sponsored nofollow noopener">🏨 ${t('hotel')(r.st)} <span class="pr-badge">PR</span></a>`}`;
 }
 
 go.onclick = ()=>{

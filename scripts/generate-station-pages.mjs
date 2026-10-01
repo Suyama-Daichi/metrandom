@@ -93,6 +93,8 @@ const LANGS = {
     ogDescription: `ガチャ結果:「${p.lineNameJa} ${p.stationJa}駅（${p.code}）」。${p.c.ja.pool(p.n, p.m)}からランダムに1駅。あなたも回してみよう！`,
     stationLabel: `${p.stationJa}駅（${p.lineNameJa} ${p.code}）`,
     label: 'ガチャ結果', map: 'Googleマップで見る', go: '自分もガチャを回す 🎲',
+    hotel: `${p.stationJa}駅周辺のホテルを探す`, prev: '前の駅', next: '次の駅',
+    transfer: '乗り換え', onLine: `${p.lineNameJa}の駅`,
     disclaimer: p.c.ja.disclaimer,
     privacyLabel: 'プライバシーポリシー',
   }),
@@ -105,6 +107,8 @@ const LANGS = {
     ogDescription: `Gacha result: ${p.stationEn} Station (${p.lineNameEn}, ${p.code}). One random pick from ${p.c.en.pool(p.n, p.m)} — try your luck!`,
     stationLabel: `${p.stationEn} Station (${p.lineNameEn} ${p.code})`,
     label: 'Gacha result', map: 'View on Google Maps', go: 'Spin the Gacha yourself 🎲',
+    hotel: `Find hotels near ${p.stationEn} Station`, prev: 'Previous', next: 'Next',
+    transfer: 'Transfers', onLine: `Stations on the ${p.lineNameEn}`,
     disclaimer: p.c.en.disclaimer,
     privacyLabel: 'Privacy Policy',
   }),
@@ -117,10 +121,40 @@ const LANGS = {
     ogDescription: `扭蛋结果：「${p.lineNameZh} ${p.stationJa}站（${p.code}）」。从${p.m}个车站中随机抽选——你也试试手气！`,
     stationLabel: `${p.stationJa}站（${p.lineNameZh} ${p.code}）`,
     label: '抽选结果', map: '在谷歌地图中查看', go: '我也要转扭蛋 🎲',
+    hotel: `查找${p.stationJa}站附近的酒店`, prev: '上一站', next: '下一站',
+    transfer: '换乘', onLine: `${p.lineNameZh}的车站`,
     disclaimer: p.c.zh.disclaimer,
     privacyLabel: '隐私政策',
   }),
 };
+
+// 楽天トラベルのホテル検索リンク。アフィリエイトIDは app.js の RAKUTEN_AFFILIATE_ID と共通。
+const RAKUTEN_AFFILIATE_ID = (await readFile(join(ROOT, 'app.js'), 'utf8')).match(/const RAKUTEN_AFFILIATE_ID = '([^']*)'/)[1];
+function hotelUrl(stationJa) {
+  const url = `https://kw.travel.rakuten.co.jp/keyword/Search.do?charset=utf-8&f_query=${encodeURIComponent(stationJa + '駅')}`;
+  return RAKUTEN_AFFILIATE_ID ? `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_AFFILIATE_ID}/?pc=${encodeURIComponent(url)}` : url;
+}
+
+// 前後の駅・乗り換え路線・同じ路線の駅一覧へのリンク（駅ページ同士の内部リンク）
+function related(lang, p, s) {
+  const { line, idx, LINES, LINE_I18N } = p;
+  const href = (l, i) => `/${s.dir}${p.path}s/${stationCode(l, i)}/`;
+  const stName = st => lang === 'en' ? st[1] : st[0];
+  const lnName = l => lang === 'ja' ? l.name : LINE_I18N[l.key][lang];
+  const chip = (l, i, text, current) => current
+    ? `<span class="chip cur"><span class="dot" style="background:${l.color}"></span>${text}</span>`
+    : `<a class="chip" href="${href(l, i)}"><span class="dot" style="background:${l.color}"></span>${text}</a>`;
+  const prev = line.stations[idx - 1], next = line.stations[idx + 1];
+  const transfers = LINES.flatMap(l => l === line ? [] : l.stations
+    .map((st, i) => [l, i, st]).filter(([, , st]) => st[0] === p.stationJa));
+  return `<nav class="rel">
+    <div class="adj">${prev ? `<a href="${href(line, idx - 1)}">← ${s.prev}<b>${stName(prev)}</b></a>` : '<span></span>'}${next ? `<a class="next" href="${href(line, idx + 1)}">${s.next} →<b>${stName(next)}</b></a>` : ''}</div>
+${transfers.length ? `    <h2>${s.transfer}</h2>
+    <div class="chips">${transfers.map(([l, i]) => chip(l, i, `${lnName(l)} ${stationCode(l, i)}`)).join('')}</div>
+` : ''}    <h2>${s.onLine}</h2>
+    <div class="chips">${line.stations.map((st, i) => chip(line, i, stName(st), i === idx)).join('')}</div>
+  </nav>`;
+}
 
 function page(lang, p) {
   const s = LANGS[lang](p);
@@ -198,7 +232,9 @@ ${jsonLd({
     <div class="guide">${s.guide}</div>
   </div>
   <a class="map" href="https://www.google.com/maps/search/?api=1&query=${mapsQuery(stationJa, lineNameJa)}" target="_blank" rel="noopener">📍 ${s.map}</a>
+  <a class="hotel" href="${hotelUrl(stationJa)}" target="_blank" rel="sponsored nofollow noopener">🏨 ${s.hotel} <span class="pr-badge">PR</span></a>
   <a class="go" href="${home}">${s.go}</a>
+  ${related(lang, p, s)}
   <footer>
     <p style="margin-bottom:8px">${s.disclaimer}</p>
     <a href="${home}">${s.site}</a> ・ <a href="${s.privacy}">${s.privacyLabel}</a>
@@ -305,6 +341,7 @@ for (const id of Object.keys(CITIES)) {
         lineColor: line.color,
         guideJa: guide[0],
         guideEn: guide[1],
+        line, idx, LINES, LINE_I18N,
       });
     });
   }
