@@ -124,5 +124,5 @@ const LINE_I18N = {
   K: { en: 'Kamiiida Line',    zh: '上饭田线' }
 };
 const OP_I18N = {
-  nagoya: { en: 'Nagoya Subway', zh: '名古屋市营地铁' }
+  nagoya: { en: 'Transportation Bureau City of Nagoya', zh: '名古屋市营地铁' }
 };

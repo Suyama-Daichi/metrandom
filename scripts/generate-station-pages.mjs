@@ -39,11 +39,11 @@ const CITIES = {
       disclaimer: '本网站为非官方粉丝网站，与大阪市高速电气轨道株式会社（Osaka Metro）无任何关联。' },
   },
   nagoya: {
-    ja: { site: '名古屋地下鉄駅ガチャ', area: '名古屋市営地下鉄', pool: (n, m) => `名古屋市営地下鉄全${n}路線・${m}駅`,
+    ja: { site: '名古屋市営地下鉄駅ガチャ', area: '名古屋市営地下鉄', pool: (n, m) => `名古屋市営地下鉄全${n}路線・${m}駅`,
       disclaimer: '本サイトは非公式のファンサイトであり、名古屋市交通局とは一切関係ありません。' },
-    en: { site: 'Nagoya Subway Station Gacha', area: 'Nagoya Municipal Subway', city: 'Nagoya', pool: (n, m) => `${m} Nagoya Municipal Subway stations`,
+    en: { site: 'Nagoya Municipal Subway Station Gacha', area: 'Transportation Bureau City of Nagoya', city: 'Nagoya', pool: (n, m) => `${m} stations of the Transportation Bureau City of Nagoya`,
       disclaimer: 'This is an unofficial fan site and is not affiliated with the Transportation Bureau City of Nagoya.' },
-    zh: { site: '名古屋地铁站扭蛋', area: '名古屋市营地铁', pool: (n, m) => `名古屋市营地铁全部${m}个车站`,
+    zh: { site: '名古屋市营地铁站扭蛋', area: '名古屋市营地铁', pool: (n, m) => `名古屋市营地铁全部${m}个车站`,
       disclaimer: '本网站为非官方粉丝网站，与名古屋市交通局无任何关联。' },
   },
 };
