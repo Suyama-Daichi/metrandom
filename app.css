@@ -68,7 +68,7 @@ h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 4px; letter-spacing: .
   margin-bottom: 18px; color: #fff;
 }
 .line-badge .sym {
-  width: 30px; height: 30px; border-radius: 50%; background: #fff;
+  min-width: 30px; height: 30px; padding: 0 6px; border-radius: 15px; background: #fff;
   color: #111; display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: .9rem;
 }
@@ -83,6 +83,11 @@ h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 4px; letter-spacing: .
   color: #d4dcf0; font-size: .85rem; text-decoration: none; transition: background .15s;
 }
 .map-link:hover { background: rgba(255,255,255,.1); }
+.hotel-link {
+  display: inline-block; margin-top: 10px; padding: 9px 20px; border-radius: 999px;
+  color: #1a2238; background: #fff; font-size: .85rem; font-weight: 700; text-decoration: none;
+}
+.hotel-link .pr-badge { font-size: .6rem; color: #6b769a; border: 1px solid #b6c0db; border-radius: 4px; padding: 0 4px; vertical-align: 2px; }
 
 .spinning .station { animation: blur .08s linear infinite; }
 @keyframes blur { 0%{opacity:.4} 50%{opacity:1} 100%{opacity:.4} }
