@@ -176,6 +176,7 @@ button.go:disabled { opacity: .6; cursor: default; }
 .about h2 { font-size: 1rem; color: #fff; margin: 22px 0 8px; }
 .about p { margin-bottom: 10px; }
 .about ul { margin: 0 0 10px 1.2em; }
+.about a { color: #c8d2ee; }
 footer { margin-top: 32px; color: #6b769a; font-size: .78rem; text-align: center; }
 footer a { color: #9aa6c4; }
 

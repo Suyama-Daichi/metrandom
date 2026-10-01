@@ -36,3 +36,18 @@ a.hotel { display: inline-block; margin-top: 12px; padding: 10px 24px; font-size
   border-radius: 999px; font-size: .75rem; background: rgba(255,255,255,.08); color: #d4dcf0; text-decoration: none; }
 .rel .chip.cur { background: rgba(255,216,77,.2); color: #ffd84d; font-weight: 700; }
 .rel .dot { width: 9px; height: 9px; border-radius: 50%; }
+.rel h2 a { color: inherit; text-decoration: none; }
+/* 路線の駅一覧ページ */
+body.line-page { justify-content: flex-start; }
+.line-page a.site { color: #9aa6c4; font-size: .85rem; text-decoration: none; margin-bottom: 14px; }
+.line-page h1 { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; }
+.line-page h1 .dot { width: 16px; height: 16px; border-radius: 50%; }
+.stations { list-style: none; width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 8px; }
+.stations a { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 14px;
+  background: rgba(255,255,255,.06); color: #fff; text-decoration: none; }
+.stations .code { flex: none; min-width: 44px; text-align: center; border-radius: 999px; padding: 2px 8px;
+  font-size: .75rem; font-weight: 800; }
+.stations .nm b { font-size: 1rem; margin-right: 8px; }
+.stations .nm small { color: #9aa6c4; font-size: .75rem; }
+.stations .g { display: block; color: #b6c0db; font-size: .8rem; line-height: 1.5; margin-top: 2px; }
+.line-page a.go { margin-top: 24px; }
