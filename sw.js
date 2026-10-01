@@ -1,7 +1,7 @@
 // メトロ駅ガチャ Service Worker
-const CACHE = 'metro-gacha-v4';
+const CACHE = 'metro-gacha-v5';
 const PRECACHE = [
-  '/', '/en/', '/zh/', '/app.js', '/app.css', '/station.css',
+  '/', '/en/', '/zh/', '/app.js', '/data/tokyo.js', '/app.css', '/station.css',
   '/favicon.svg', '/favicon.png', '/apple-touch-icon.png',
   '/icons/icon-192.png', '/icons/icon-512.png'
 ];

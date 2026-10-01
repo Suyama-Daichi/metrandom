@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZFZ05FF6E9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZFZ05FF6E9');
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x2pr31qy85");
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7001458737801425"
+     crossorigin="anonymous"></script>
+<title>Nagoya Subway Station Gacha | Random Station Picker for Nagoya Municipal Subway</title>
+<meta name="description" content="Picks one random station from the 100 stations across all 6 Nagoya Municipal Subway lines — Higashiyama Line, Meijo Line, Meiko Line, Tsurumai Line, Sakura-dori Line, Kamiiida Line. Spin the gacha to find your next spot to explore in Nagoya.">
+<meta name="keywords" content="Nagoya Municipal Subway,random station,station picker,roulette,Nagoya sightseeing,Higashiyama Line,Meijo Line,Meiko Line,Tsurumai Line,Sakura-dori Line,Kamiiida Line">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://metrandom.com/en/nagoya/">
+<link rel="alternate" hreflang="ja" href="https://metrandom.com/nagoya/">
+<link rel="alternate" hreflang="en" href="https://metrandom.com/en/nagoya/">
+<link rel="alternate" hreflang="zh" href="https://metrandom.com/zh/nagoya/">
+<link rel="alternate" hreflang="x-default" href="https://metrandom.com/en/nagoya/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nagoya Subway Station Gacha">
+<meta property="og:title" content="Nagoya Subway Station Gacha | Random Station Picker for Nagoya Municipal Subway">
+<meta property="og:description" content="Picks one random station from the 100 stations across all 6 Nagoya Municipal Subway lines — Higashiyama Line, Meijo Line, Meiko Line, Tsurumai Line, Sakura-dori Line, Kamiiida Line. Spin the gacha to find your next spot to explore in Nagoya.">
+<meta property="og:url" content="https://metrandom.com/en/nagoya/">
+<meta property="og:image" content="https://metrandom.com/og-image-nagoya.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nagoya Subway Station Gacha | Random Station Picker for Nagoya Municipal Subway">
+<meta name="twitter:description" content="Picks one random station from the 100 stations across all 6 Nagoya Municipal Subway lines — Higashiyama Line, Meijo Line, Meiko Line, Tsurumai Line, Sakura-dori Line, Kamiiida Line. Spin the gacha to find your next spot to explore in Nagoya.">
+<meta name="twitter:image" content="https://metrandom.com/og-image-nagoya.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0f1626">
+<link rel="manifest" href="/manifest.webmanifest">
+
+<!-- 構造化データ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Nagoya Subway Station Gacha",
+  "url": "https://metrandom.com/en/nagoya/",
+  "description": "Picks one random station from the 100 stations across all 6 Nagoya Municipal Subway lines — Higashiyama Line, Meijo Line, Meiko Line, Tsurumai Line, Sakura-dori Line, Kamiiida Line. Spin the gacha to find your next spot to explore in Nagoya.",
+  "applicationCategory": "TravelApplication",
+  "operatingSystem": "Any",
+  "inLanguage": "en",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY"
+  }
+}
+</script>
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-haspopup="dialog" aria-controls="drawer">
+    <span></span><span></span><span></span>
+  </button>
+  <dialog class="drawer" id="drawer" aria-labelledby="histTitle"><div class="drawer-body">
+    <div class="drawer-head">
+      <h2 id="histTitle">History</h2>
+      <button class="drawer-close" id="drawerClose" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="hist">
+      <div class="hist-head" id="histHead" hidden>
+        <button class="hist-clear" id="histClear" type="button">Clear all</button>
+      </div>
+      <div id="hist"></div>
+      <p class="hist-empty" id="histEmpty">No history yet</p>
+    </div>
+  </div></dialog>
+
+  <h1 id="appTitle">🚇 Nagoya Subway Station Gacha</h1>
+  <div class="sub" id="appSub">Press the button to spin for a random line and station</div>
+
+  <div class="langs" id="langs">
+    <button type="button" data-lang="ja">日本語</button>
+    <button type="button" data-lang="en">English</button>
+    <button type="button" data-lang="zh">中文</button>
+  </div>
+
+  <nav class="cities" aria-label="City">
+    <a href="/en/">Tokyo</a>
+    <a href="/en/osaka/">Osaka</a>
+    <a href="/en/nagoya/" aria-current="page">Nagoya</a>
+  </nav>
+
+  <div class="ops" id="ops"></div>
+
+  <div class="lines" id="lines"></div>
+
+  <div class="card" id="card">
+    <div class="placeholder" id="placeholder">Press the button below to start</div>
+  </div>
+
+  <button class="go" id="go">Spin the Gacha</button>
+
+  <div class="share" id="share" hidden>
+    <span class="share-label" id="shareLabel">Share this result</span>
+    <div class="share-btns">
+      <a class="x" id="shareX" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <span id="shareXLabel">Post</span>
+      </a>
+      <a class="line" id="shareLine" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63h-1.752v1.125h1.752c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.383c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.38c.347 0 .63.285.63.63 0 .349-.283.63-.63.63h-1.752v1.125h1.752zm-3.855 3.016c0 .27-.174.51-.432.596a.62.62 0 0 1-.199.034c-.197 0-.381-.099-.495-.255l-2.42-3.293v2.918a.626.626 0 0 1-.629.628.625.625 0 0 1-.628-.628V8.108c0-.27.173-.51.43-.595a.643.643 0 0 1 .199-.033c.195 0 .375.104.495.254l2.42 3.291V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0a.63.63 0 0 1-.631.628.625.625 0 0 1-.626-.628V8.108c0-.345.282-.63.63-.63.346 0 .627.285.627.63v4.771zm-2.466.628H4.917a.63.63 0 0 1-.63-.628V8.108c0-.345.282-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63a.63.63 0 0 1-.629.628M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.072 9.436-6.974C23.176 14.393 24 12.458 24 10.314"/></svg>
+        LINE
+      </a>
+      <button class="copy" id="shareCopy" type="button">Copy link</button>
+    </div>
+  </div>
+
+  <!-- 広告: 楽天アフィリエイトリンク -->
+  <section class="pr">
+    <div class="pr-head"><span id="prHeadLabel">For your outing</span> <span class="pr-badge">PR</span></div>
+    <a class="pr-item" href="https://a.r10.to/hFBRMP" target="_blank" rel="sponsored nofollow noopener">
+      <span class="pr-emoji">🌂</span>
+      <span>Fully light-blocking UV parasol — 100% shading, UV cut, heat shield<br>Sun protection for walks from the station</span>
+      <span class="pr-shop">Rakuten</span>
+    </a>
+    <a class="pr-item" href="https://a.r10.to/hRMlLZ" target="_blank" rel="sponsored nofollow noopener">
+      <span class="pr-emoji">🧴</span>
+      <span>Nivea UV Deep Protect &amp; Care Gel (80g × 2)<br>UV care before exploring the city</span>
+      <span class="pr-shop">Rakuten</span>
+    </a>
+  </section>
+
+  <section class="about">
+    <h2 id="aboutTitle">About Nagoya Subway Station Gacha</h2>
+    <p id="aboutP1">Picks one random station from the 100 stations across all 6 Nagoya Municipal Subway lines at the press of a button. Great for spontaneous stopovers, weekend walks, mini trips and choosing your next place to explore in Nagoya. Filter by line to draw stations only from the ones you select. The name "gacha" comes from Japanese capsule-toy vending machines (gachapon) — you never know what comes out!</p>
+    <h2 id="aboutLinesTitle">Supported lines</h2>
+    <ul id="aboutLines">
+      <li>Higashiyama Line (H)</li>
+      <li>Meijo Line (M)</li>
+      <li>Meiko Line (E)</li>
+      <li>Tsurumai Line (T)</li>
+      <li>Sakura-dori Line (S)</li>
+      <li>Kamiiida Line (K)</li>
+    </ul>
+    <h2 id="howTitle">How to use</h2>
+    <p id="howP">Press the "Spin the Gacha" button and the roulette will cycle through lines and stations before landing on one. Tap the line chips at the top to switch lines on or off. Your recent results are kept in the history.</p>
+  </section>
+
+  <footer>
+    <p style="margin-bottom:8px">This is an unofficial fan site and is not affiliated with the Transportation Bureau City of Nagoya.</p>
+    Nagoya Subway Station Gacha ・
+    <a href="/en/privacy/">Privacy Policy</a> ・
+    <a href="https://github.com/Suyama-Daichi/metro-random" rel="noopener">GitHub</a>
+  </footer>
+
+<script src="/data/nagoya.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
