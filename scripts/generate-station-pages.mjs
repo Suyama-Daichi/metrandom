@@ -94,7 +94,7 @@ const LANGS = {
     stationLabel: `${p.stationJa}駅（${p.lineNameJa} ${p.code}）`,
     label: 'ガチャ結果', map: 'Googleマップで見る', go: '自分もガチャを回す 🎲',
     hotel: `${p.stationJa}駅周辺のホテルを探す`, prev: '前の駅', next: '次の駅',
-    transfer: '乗り換え', onLine: `${p.lineNameJa}の駅`,
+    transfer: '乗り換え', onLine: `${p.lineNameJa}の駅一覧`,
     disclaimer: p.c.ja.disclaimer,
     privacyLabel: 'プライバシーポリシー',
   }),
@@ -108,7 +108,7 @@ const LANGS = {
     stationLabel: `${p.stationEn} Station (${p.lineNameEn} ${p.code})`,
     label: 'Gacha result', map: 'View on Google Maps', go: 'Spin the Gacha yourself 🎲',
     hotel: `Find hotels near ${p.stationEn} Station`, prev: 'Previous', next: 'Next',
-    transfer: 'Transfers', onLine: `Stations on the ${p.lineNameEn}`,
+    transfer: 'Transfers', onLine: `All ${p.lineNameEn} stations`,
     disclaimer: p.c.en.disclaimer,
     privacyLabel: 'Privacy Policy',
   }),
@@ -122,7 +122,7 @@ const LANGS = {
     stationLabel: `${p.stationJa}站（${p.lineNameZh} ${p.code}）`,
     label: '抽选结果', map: '在谷歌地图中查看', go: '我也要转扭蛋 🎲',
     hotel: `查找${p.stationJa}站附近的酒店`, prev: '上一站', next: '下一站',
-    transfer: '换乘', onLine: `${p.lineNameZh}的车站`,
+    transfer: '换乘', onLine: `${p.lineNameZh}车站一览`,
     disclaimer: p.c.zh.disclaimer,
     privacyLabel: '隐私政策',
   }),
@@ -151,22 +151,12 @@ function related(lang, p, s) {
     <div class="adj">${prev ? `<a href="${href(line, idx - 1)}">← ${s.prev}<b>${stName(prev)}</b></a>` : '<span></span>'}${next ? `<a class="next" href="${href(line, idx + 1)}">${s.next} →<b>${stName(next)}</b></a>` : ''}</div>
 ${transfers.length ? `    <h2>${s.transfer}</h2>
     <div class="chips">${transfers.map(([l, i]) => chip(l, i, `${lnName(l)} ${stationCode(l, i)}`)).join('')}</div>
-` : ''}    <h2>${s.onLine}</h2>
+` : ''}    <h2><a href="/${s.dir}${p.path}line/${line.key}/">${s.onLine} →</a></h2>
     <div class="chips">${line.stations.map((st, i) => chip(line, i, stName(st), i === idx)).join('')}</div>
   </nav>`;
 }
 
-function page(lang, p) {
-  const s = LANGS[lang](p);
-  const { code, stationJa, stationEn, lineNameJa, lineColor, path } = p;
-  const home = `/${s.dir}${path}`;
-  const pageUrl = `https://metrandom.com/${s.dir}${path}s/${code}/`;
-  return `<!DOCTYPE html>
-<html lang="${s.htmlLang}">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Google tag (gtag.js) -->
+const ANALYTICS = `<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZFZ05FF6E9"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -182,7 +172,19 @@ function page(lang, p) {
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "x2pr31qy85");
 </script>
-<title>${s.title}</title>
+`;
+
+function page(lang, p) {
+  const s = LANGS[lang](p);
+  const { code, stationJa, stationEn, lineNameJa, lineColor, path } = p;
+  const home = `/${s.dir}${path}`;
+  const pageUrl = `https://metrandom.com/${s.dir}${path}s/${code}/`;
+  return `<!DOCTYPE html>
+<html lang="${s.htmlLang}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+${ANALYTICS}<title>${s.title}</title>
 <meta name="description" content="${s.description}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="${pageUrl}">
@@ -254,7 +256,7 @@ function cityTop(tpl, { id, lang, dir, path, c, n, m, LINES, LINE_I18N }) {
       title: `${s.site} | ${s.area}の${n}路線からランダムに駅を選ぶ`,
       description: `${s.area}全${n}路線、${m}駅からランダムに1駅を選んでくれます。${names}を路線で絞り込み可能。途中下車・お散歩・旅行先選びに。`,
       keywords: `${s.area},ランダム,駅,ルーレット,路線,途中下車,散歩,${LINES.map(name).join(',')}`,
-      li: l => `${name(l)}（${l.sym}）`,
+      li: l => `<a href="/${dir}${path}line/${l.key}/">${name(l)}（${l.sym}）</a>`,
       about: `${s.site}とは`,
       p1: `${s.area}の全${n}路線${m}駅の中から、ボタンひとつでランダムに1駅を選んでくれます。行き先に迷ったときの途中下車、休日のお散歩コース選び、近場の小旅行、街歩きの目的地決めなどに使えます。路線を絞り込めば、特定の沿線だけから駅を選ぶこともできます。`,
       linesTitle: '対応している路線', howTitle: '使い方',
@@ -264,7 +266,7 @@ function cityTop(tpl, { id, lang, dir, path, c, n, m, LINES, LINE_I18N }) {
       title: `${s.site} | Random Station Picker for ${s.area}`,
       description: `Picks one random station from the ${m} stations across all ${n} ${s.area} lines — ${names}. Spin the gacha to find your next spot to explore in ${s.city}.`,
       keywords: `${s.area},random station,station picker,roulette,${s.city} sightseeing,${LINES.map(name).join(',')}`,
-      li: l => `${name(l)} (${l.sym})`,
+      li: l => `<a href="/${dir}${path}line/${l.key}/">${name(l)} (${l.sym})</a>`,
       about: `About ${s.site}`,
       p1: `Picks one random station from the ${m} stations across all ${n} ${s.area} lines at the press of a button. Great for spontaneous stopovers, weekend walks, mini trips and choosing your next place to explore in ${s.city}. Filter by line to draw stations only from the ones you select. The name "gacha" comes from Japanese capsule-toy vending machines (gachapon) — you never know what comes out!`,
       linesTitle: 'Supported lines', howTitle: 'How to use',
@@ -274,7 +276,7 @@ function cityTop(tpl, { id, lang, dir, path, c, n, m, LINES, LINE_I18N }) {
       title: `${s.site} | 从${s.area}${n}条线路随机抽选车站`,
       description: `只需按一下按钮，即可从${s.area}全部${n}条线路、${m}个车站中随机抽选1站——${names}。随性下车、城市漫步的好帮手。`,
       keywords: `${s.area},随机,车站,轮盘,${LINES.map(name).join(',')}`,
-      li: l => `${name(l)}（${l.sym}）`,
+      li: l => `<a href="/${dir}${path}line/${l.key}/">${name(l)}（${l.sym}）</a>`,
       about: `关于${s.site}`,
       p1: `只需按一下按钮，即可从${s.area}全部${n}条线路、${m}个车站中随机抽选1站。适合随性下车、周末散步、近郊小旅行、为城市漫步挑选目的地等。还可以按线路筛选，只从特定线路中抽选车站。`,
       linesTitle: '支持的线路', howTitle: '使用方法',
@@ -317,6 +319,115 @@ ${LINES.map(l => `      <li>${T.li(l)}</li>`).join('\n')}
   }, tpl);
 }
 
+// 路線ごとの駅一覧ページ (/line/G/, /osaka/line/M/ など)
+function linePage(lang, { id, c, path, line, LINES, LINE_I18N, GUIDES }) {
+  const dir = { ja: '', en: 'en/', zh: 'zh/' }[lang];
+  const site = c[lang].site;
+  const ln = lang === 'ja' ? line.name : LINE_I18N[line.key][lang];
+  const k = line.stations.length;
+  const first = line.stations[0], last = line.stations[k - 1];
+  const T = {
+    ja: {
+      htmlLang: 'ja', locale: 'ja_JP', privacy: '/privacy/', privacyLabel: 'プライバシーポリシー', go: '自分もガチャを回す 🎲',
+      title: `${ln}の駅一覧（全${k}駅）｜${site}`,
+      description: `${ln}の全${k}駅（${first[0]}〜${last[0]}）を一覧で紹介。各駅の見どころをひとことで添えています。行き先に迷ったらガチャでランダムに1駅選べます。`,
+      h1: `${ln}の駅一覧`, lead: `${first[0]}から${last[0]}まで全${k}駅`, others: 'ほかの路線',
+    },
+    en: {
+      htmlLang: 'en', locale: 'en_US', privacy: '/en/privacy/', privacyLabel: 'Privacy Policy', go: 'Spin the Gacha yourself 🎲',
+      title: `${ln} Stations — All ${k} Stops | ${site}`,
+      description: `All ${k} stations on the ${ln} (${first[1]} to ${last[1]}), each with a one-line guide to what's nearby. Can't decide where to go? Spin the gacha for a random station.`,
+      h1: `${ln} Stations`, lead: `${k} stations from ${first[1]} to ${last[1]}`, others: 'Other lines',
+    },
+    zh: {
+      htmlLang: 'zh-CN', locale: 'zh_CN', privacy: '/en/privacy/', privacyLabel: '隐私政策', go: '我也要转扭蛋 🎲',
+      title: `${ln}车站一览（共${k}站）｜${site}`,
+      description: `介绍${ln}全部${k}个车站（${first[0]}～${last[0]}），并附上每站看点简介。拿不定主意时，可以用扭蛋随机抽选1站。`,
+      h1: `${ln}车站一览`, lead: `从${first[0]}到${last[0]}，共${k}站`, others: '其他线路',
+    },
+  }[lang];
+  const home = `/${dir}${path}`;
+  const url = d => `https://metrandom.com/${d}${path}line/${line.key}/`;
+  const stUrl = i => `/${dir}${path}s/${stationCode(line, i)}/`;
+  const ogImage = `https://metrandom.com/${id === 'tokyo' ? 'og-image.png' : `og-image-${id}.png`}`;
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: T.title,
+    url: url(dir),
+    inLanguage: lang,
+    isPartOf: { '@type': 'WebApplication', name: site, url: `https://metrandom.com${home}` },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: site, item: `https://metrandom.com${home}` },
+        { '@type': 'ListItem', position: 2, name: T.h1 },
+      ],
+    },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: k,
+      itemListElement: line.stations.map((st, i) => ({
+        '@type': 'ListItem', position: i + 1, name: lang === 'en' ? st[1] : st[0], url: `https://metrandom.com${stUrl(i)}`,
+      })),
+    },
+  };
+  return `<!DOCTYPE html>
+<html lang="${T.htmlLang}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+${ANALYTICS}<title>${T.title}</title>
+<meta name="description" content="${T.description}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="${url(dir)}">
+<link rel="alternate" hreflang="ja" href="${url('')}">
+<link rel="alternate" hreflang="en" href="${url('en/')}">
+<link rel="alternate" hreflang="zh" href="${url('zh/')}">
+<link rel="alternate" hreflang="x-default" href="${url('en/')}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="${site}">
+<meta property="og:title" content="${T.title}">
+<meta property="og:description" content="${T.description}">
+<meta property="og:url" content="${url(dir)}">
+<meta property="og:image" content="${ogImage}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="${T.locale}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${T.title}">
+<meta name="twitter:description" content="${T.description}">
+<meta name="twitter:image" content="${ogImage}">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0f1626">
+<!-- 構造化データ -->
+<script type="application/ld+json">
+${JSON.stringify(ld, null, 2)}
+</script>
+<link rel="stylesheet" href="/station.css">
+</head>
+<body class="line-page">
+  <a class="site" href="${home}">🚇 ${site}</a>
+  <h1><span class="dot" style="background:${line.color}"></span>${T.h1}</h1>
+  <div class="label">${T.lead}</div>
+  <ol class="stations">
+${line.stations.map((st, i) => `    <li><a href="${stUrl(i)}"><span class="code" style="background:${line.color}">${stationCode(line, i)}</span><span class="nm"><b>${lang === 'en' ? st[1] : st[0]}</b><small>${lang === 'en' ? st[0] : st[1]}</small><span class="g">${(GUIDES[st[0]] || ['', ''])[lang === 'ja' ? 0 : 1]}</span></span></a></li>`).join('\n')}
+  </ol>
+  <a class="go" href="${home}">${T.go}</a>
+  <nav class="rel">
+    <h2>${T.others}</h2>
+    <div class="chips">${LINES.filter(l => l !== line).map(l => `<a class="chip" href="/${dir}${path}line/${l.key}/"><span class="dot" style="background:${l.color}"></span>${lang === 'ja' ? l.name : LINE_I18N[l.key][lang]}</a>`).join('')}</div>
+  </nav>
+  <footer>
+    <p style="margin-bottom:8px">${c[lang].disclaimer}</p>
+    <a href="${home}">${site}</a> ・ <a href="${T.privacy}">${T.privacyLabel}</a>
+  </footer>
+</body>
+</html>
+`;
+}
+
 const stationsWritten = [];
 const extraLocs = [];
 
@@ -345,6 +456,14 @@ for (const id of Object.keys(CITIES)) {
       });
     });
   }
+  for (const line of LINES) {
+    for (const lang of Object.keys(LANGS)) {
+      const dir = join(ROOT, LANGS[lang]({ c }).dir, CITY_PATH, 'line', line.key);
+      await mkdir(dir, { recursive: true });
+      await writeFile(join(dir, 'index.html'), linePage(lang, { id, c, path: CITY_PATH, line, LINES, LINE_I18N, GUIDES }), 'utf8');
+      extraLocs.push(`https://metrandom.com/${LANGS[lang]({ c }).dir}${CITY_PATH}line/${line.key}/`);
+    }
+  }
   if (id !== 'tokyo') {
     for (const lang of Object.keys(LANGS)) {
       const dir = LANGS[lang]({ c }).dir;
@@ -364,7 +483,7 @@ for (const p of stationsWritten) {
   }
 }
 
-console.log(`Wrote ${stationsWritten.length * 3} station share pages (${stationsWritten.length} stations x ja/en/zh) and ${extraLocs.length} city top pages.`);
+console.log(`Wrote ${stationsWritten.length * 3} station share pages (${stationsWritten.length} stations x ja/en/zh) plus city top and line pages (${extraLocs.length}).`);
 
 // ---------- sitemap.xml ----------
 const sitemapPath = join(ROOT, 'sitemap.xml');
