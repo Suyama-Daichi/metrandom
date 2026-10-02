@@ -195,3 +195,11 @@ footer a { color: #9aa6c4; }
 .share-btns .line { background: #06C755; }
 .share-btns .copy { background: rgba(255,255,255,.12); color: #d4dcf0; }
 .share-btns svg { width: 16px; height: 16px; fill: currentColor; }
+
+/* 駅周辺スポット */
+.nearby { margin-top: 18px; width: 100%; max-width: 320px; text-align: left; font-size: .85rem; }
+.nearby-head { color: #9aa6c4; font-size: .75rem; font-weight: 700; margin: 12px 0 4px; }
+.nearby a { display: block; color: #d4dcf0; text-decoration: none; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.08); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nearby a:hover { color: #fff; }
+.nearby .nearby-src { margin-top: 10px; color: #6b769a; font-size: .7rem; text-align: right; }
+.nearby .nearby-src a { display: inline; border: 0; padding: 0; color: inherit; text-decoration: underline; }
