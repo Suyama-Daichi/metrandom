@@ -32,7 +32,7 @@ const lang = document.documentElement.lang.slice(0, 2);
 
 function t(key){ return T[lang][key]; }
 // 駅ナンバリング（例: G01）。大阪メトロのように 01 始まりでない路線は numStart で指定する。
-function stationCode(line, i){ return line.sym + String(i + (line.numStart || 1)).padStart(2,'0'); }
+function stationCode(line, i){ return line.key + String(i + (line.numStart || 1)).padStart(2,'0'); }
 function lineName(line){ return lang === 'ja' ? line.name : LINE_I18N[line.key][lang]; }
 function opName(op){ return lang === 'ja' ? op.name : OP_I18N[op.key][lang]; }
 // ---------- /i18n ----------
@@ -59,6 +59,7 @@ OPERATORS.forEach(op=>{
     }
     syncChips();
   };
+  c.textContent = opName(op);
   opChipEls.push([c, op]);
   opsEl.appendChild(c);
 });
@@ -71,6 +72,7 @@ LINES.forEach((l, i)=>{
   const c = document.createElement('div');
   c.className = 'chip';
   c.dataset.key = l.key;
+  c.innerHTML = `<span class="dot" style="background:${l.color}"></span>${lineName(l).replace(/ Line$/, "")}`;
   c.onclick = ()=>{
     if(active.has(l.key)){ if(active.size>1) active.delete(l.key); }
     else active.add(l.key);
@@ -85,14 +87,6 @@ function syncChips(){
   chipEls.forEach(([c, l])=> c.classList.toggle('off', !active.has(l.key)));
   opChipEls.forEach(([c, op])=>
     c.classList.toggle('off', !LINES.some(l=>l.op === op.key && active.has(l.key))));
-}
-
-function renderChips(){
-  chipEls.forEach(([c, l])=>{
-    c.innerHTML = `<span class="dot" style="background:${l.color}"></span>${lineName(l).replace(/ Line$/, "")}`;
-  });
-  opChipEls.forEach(([c, op])=>{ c.textContent = opName(op); });
-  syncChips();
 }
 
 const card = document.getElementById('card');
@@ -171,7 +165,7 @@ const shareLine = document.getElementById('shareLine');
 const shareCopy = document.getElementById('shareCopy');
 
 
-// 結果の共有URL。全駅に静的な結果ページがあるためそちらを使う（?s= は旧リンクの後方互換用）。
+// 結果の共有URL。全駅に静的な結果ページがあるためそちらを使う。
 function shareUrl(r){
   return `https://metrandom.com/${lang === 'ja' ? '' : lang + '/'}${CITY_PATH}s/${stationCode(r.line, r.idx)}/`;
 }
@@ -203,12 +197,12 @@ function pick(){
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-// 楽天トラベルのホテル検索。アフィリエイトIDを入れると楽天アフィリエイト経由のリンクになる
+// 楽天トラベルのホテル検索（楽天アフィリエイト経由）
 // （scripts/generate-station-pages.mjs もこの値を読んで駅ページに使う）
 const RAKUTEN_AFFILIATE_ID = '5516128b.31e208e8.5516128c.89a7d37f';
 function hotelUrl(stationJa){
   const url = `https://kw.travel.rakuten.co.jp/keyword/Search.do?charset=utf-8&f_query=${encodeURIComponent(stationJa + '駅')}`;
-  return RAKUTEN_AFFILIATE_ID ? `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_AFFILIATE_ID}/?pc=${encodeURIComponent(url)}` : url;
+  return `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_AFFILIATE_ID}/?pc=${encodeURIComponent(url)}`;
 }
 
 function render(r, spinning){
@@ -253,7 +247,7 @@ function addHist(r){
 const langsEl = document.getElementById('langs');
 
 langsEl.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-renderChips();
+syncChips();
 renderHist();
 
 langsEl.addEventListener('click', e=>{
@@ -264,22 +258,4 @@ langsEl.addEventListener('click', e=>{
   location.href = '/' + (next === 'ja' ? '' : next + '/') + CITY_PATH;
 });
 
-// 共有リンク(?s=E23)で開かれたときは、その駅の結果を復元して表示する
-(function restoreFromQuery(){
-  const code = (new URLSearchParams(location.search).get('s') || '').toUpperCase();
-  const m = /^([A-Z])(\d{2})$/.exec(code);
-  if(!m) return;
-  const line = LINE_MAP[m[1]];
-  const idx = Number(m[2]) - (line ? line.numStart || 1 : 1);
-  if(!line || !line.stations[idx]) return;
-  const r = { line, st: line.stations[idx], idx };
-  render(r, false);
-  updateShare(r);
-})();
 
-// Service Worker 登録（PWA）
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(()=>{});
-  });
-}

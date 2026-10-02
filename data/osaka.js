@@ -1,31 +1,31 @@
 // 大阪版（大阪メトロ）の路線・駅データ。app.js より先に読み込む。
 const CITY_PATH = 'osaka/';
 const LINES = [
-  { key:"M", name:"御堂筋線", color:"#E5171F", sym:"M", op:"osakametro", numStart:11, stations:[
+  { key:"M", name:"御堂筋線", color:"#E5171F", op:"osakametro", numStart:11, stations:[
     ["江坂","Esaka"],["東三国","Higashi-mikuni"],["新大阪","Shin-osaka"],["西中島南方","Nishi-nakajima-minamigata"],["中津","Nakatsu"],["梅田","Umeda"],["淀屋橋","Yodoyabashi"],["本町","Hommachi"],["心斎橋","Shinsaibashi"],["なんば","Namba"],["大国町","Daikokucho"],["動物園前","Dobutsuen-mae"],["天王寺","Tennoji"],["昭和町","Showacho"],["西田辺","Nishi-tanabe"],["長居","Nagai"],["あびこ","Abiko"],["北花田","Kita-hanada"],["新金岡","Shin-kanaoka"],["なかもず","Nakamozu"]
   ]},
-  { key:"T", name:"谷町線", color:"#522886", sym:"T", op:"osakametro", numStart:11, stations:[
+  { key:"T", name:"谷町線", color:"#522886", op:"osakametro", numStart:11, stations:[
     ["大日","Dainichi"],["守口","Moriguchi"],["太子橋今市","Taishibashi-imaichi"],["千林大宮","Senbayashi-omiya"],["関目高殿","Sekime-takadono"],["野江内代","Noe-uchindai"],["都島","Miyakojima"],["天神橋筋六丁目","Tenjimbashisuji-rokuchome"],["中崎町","Nakazakicho"],["東梅田","Higashi-umeda"],["南森町","Minami-morimachi"],["天満橋","Temmabashi"],["谷町四丁目","Tanimachi-yonchome"],["谷町六丁目","Tanimachi-rokuchome"],["谷町九丁目","Tanimachi-kyuchome"],["四天王寺前夕陽ヶ丘","Shitennoji-mae-yuhigaoka"],["天王寺","Tennoji"],["阿倍野","Abeno"],["文の里","Fuminosato"],["田辺","Tanabe"],["駒川中野","Komagawa-nakano"],["平野","Hirano"],["喜連瓜破","Kire-uriwari"],["出戸","Deto"],["長原","Nagahara"],["八尾南","Yao-minami"]
   ]},
-  { key:"Y", name:"四つ橋線", color:"#0078BA", sym:"Y", op:"osakametro", numStart:11, stations:[
+  { key:"Y", name:"四つ橋線", color:"#0078BA", op:"osakametro", numStart:11, stations:[
     ["西梅田","Nishi-umeda"],["肥後橋","Higobashi"],["本町","Hommachi"],["四ツ橋","Yotsubashi"],["なんば","Namba"],["大国町","Daikokucho"],["花園町","Hanazonocho"],["岸里","Kishinosato"],["玉出","Tamade"],["北加賀屋","Kita-kagaya"],["住之江公園","Suminoe-koen"]
   ]},
-  { key:"C", name:"中央線", color:"#019A66", sym:"C", op:"osakametro", numStart:9, stations:[
+  { key:"C", name:"中央線", color:"#019A66", op:"osakametro", numStart:9, stations:[
     ["夢洲","Yumeshima"],["コスモスクエア","Cosmosquare"],["大阪港","Osakako"],["朝潮橋","Asashiobashi"],["弁天町","Bentencho"],["九条","Kujo"],["阿波座","Awaza"],["本町","Hommachi"],["堺筋本町","Sakaisuji-hommachi"],["谷町四丁目","Tanimachi-yonchome"],["森ノ宮","Morinomiya"],["緑橋","Midoribashi"],["深江橋","Fukaebashi"],["高井田","Takaida"],["長田","Nagata"]
   ]},
-  { key:"S", name:"千日前線", color:"#E44D93", sym:"S", op:"osakametro", numStart:11, stations:[
+  { key:"S", name:"千日前線", color:"#E44D93", op:"osakametro", numStart:11, stations:[
     ["野田阪神","Noda-hanshin"],["玉川","Tamagawa"],["阿波座","Awaza"],["西長堀","Nishi-nagahori"],["桜川","Sakuragawa"],["なんば","Namba"],["日本橋","Nippombashi"],["谷町九丁目","Tanimachi-kyuchome"],["鶴橋","Tsuruhashi"],["今里","Imazato"],["新深江","Shin-fukae"],["小路","Shoji"],["北巽","Kita-tatsumi"],["南巽","Minami-tatsumi"]
   ]},
-  { key:"K", name:"堺筋線", color:"#814721", sym:"K", op:"osakametro", numStart:11, stations:[
+  { key:"K", name:"堺筋線", color:"#814721", op:"osakametro", numStart:11, stations:[
     ["天神橋筋六丁目","Tenjimbashisuji-rokuchome"],["扇町","Ogimachi"],["南森町","Minami-morimachi"],["北浜","Kitahama"],["堺筋本町","Sakaisuji-hommachi"],["長堀橋","Nagahoribashi"],["日本橋","Nippombashi"],["恵美須町","Ebisucho"],["動物園前","Dobutsuen-mae"],["天下茶屋","Tengachaya"]
   ]},
-  { key:"N", name:"長堀鶴見緑地線", color:"#A9CC51", sym:"N", op:"osakametro", numStart:11, stations:[
+  { key:"N", name:"長堀鶴見緑地線", color:"#A9CC51", op:"osakametro", numStart:11, stations:[
     ["大正","Taisho"],["ドーム前千代崎","Dome-mae-chiyozaki"],["西長堀","Nishi-nagahori"],["西大橋","Nishi-ohashi"],["心斎橋","Shinsaibashi"],["長堀橋","Nagahoribashi"],["松屋町","Matsuyamachi"],["谷町六丁目","Tanimachi-rokuchome"],["玉造","Tamatsukuri"],["森ノ宮","Morinomiya"],["大阪ビジネスパーク","Osaka Business Park"],["京橋","Kyobashi"],["蒲生四丁目","Gamo-yonchome"],["今福鶴見","Imafuku-tsurumi"],["横堤","Yokozutsumi"],["鶴見緑地","Tsurumi-ryokuchi"],["門真南","Kadoma-minami"]
   ]},
-  { key:"I", name:"今里筋線", color:"#EE7B1A", sym:"I", op:"osakametro", numStart:11, stations:[
+  { key:"I", name:"今里筋線", color:"#EE7B1A", op:"osakametro", numStart:11, stations:[
     ["井高野","Itakano"],["瑞光四丁目","Zuiko-yonchome"],["だいどう豊里","Daido-toyosato"],["太子橋今市","Taishibashi-imaichi"],["清水","Shimizu"],["新森古市","Shimmori-furuichi"],["関目成育","Sekime-seiiku"],["蒲生四丁目","Gamo-yonchome"],["鴫野","Shigino"],["緑橋","Midoribashi"],["今里","Imazato"]
   ]},
-  { key:"P", name:"南港ポートタウン線", color:"#00A0DE", sym:"P", op:"osakametro", numStart:9, stations:[
+  { key:"P", name:"南港ポートタウン線", color:"#00A0DE", op:"osakametro", numStart:9, stations:[
     ["コスモスクエア","Cosmosquare"],["トレードセンター前","Trade Center-mae"],["中ふ頭","Naka-futo"],["ポートタウン西","Port Town-nishi"],["ポートタウン東","Port Town-higashi"],["フェリーターミナル","Ferry Terminal"],["南港東","Nanko-higashi"],["南港口","Nanko-guchi"],["平林","Hirabayashi"],["住之江公園","Suminoe-koen"]
   ]}
 ];
