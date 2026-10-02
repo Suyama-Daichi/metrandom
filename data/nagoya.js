@@ -1,22 +1,22 @@
 // 名古屋版（名古屋市営地下鉄）の路線・駅データ。app.js より先に読み込む。
 const CITY_PATH = 'nagoya/';
 const LINES = [
-  { key:"H", name:"東山線", color:"#FAB123", sym:"H", op:"nagoya", stations:[
+  { key:"H", name:"東山線", color:"#FAB123", op:"nagoya", stations:[
     ["高畑","Takabata"],["八田","Hatta"],["岩塚","Iwatsuka"],["中村公園","Nakamura Koen"],["中村日赤","Nakamura Nisseki"],["本陣","Honjin"],["亀島","Kamejima"],["名古屋","Nagoya"],["伏見","Fushimi"],["栄","Sakae"],["新栄町","Shinsakae-machi"],["千種","Chikusa"],["今池","Imaike"],["池下","Ikeshita"],["覚王山","Kakuozan"],["本山","Motoyama"],["東山公園","Higashiyama Koen"],["星ヶ丘","Hoshigaoka"],["一社","Issha"],["上社","Kamiyashiro"],["本郷","Hongo"],["藤が丘","Fujigaoka"]
   ]},
-  { key:"M", name:"名城線", color:"#B074D6", sym:"M", op:"nagoya", stations:[
+  { key:"M", name:"名城線", color:"#B074D6", op:"nagoya", stations:[
     ["金山","Kanayama"],["東別院","Higashi Betsuin"],["上前津","Kamimaezu"],["矢場町","Yabacho"],["栄","Sakae"],["久屋大通","Hisaya-odori"],["名古屋城","Nagoyajo"],["名城公園","Meijo Koen"],["黒川","Kurokawa"],["志賀本通","Shiga-hondori"],["平安通","Heian-dori"],["大曽根","Ozone"],["ナゴヤドーム前矢田","Nagoya Dome-mae Yada"],["砂田橋","Sunadabashi"],["茶屋ヶ坂","Chayagasaka"],["自由ヶ丘","Jiyugaoka"],["本山","Motoyama"],["名古屋大学","Nagoya Daigaku"],["八事日赤","Yagoto Nisseki"],["八事","Yagoto"],["総合リハビリセンター","Sogo Rehabilitation Center"],["瑞穂運動場東","Mizuho Undojo Higashi"],["新瑞橋","Aratamabashi"],["妙音通","Myoon-dori"],["堀田","Horita"],["熱田神宮伝馬町","Atsuta Jingu Temmacho"],["熱田神宮西","Atsuta Jingu Nishi"],["西高蔵","Nishi Takakura"]
   ]},
-  { key:"E", name:"名港線", color:"#B074D6", sym:"E", op:"nagoya", stations:[
+  { key:"E", name:"名港線", color:"#B074D6", op:"nagoya", stations:[
     ["金山","Kanayama"],["日比野","Hibino"],["六番町","Rokubancho"],["東海通","Tokai-dori"],["港区役所","Minato Kuyakusho"],["築地口","Tsukijiguchi"],["名古屋港","Nagoyako"]
   ]},
-  { key:"T", name:"鶴舞線", color:"#009BBF", sym:"T", op:"nagoya", stations:[
+  { key:"T", name:"鶴舞線", color:"#009BBF", op:"nagoya", stations:[
     ["上小田井","Kami Otai"],["庄内緑地公園","Shonai Ryokuchi Koen"],["庄内通","Shonai-dori"],["浄心","Joshin"],["浅間町","Sengencho"],["丸の内","Marunouchi"],["伏見","Fushimi"],["大須観音","Osu Kannon"],["上前津","Kamimaezu"],["鶴舞","Tsurumai"],["荒畑","Arahata"],["御器所","Gokiso"],["川名","Kawana"],["いりなか","Irinaka"],["八事","Yagoto"],["塩釜口","Shiogamaguchi"],["植田","Ueda"],["原","Hara"],["平針","Hirabari"],["赤池","Akaike"]
   ]},
-  { key:"S", name:"桜通線", color:"#C92F44", sym:"S", op:"nagoya", stations:[
+  { key:"S", name:"桜通線", color:"#C92F44", op:"nagoya", stations:[
     ["太閤通","Taiko-dori"],["名古屋","Nagoya"],["国際センター","Kokusai Center"],["丸の内","Marunouchi"],["久屋大通","Hisaya-odori"],["高岳","Takaoka"],["車道","Kurumamichi"],["今池","Imaike"],["吹上","Fukiage"],["御器所","Gokiso"],["桜山","Sakurayama"],["瑞穂区役所","Mizuho Kuyakusho"],["瑞穂運動場西","Mizuho Undojo Nishi"],["新瑞橋","Aratamabashi"],["桜本町","Sakura-hommachi"],["鶴里","Tsurusato"],["野並","Nonami"],["鳴子北","Narukokita"],["相生山","Aioiyama"],["神沢","Kamisawa"],["徳重","Tokushige"]
   ]},
-  { key:"K", name:"上飯田線", color:"#EC78B4", sym:"K", op:"nagoya", stations:[
+  { key:"K", name:"上飯田線", color:"#EC78B4", op:"nagoya", stations:[
     ["上飯田","Kamiiida"],["平安通","Heian-dori"]
   ]}
 ];

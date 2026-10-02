@@ -2,53 +2,53 @@
 const CITY_PATH = '';
 
 const LINES = [
-  { key:"G", name:"銀座線", color:"#FF9500", sym:"G", op:"metro", stations:[
+  { key:"G", name:"銀座線", color:"#FF9500", op:"metro", stations:[
     ["浅草","Asakusa"],["田原町","Tawaramachi"],["稲荷町","Inaricho"],["上野","Ueno"],["上野広小路","Ueno-hirokoji"],["末広町","Suehirocho"],["神田","Kanda"],["三越前","Mitsukoshimae"],["日本橋","Nihombashi"],["京橋","Kyobashi"],["銀座","Ginza"],["新橋","Shimbashi"],["虎ノ門","Toranomon"],["溜池山王","Tameike-sanno"],["赤坂見附","Akasaka-mitsuke"],["青山一丁目","Aoyama-itchome"],["外苑前","Gaiemmae"],["表参道","Omote-sando"],["渋谷","Shibuya"]
   ]},
-  { key:"M", name:"丸ノ内線", color:"#F62E36", sym:"M", op:"metro", stations:[
+  { key:"M", name:"丸ノ内線", color:"#F62E36", op:"metro", stations:[
     ["池袋","Ikebukuro"],["新大塚","Shin-otsuka"],["茗荷谷","Myogadani"],["後楽園","Korakuen"],["本郷三丁目","Hongo-sanchome"],["御茶ノ水","Ochanomizu"],["淡路町","Awajicho"],["大手町","Otemachi"],["東京","Tokyo"],["銀座","Ginza"],["霞ケ関","Kasumigaseki"],["国会議事堂前","Kokkai-gijidomae"],["赤坂見附","Akasaka-mitsuke"],["四ツ谷","Yotsuya"],["四谷三丁目","Yotsuya-sanchome"],["新宿御苑前","Shinjuku-gyoemmae"],["新宿三丁目","Shinjuku-sanchome"],["新宿","Shinjuku"],["西新宿","Nishi-shinjuku"],["中野坂上","Nakano-sakaue"],["新中野","Shin-nakano"],["東高円寺","Higashi-koenji"],["新高円寺","Shin-koenji"],["南阿佐ケ谷","Minami-asagaya"],["荻窪","Ogikubo"],["中野新橋","Nakano-shimbashi"],["中野富士見町","Nakano-fujimicho"],["方南町","Honancho"]
   ]},
-  { key:"H", name:"日比谷線", color:"#B5B5AC", sym:"H", op:"metro", stations:[
+  { key:"H", name:"日比谷線", color:"#B5B5AC", op:"metro", stations:[
     ["北千住","Kita-senju"],["南千住","Minami-senju"],["三ノ輪","Minowa"],["入谷","Iriya"],["上野","Ueno"],["仲御徒町","Naka-okachimachi"],["秋葉原","Akihabara"],["小伝馬町","Kodemmacho"],["人形町","Ningyocho"],["茅場町","Kayabacho"],["八丁堀","Hatchobori"],["築地","Tsukiji"],["東銀座","Higashi-ginza"],["銀座","Ginza"],["日比谷","Hibiya"],["霞ケ関","Kasumigaseki"],["虎ノ門ヒルズ","Toranomon Hills"],["神谷町","Kamiyacho"],["六本木","Roppongi"],["広尾","Hiroo"],["恵比寿","Ebisu"],["中目黒","Naka-meguro"]
   ]},
-  { key:"T", name:"東西線", color:"#009BBF", sym:"T", op:"metro", stations:[
+  { key:"T", name:"東西線", color:"#009BBF", op:"metro", stations:[
     ["中野","Nakano"],["落合","Ochiai"],["高田馬場","Takadanobaba"],["早稲田","Waseda"],["神楽坂","Kagurazaka"],["飯田橋","Iidabashi"],["九段下","Kudanshita"],["竹橋","Takebashi"],["大手町","Otemachi"],["日本橋","Nihombashi"],["茅場町","Kayabacho"],["門前仲町","Monzen-nakacho"],["木場","Kiba"],["東陽町","Toyocho"],["南砂町","Minami-sunamachi"],["西葛西","Nishi-kasai"],["葛西","Kasai"],["浦安","Urayasu"],["南行徳","Minami-gyotoku"],["行徳","Gyotoku"],["妙典","Myoden"],["原木中山","Baraki-nakayama"],["西船橋","Nishi-funabashi"]
   ]},
-  { key:"C", name:"千代田線", color:"#00BB85", sym:"C", op:"metro", stations:[
+  { key:"C", name:"千代田線", color:"#00BB85", op:"metro", stations:[
     ["北綾瀬","Kita-ayase"],["綾瀬","Ayase"],["北千住","Kita-senju"],["町屋","Machiya"],["西日暮里","Nishi-nippori"],["千駄木","Sendagi"],["根津","Nezu"],["湯島","Yushima"],["新御茶ノ水","Shin-ochanomizu"],["大手町","Otemachi"],["二重橋前","Nijubashimae"],["日比谷","Hibiya"],["霞ケ関","Kasumigaseki"],["国会議事堂前","Kokkai-gijidomae"],["赤坂","Akasaka"],["乃木坂","Nogizaka"],["表参道","Omote-sando"],["明治神宮前","Meiji-jingumae"],["代々木公園","Yoyogi-koen"],["代々木上原","Yoyogi-uehara"]
   ]},
-  { key:"Y", name:"有楽町線", color:"#C1A470", sym:"Y", op:"metro", stations:[
+  { key:"Y", name:"有楽町線", color:"#C1A470", op:"metro", stations:[
     ["和光市","Wakoshi"],["地下鉄成増","Chikatetsu-narimasu"],["地下鉄赤塚","Chikatetsu-akatsuka"],["平和台","Heiwadai"],["氷川台","Hikawadai"],["小竹向原","Kotake-mukaihara"],["千川","Senkawa"],["要町","Kanamecho"],["池袋","Ikebukuro"],["東池袋","Higashi-ikebukuro"],["護国寺","Gokokuji"],["江戸川橋","Edogawabashi"],["飯田橋","Iidabashi"],["市ケ谷","Ichigaya"],["麹町","Kojimachi"],["永田町","Nagatacho"],["桜田門","Sakuradamon"],["有楽町","Yurakucho"],["銀座一丁目","Ginza-itchome"],["新富町","Shintomicho"],["月島","Tsukishima"],["豊洲","Toyosu"],["辰巳","Tatsumi"],["新木場","Shin-kiba"]
   ]},
-  { key:"Z", name:"半蔵門線", color:"#8F76D6", sym:"Z", op:"metro", stations:[
+  { key:"Z", name:"半蔵門線", color:"#8F76D6", op:"metro", stations:[
     ["渋谷","Shibuya"],["表参道","Omote-sando"],["青山一丁目","Aoyama-itchome"],["永田町","Nagatacho"],["半蔵門","Hanzomon"],["九段下","Kudanshita"],["神保町","Jimbocho"],["大手町","Otemachi"],["三越前","Mitsukoshimae"],["水天宮前","Suitengumae"],["清澄白河","Kiyosumi-shirakawa"],["住吉","Sumiyoshi"],["錦糸町","Kinshicho"],["押上","Oshiage"]
   ]},
-  { key:"N", name:"南北線", color:"#00AC9B", sym:"N", op:"metro", stations:[
+  { key:"N", name:"南北線", color:"#00AC9B", op:"metro", stations:[
     ["目黒","Meguro"],["白金台","Shirokanedai"],["白金高輪","Shirokane-takanawa"],["麻布十番","Azabu-juban"],["六本木一丁目","Roppongi-itchome"],["溜池山王","Tameike-sanno"],["永田町","Nagatacho"],["四ツ谷","Yotsuya"],["市ケ谷","Ichigaya"],["飯田橋","Iidabashi"],["後楽園","Korakuen"],["東大前","Todaimae"],["本駒込","Hon-komagome"],["駒込","Komagome"],["西ケ原","Nishigahara"],["王子","Oji"],["王子神谷","Oji-kamiya"],["志茂","Shimo"],["赤羽岩淵","Akabane-iwabuchi"]
   ]},
-  { key:"F", name:"副都心線", color:"#9C5E31", sym:"F", op:"metro", stations:[
+  { key:"F", name:"副都心線", color:"#9C5E31", op:"metro", stations:[
     ["和光市","Wakoshi"],["地下鉄成増","Chikatetsu-narimasu"],["地下鉄赤塚","Chikatetsu-akatsuka"],["平和台","Heiwadai"],["氷川台","Hikawadai"],["小竹向原","Kotake-mukaihara"],["千川","Senkawa"],["要町","Kanamecho"],["池袋","Ikebukuro"],["雑司が谷","Zoshigaya"],["西早稲田","Nishi-waseda"],["東新宿","Higashi-shinjuku"],["新宿三丁目","Shinjuku-sanchome"],["北参道","Kita-sando"],["明治神宮前","Meiji-jingumae"],["渋谷","Shibuya"]
   ]},
-  { key:"A", name:"都営浅草線", color:"#E85298", sym:"A", op:"toei", stations:[
+  { key:"A", name:"都営浅草線", color:"#E85298", op:"toei", stations:[
     ["西馬込","Nishi-magome"],["馬込","Magome"],["中延","Nakanobu"],["戸越","Togoshi"],["五反田","Gotanda"],["高輪台","Takanawadai"],
     ["泉岳寺","Sengakuji"],["三田","Mita"],["大門","Daimon"],["新橋","Shimbashi"],["東銀座","Higashi-ginza"],["宝町","Takaracho"],
     ["日本橋","Nihombashi"],["人形町","Ningyocho"],["東日本橋","Higashi-nihombashi"],["浅草橋","Asakusabashi"],["蔵前","Kuramae"],["浅草","Asakusa"],
     ["本所吾妻橋","Honjo-azumabashi"],["押上","Oshiage"]
   ]},
-  { key:"I", name:"都営三田線", color:"#0079C2", sym:"I", op:"toei", stations:[
+  { key:"I", name:"都営三田線", color:"#0079C2", op:"toei", stations:[
     ["目黒","Meguro"],["白金台","Shirokanedai"],["白金高輪","Shirokane-takanawa"],["三田","Mita"],["芝公園","Shibakoen"],["御成門","Onarimon"],
     ["内幸町","Uchisaiwaicho"],["日比谷","Hibiya"],["大手町","Otemachi"],["神保町","Jimbocho"],["水道橋","Suidobashi"],["春日","Kasuga"],
     ["白山","Hakusan"],["千石","Sengoku"],["巣鴨","Sugamo"],["西巣鴨","Nishi-sugamo"],["新板橋","Shin-itabashi"],["板橋区役所前","Itabashi-kuyakushomae"],
     ["板橋本町","Itabashi-honcho"],["本蓮沼","Motohasunuma"],["志村坂上","Shimura-sakaue"],["志村三丁目","Shimura-sanchome"],["蓮根","Hasune"],["西台","Nishidai"],
     ["高島平","Takashimadaira"],["新高島平","Shin-takashimadaira"],["西高島平","Nishi-takashimadaira"]
   ]},
-  { key:"S", name:"都営新宿線", color:"#6CBB5A", sym:"S", op:"toei", stations:[
+  { key:"S", name:"都営新宿線", color:"#6CBB5A", op:"toei", stations:[
     ["新宿","Shinjuku"],["新宿三丁目","Shinjuku-sanchome"],["曙橋","Akebonobashi"],["市ケ谷","Ichigaya"],["九段下","Kudanshita"],["神保町","Jimbocho"],
     ["小川町","Ogawamachi"],["岩本町","Iwamotocho"],["馬喰横山","Bakuro-yokoyama"],["浜町","Hamacho"],["森下","Morishita"],["菊川","Kikukawa"],
     ["住吉","Sumiyoshi"],["西大島","Nishi-ojima"],["大島","Ojima"],["東大島","Higashi-ojima"],["船堀","Funabori"],["一之江","Ichinoe"],
     ["瑞江","Mizue"],["篠崎","Shinozaki"],["本八幡","Motoyawata"]
   ]},
-  { key:"E", name:"都営大江戸線", color:"#B6007A", sym:"E", op:"toei", stations:[
+  { key:"E", name:"都営大江戸線", color:"#B6007A", op:"toei", stations:[
     ["新宿西口","Shinjuku-nishiguchi"],["東新宿","Higashi-shinjuku"],["若松河田","Wakamatsu-kawada"],["牛込柳町","Ushigome-yanagicho"],["牛込神楽坂","Ushigome-kagurazaka"],["飯田橋","Iidabashi"],
     ["春日","Kasuga"],["本郷三丁目","Hongo-sanchome"],["上野御徒町","Ueno-okachimachi"],["新御徒町","Shin-okachimachi"],["蔵前","Kuramae"],["両国","Ryogoku"],
     ["森下","Morishita"],["清澄白河","Kiyosumi-shirakawa"],["門前仲町","Monzen-nakacho"],["月島","Tsukishima"],["勝どき","Kachidoki"],["築地市場","Tsukijishijo"],

@@ -17,7 +17,7 @@ const SITE = { osaka: ['大阪メトロ', '駅ガチャ'], nagoya: ['名古屋�
 const cities = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(SITE);
 
 const icon = (await readFile(join(ROOT, 'favicon.svg'), 'utf8')).replace(/<\?xml[^>]*>/, '');
-const stationCode = (line, i) => line.sym + String(i + (line.numStart || 1)).padStart(2, '0');
+const stationCode = (line, i) => line.key + String(i + (line.numStart || 1)).padStart(2, '0');
 const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
 // 右側の路線図風の装飾（路線カラーの折れ線＋駅の点）
