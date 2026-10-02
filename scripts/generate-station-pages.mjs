@@ -96,7 +96,7 @@ const LANGS = {
     hotel: `${p.stationJa}駅周辺のホテルを探す`, prev: '前の駅', next: '次の駅',
     transfer: '乗り換え', onLine: `${p.lineNameJa}の駅一覧`,
     disclaimer: p.c.ja.disclaimer,
-    privacyLabel: 'プライバシーポリシー',
+    privacyLabel: 'プライバシーポリシー', aboutUrl: '/about/', aboutLabel: '運営者情報',
   }),
   en: p => ({
     dir: 'en/', htmlLang: 'en', locale: 'en_US', site: p.c.en.site, privacy: '/en/privacy/',
@@ -110,7 +110,7 @@ const LANGS = {
     hotel: `Find hotels near ${p.stationEn} Station`, prev: 'Previous', next: 'Next',
     transfer: 'Transfers', onLine: `All ${p.lineNameEn} stations`,
     disclaimer: p.c.en.disclaimer,
-    privacyLabel: 'Privacy Policy',
+    privacyLabel: 'Privacy Policy', aboutUrl: '/en/about/', aboutLabel: 'About',
   }),
   zh: p => ({
     dir: 'zh/', htmlLang: 'zh-CN', locale: 'zh_CN', site: p.c.zh.site, privacy: '/en/privacy/',
@@ -124,7 +124,7 @@ const LANGS = {
     hotel: `查找${p.stationJa}站附近的酒店`, prev: '上一站', next: '下一站',
     transfer: '换乘', onLine: `${p.lineNameZh}车站一览`,
     disclaimer: p.c.zh.disclaimer,
-    privacyLabel: '隐私政策',
+    privacyLabel: '隐私政策', aboutUrl: '/en/about/', aboutLabel: '运营者信息',
   }),
 };
 
@@ -156,6 +156,10 @@ ${transfers.length ? `    <h2>${s.transfer}</h2>
   </nav>`;
 }
 
+// Google AdSense（中身のある路線ページにだけ入れる。駅ページは本文が薄いため入れない）
+const ADSENSE = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7001458737801425"
+     crossorigin="anonymous"></script>
+`;
 const ANALYTICS = `<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZFZ05FF6E9"></script>
 <script>
@@ -239,7 +243,7 @@ ${jsonLd({
   ${related(lang, p, s)}
   <footer>
     <p style="margin-bottom:8px">${s.disclaimer}</p>
-    <a href="${home}">${s.site}</a> ・ <a href="${s.privacy}">${s.privacyLabel}</a>
+    <a href="${home}">${s.site}</a> ・ <a href="${s.aboutUrl}">${s.aboutLabel}</a> ・ <a href="${s.privacy}">${s.privacyLabel}</a>
   </footer>
 </body>
 </html>
@@ -328,19 +332,19 @@ function linePage(lang, { id, c, path, line, LINES, LINE_I18N, GUIDES }) {
   const first = line.stations[0], last = line.stations[k - 1];
   const T = {
     ja: {
-      htmlLang: 'ja', locale: 'ja_JP', privacy: '/privacy/', privacyLabel: 'プライバシーポリシー', go: '自分もガチャを回す 🎲',
+      htmlLang: 'ja', locale: 'ja_JP', privacy: '/privacy/', privacyLabel: 'プライバシーポリシー', aboutUrl: '/about/', aboutLabel: '運営者情報', go: '自分もガチャを回す 🎲',
       title: `${ln}の駅一覧（全${k}駅）｜${site}`,
       description: `${ln}の全${k}駅（${first[0]}〜${last[0]}）を一覧で紹介。各駅の見どころをひとことで添えています。行き先に迷ったらガチャでランダムに1駅選べます。`,
       h1: `${ln}の駅一覧`, lead: `${first[0]}から${last[0]}まで全${k}駅`, others: 'ほかの路線',
     },
     en: {
-      htmlLang: 'en', locale: 'en_US', privacy: '/en/privacy/', privacyLabel: 'Privacy Policy', go: 'Spin the Gacha yourself 🎲',
+      htmlLang: 'en', locale: 'en_US', privacy: '/en/privacy/', privacyLabel: 'Privacy Policy', aboutUrl: '/en/about/', aboutLabel: 'About', go: 'Spin the Gacha yourself 🎲',
       title: `${ln} Stations — All ${k} Stops | ${site}`,
       description: `All ${k} stations on the ${ln} (${first[1]} to ${last[1]}), each with a one-line guide to what's nearby. Can't decide where to go? Spin the gacha for a random station.`,
       h1: `${ln} Stations`, lead: `${k} stations from ${first[1]} to ${last[1]}`, others: 'Other lines',
     },
     zh: {
-      htmlLang: 'zh-CN', locale: 'zh_CN', privacy: '/en/privacy/', privacyLabel: '隐私政策', go: '我也要转扭蛋 🎲',
+      htmlLang: 'zh-CN', locale: 'zh_CN', privacy: '/en/privacy/', privacyLabel: '隐私政策', aboutUrl: '/en/about/', aboutLabel: '运营者信息', go: '我也要转扭蛋 🎲',
       title: `${ln}车站一览（共${k}站）｜${site}`,
       description: `介绍${ln}全部${k}个车站（${first[0]}～${last[0]}），并附上每站看点简介。拿不定主意时，可以用扭蛋随机抽选1站。`,
       h1: `${ln}车站一览`, lead: `从${first[0]}到${last[0]}，共${k}站`, others: '其他线路',
@@ -377,7 +381,7 @@ function linePage(lang, { id, c, path, line, LINES, LINE_I18N, GUIDES }) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-${ANALYTICS}<title>${T.title}</title>
+${ANALYTICS}${ADSENSE}<title>${T.title}</title>
 <meta name="description" content="${T.description}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="${url(dir)}">
@@ -421,7 +425,7 @@ ${line.stations.map((st, i) => `    <li><a href="${stUrl(i)}"><span class="code"
   </nav>
   <footer>
     <p style="margin-bottom:8px">${c[lang].disclaimer}</p>
-    <a href="${home}">${site}</a> ・ <a href="${T.privacy}">${T.privacyLabel}</a>
+    <a href="${home}">${site}</a> ・ <a href="${T.aboutUrl}">${T.aboutLabel}</a> ・ <a href="${T.privacy}">${T.privacyLabel}</a>
   </footer>
 </body>
 </html>
