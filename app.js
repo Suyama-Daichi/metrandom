@@ -7,6 +7,7 @@ const T = {
     mapLink: 'Googleマップで見る',
     hotel: st => `${st[0]}駅周辺のホテルを探す`,
     restore: 'この駅を表示',
+    nearby: ['周辺のお店（チェーン店以外）', '公園', '観光スポット'],
     share: r => `メトロ駅ガチャの結果は「${lineName(r.line)} ${r.st[0]}駅（${stationCode(r.line, r.idx)}）」でした！🚇 #メトロ駅ガチャ`
   },
   en: {
@@ -15,6 +16,7 @@ const T = {
     mapLink: 'View on Google Maps',
     hotel: st => `Find hotels near ${st[1]} Station`,
     restore: 'Show this station',
+    nearby: ['Local eats (no chains)', 'Parks', 'Sights'],
     share: r => `I spun the Metro Station Gacha and got "${r.st[1]} Station (${lineName(r.line)}, ${stationCode(r.line, r.idx)})"! 🚇 #MetroStationGacha`
   },
   zh: {
@@ -23,6 +25,7 @@ const T = {
     mapLink: '在谷歌地图中查看',
     hotel: st => `查找${st[0]}站附近的酒店`,
     restore: '显示该车站',
+    nearby: ['周边小店（非连锁）', '公园', '观光景点'],
     share: r => `地铁站扭蛋抽到了「${r.st[0]}站（${lineName(r.line)} ${stationCode(r.line, r.idx)}）」！🚇 #地铁站扭蛋`
   }
 };
@@ -216,6 +219,70 @@ function render(r, spinning){
     <div class="station-en">${r.st[1]}</div>
     <div class="num">${lineName(r.line)} ${code}</div>
     ${spinning ? '' : `<div class="card-guide">${(GUIDES[r.st[0]] || ['',''])[lang === 'ja' ? 0 : 1]}</div><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.st[0]+'駅 '+r.line.name)}" target="_blank" rel="noopener">📍 ${t('mapLink')}</a><a class="hotel-link" href="${hotelUrl(r.st[0])}" target="_blank" rel="sponsored nofollow noopener">🏨 ${t('hotel')(r.st)} <span class="pr-badge">PR</span></a>`}`;
+  if(!spinning) loadNearby(r.st[0]);
+}
+
+// ---------- 駅周辺スポット（OpenPOI API） ----------
+const POI_API = 'https://api.openpoiapi.com/v1/search';
+const FOOD_CATS = ['restaurant', 'cafe', 'bakery', 'bar_izakaya'];
+// ponytail: API にチェーン判定が無いので名前で推定。「ジョナサン 西馬込店」のような「ブランド名 + 支店名店」と
+// 支店名なしで出てくる有名チェーンを除く。漏れが目立ったら CHAINS に足す。
+const CHAINS = /マクドナルド|モスバーガー|ケンタッキー|吉野家|松屋|すき家|なか卯|ガスト|サイゼリヤ|ジョナサン|デニーズ|ロイヤルホスト|ココス|バーミヤン|ドトール|スターバックス|タリーズ|コメダ|ベローチェ|サンマルク|ミスタードーナツ|ドミノ|ピザーラ|ピザハット|日高屋|幸楽苑|大戸屋|やよい軒|てんや|CoCo壱|ココイチ|丸亀|はなまる|富士そば|鳥貴族|磯丸|白木屋|和民|魚民|笑笑|くら寿司|スシロー|かっぱ寿司|はま寿司|リンガーハット|天下一品|一蘭|一風堂|ローソン|セブン|ファミリーマート/i;
+const isChain = name => CHAINS.test(name) || /[\s　].*店([\s　]*[(（].*)?$/.test(name);
+const PARKS = ['公園', '庭園'];
+const SIGHTS = ['神社', '寺', '八幡', '稲荷', '美術館', '博物館', '記念館', '資料館'];
+// 飲食の営業許可データには保育園の給食なども混じるので名前で落とす
+const NOT_SPOT = /保育|事業所|会社|病院|クリニック|医院|歯科|学校|作業|施設|改札|窓口|出口|バス停|駐車|駐輪/;
+const named = words => x => words.some(w=>x.name.includes(w));
+
+async function poi(st, q){
+  const [lat, lng] = COORDS[st];
+  const u = `${POI_API}?center=${lng},${lat}&radius=800&limit=` + (q ? '30&q=' + encodeURIComponent(q) : 200);
+  return (await (await fetch(u)).json()).results;
+}
+// ponytail: q にスペース区切りで複数語を渡すと 0 件になることがあるので 1 語ずつ投げる（1 回のガチャで約 10 リクエスト）
+const poiWords = (st, words) => Promise.all(words.map(w=>poi(st, w))).then(r=>r.flat());
+// 配列からランダムに n 件（名前の重複は除く）
+function sample(list, n){
+  const uniq = [...new Map(list.map(x=>[x.name, x])).values()];
+  for(let i = uniq.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [uniq[i], uniq[j]] = [uniq[j], uniq[i]]; }
+  return uniq.slice(0, n);
+}
+
+async function loadNearby(st){
+  if(!COORDS[st]) return;
+  const box = document.createElement('div');
+  box.className = 'nearby';
+  card.appendChild(box);
+  let groups;
+  try {
+    // 都心は近い順 200 件がすぐ埋まるので、公園と観光はキーワードで別に引く
+    const [all, parks, sights] = await Promise.all([poi(st), poiWords(st, PARKS), poiWords(st, SIGHTS)]);
+    // q は住所にもヒットするので名前で絞り直す
+    groups = [
+      all.filter(x=>FOOD_CATS.includes(x.category) && !isChain(x.name)),
+      parks.filter(x=>named(PARKS)(x) && !/店/.test(x.name)),
+      sights.filter(x=>named(SIGHTS)(x) && !named(PARKS)(x) && !/店/.test(x.name))
+    ].map(list=>list.filter(x=>!NOT_SPOT.test(x.name)));
+  } catch(e){ box.remove(); return; }
+  if(!box.isConnected) return; // 待っている間に次のガチャが回った
+  groups.forEach((list, i)=>{
+    const picks = sample(list, 3);
+    if(!picks.length) return;
+    const h = document.createElement('div');
+    h.className = 'nearby-head';
+    h.textContent = t('nearby')[i];
+    box.appendChild(h);
+    picks.forEach(x=>{
+      const a = document.createElement('a');
+      a.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x.name + ' ' + (x.address || x.lat + ',' + x.lng))}`;
+      a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = x.name;
+      box.appendChild(a);
+    });
+  });
+  if(box.childElementCount) box.insertAdjacentHTML('beforeend', '<div class="nearby-src">Data: <a href="https://openpoiapi.com/attribution.html" target="_blank" rel="noopener">OpenPOI API</a></div>');
+  else box.remove();
 }
 
 go.onclick = ()=>{
