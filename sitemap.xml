@@ -10039,4 +10039,22 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://metrandom.com/about/</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://metrandom.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://metrandom.com/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://metrandom.com/en/about/"/>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://metrandom.com/en/about/</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://metrandom.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://metrandom.com/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://metrandom.com/en/about/"/>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>
