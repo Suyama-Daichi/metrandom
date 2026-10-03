@@ -100,6 +100,14 @@ button.go {
 }
 button.go:active { transform: scale(.96); }
 button.go:disabled { opacity: .6; cursor: default; }
+/* 結果表示中: 画面下部に固定 */
+button.go.floating {
+  position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translateX(-50%);
+  margin-top: 0; z-index: 20; white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(255,180,0,.35), 0 4px 16px rgba(0,0,0,.5);
+}
+button.go.floating:active { transform: translateX(-50%) scale(.96); }
+body.has-result { padding-bottom: 110px; }
 
 /* ハンバーガーメニュー & 履歴ドロワー */
 .menu-btn {

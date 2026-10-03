@@ -4,6 +4,7 @@ const T = {
   ja: {
     copy: 'リンクをコピー',
     copied: 'コピーしました ✓',
+    again: 'もう一度',
     mapLink: 'Googleマップで見る',
     hotel: st => `${st[0]}駅周辺のホテルを探す`,
     restore: 'この駅を表示',
@@ -13,6 +14,7 @@ const T = {
   en: {
     copy: 'Copy link',
     copied: 'Copied ✓',
+    again: 'Spin again',
     mapLink: 'View on Google Maps',
     hotel: st => `Find hotels near ${st[1]} Station`,
     restore: 'Show this station',
@@ -22,6 +24,7 @@ const T = {
   zh: {
     copy: '复制链接',
     copied: '已复制 ✓',
+    again: '再转一次',
     mapLink: '在谷歌地图中查看',
     hotel: st => `查找${st[0]}站附近的酒店`,
     restore: '显示该车站',
@@ -152,6 +155,7 @@ histEl.addEventListener('click', e=>{
   const r = { line, st: line.stations[h.i], idx: h.i };
   render(r, false);
   updateShare(r);
+  floatGo();
   drawer.close();
   card.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
@@ -285,8 +289,16 @@ async function loadNearby(st){
   else box.remove();
 }
 
+// 駅名が出ている間は「もう一度」ボタンを画面下部に浮かせる
+function floatGo(){
+  go.textContent = t('again');
+  go.classList.add('floating');
+  document.body.classList.add('has-result');
+}
+
 go.onclick = ()=>{
   go.disabled = true;
+  floatGo();
   shareEl.hidden = true;
   let n = 0;
   const total = 14;
