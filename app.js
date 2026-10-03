@@ -8,7 +8,7 @@ const T = {
     mapLink: 'Googleマップで見る',
     hotel: st => `${st[0]}駅周辺のホテルを探す`,
     restore: 'この駅を表示',
-    nearby: ['周辺のお店（チェーン店以外）', '公園', '観光スポット'],
+    nearby: ['周辺のお店（チェーン店以外）', 'カフェ', '公園', '観光スポット'],
     share: r => `メトロ駅ガチャの結果は「${lineName(r.line)} ${r.st[0]}駅（${stationCode(r.line, r.idx)}）」でした！🚇 #メトロ駅ガチャ`
   },
   en: {
@@ -18,7 +18,7 @@ const T = {
     mapLink: 'View on Google Maps',
     hotel: st => `Find hotels near ${st[1]} Station`,
     restore: 'Show this station',
-    nearby: ['Local eats (no chains)', 'Parks', 'Sights'],
+    nearby: ['Local eats (no chains)', 'Cafes', 'Parks', 'Sights'],
     share: r => `I spun the Metro Station Gacha and got "${r.st[1]} Station (${lineName(r.line)}, ${stationCode(r.line, r.idx)})"! 🚇 #MetroStationGacha`
   },
   zh: {
@@ -28,7 +28,7 @@ const T = {
     mapLink: '在谷歌地图中查看',
     hotel: st => `查找${st[0]}站附近的酒店`,
     restore: '显示该车站',
-    nearby: ['周边小店（非连锁）', '公园', '观光景点'],
+    nearby: ['周边小店（非连锁）', '咖啡馆', '公园', '观光景点'],
     share: r => `地铁站扭蛋抽到了「${r.st[0]}站（${lineName(r.line)} ${stationCode(r.line, r.idx)}）」！🚇 #地铁站扭蛋`
   }
 };
@@ -228,10 +228,9 @@ function render(r, spinning){
 
 // ---------- 駅周辺スポット（OpenPOI API） ----------
 const POI_API = 'https://api.openpoiapi.com/v1/search';
-const FOOD_CATS = ['restaurant', 'cafe', 'bakery', 'bar_izakaya'];
 // ponytail: API にチェーン判定が無いので名前で推定。「ジョナサン 西馬込店」のような「ブランド名 + 支店名店」と
 // 支店名なしで出てくる有名チェーンを除く。漏れが目立ったら CHAINS に足す。
-const CHAINS = /マクドナルド|モスバーガー|ケンタッキー|吉野家|松屋|すき家|なか卯|ガスト|サイゼリヤ|ジョナサン|デニーズ|ロイヤルホスト|ココス|バーミヤン|ドトール|スターバックス|タリーズ|コメダ|ベローチェ|サンマルク|ミスタードーナツ|ドミノ|ピザーラ|ピザハット|日高屋|幸楽苑|大戸屋|やよい軒|てんや|CoCo壱|ココイチ|丸亀|はなまる|富士そば|鳥貴族|磯丸|白木屋|和民|魚民|笑笑|くら寿司|スシロー|かっぱ寿司|はま寿司|リンガーハット|天下一品|一蘭|一風堂|ローソン|セブン|ファミリーマート/i;
+const CHAINS = /マクドナルド|モスバーガー|ケンタッキー|吉野家|松屋|すき家|なか卯|ガスト|サイゼリヤ|ジョナサン|デニーズ|ロイヤルホスト|ココス|バーミヤン|ドトール|スターバックス|タリーズ|エクセルシオール|プロント|FLO |自遊空間|キオスク|コメダ|ベローチェ|サンマルク|ミスタードーナツ|ドミノ|ピザーラ|ピザハット|日高屋|幸楽苑|大戸屋|やよい軒|てんや|CoCo壱|ココイチ|丸亀|はなまる|富士そば|鳥貴族|磯丸|白木屋|和民|魚民|笑笑|くら寿司|スシロー|かっぱ寿司|はま寿司|リンガーハット|天下一品|一蘭|一風堂|ローソン|セブン|ファミリーマート/i;
 const isChain = name => CHAINS.test(name) || /[\s　].*店([\s　]*[(（].*)?$/.test(name);
 const PARKS = ['公園', '庭園'];
 const SIGHTS = ['神社', '寺', '八幡', '稲荷', '美術館', '博物館', '記念館', '資料館'];
@@ -264,7 +263,8 @@ async function loadNearby(st){
     const [all, parks, sights] = await Promise.all([poi(st), poiWords(st, PARKS), poiWords(st, SIGHTS)]);
     // q は住所にもヒットするので名前で絞り直す
     groups = [
-      all.filter(x=>FOOD_CATS.includes(x.category) && !isChain(x.name)),
+      all.filter(x=>x.business_type === 'restaurant' && !isChain(x.name)),
+      all.filter(x=>x.business_type === 'cafe' && !isChain(x.name)),
       parks.filter(x=>named(PARKS)(x) && !/店/.test(x.name)),
       sights.filter(x=>named(SIGHTS)(x) && !named(PARKS)(x) && !/店/.test(x.name))
     ].map(list=>list.filter(x=>!NOT_SPOT.test(x.name)));
