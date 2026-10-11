@@ -12,12 +12,12 @@ body {
 h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 4px; letter-spacing: .02em; }
 .sub { color: #9aa6c4; font-size: .8rem; margin-bottom: 12px; }
 
-.langs { display: flex; gap: 4px; margin-bottom: 12px; }
+.langs { display: flex; gap: 6px; margin-bottom: 12px; }
 .langs button {
-  background: rgba(255,255,255,.08); border: 1.5px solid transparent; color: #9aa6c4;
-  font-size: .64rem; font-weight: 600; padding: 2px 9px; border-radius: 999px; cursor: pointer;
+  background: transparent; border: 1.5px solid rgba(255,255,255,.18); color: #9aa6c4;
+  font-size: .75rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; cursor: pointer;
 }
-.langs button.active { color: #1a2238; background: #ffd84d; }
+.langs button.active { color: #1a2238; background: #ffd84d; border-color: #ffd84d; }
 
 /* 都市切替（東京 / 大阪 / 名古屋） */
 .cities { display: flex; gap: 6px; margin-bottom: 14px; }
@@ -25,7 +25,7 @@ h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 4px; letter-spacing: .
   color: #9aa6c4; font-size: .75rem; font-weight: 700; text-decoration: none;
   padding: 4px 12px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.18);
 }
-.cities a[aria-current] { color: #fff; border-color: #ffd84d; }
+.cities a[aria-current] { color: #1a2238; background: #ffd84d; border-color: #ffd84d; }
 
 .lines {
   display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
@@ -44,16 +44,16 @@ h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 4px; letter-spacing: .
 .lines .sep { width: 1px; align-self: stretch; margin: 2px 3px; background: rgba(255,255,255,.3); }
 
 .ops {
-  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 10px;
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 10px;
 }
 .ops[hidden] { display: none; }
 .op-chip {
-  padding: 6px 14px; border-radius: 999px; cursor: pointer;
-  font-size: .8rem; font-weight: 700; user-select: none;
-  background: rgba(255,255,255,.14); border: 1.5px solid rgba(255,255,255,.4);
+  padding: 4px 12px; border-radius: 999px; cursor: pointer;
+  font-size: .75rem; font-weight: 700; user-select: none;
+  color: #1a2238; background: #ffd84d; border: 1.5px solid #ffd84d;
   transition: .15s;
 }
-.op-chip.off { opacity: .35; border-color: transparent; }
+.op-chip.off { color: #9aa6c4; background: transparent; border-color: rgba(255,255,255,.18); }
 
 .card {
   width: 100%; max-width: 420px; background: rgba(255,255,255,.06);
