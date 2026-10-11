@@ -264,7 +264,7 @@ async function loadNearby(st){
     // q は住所にもヒットするので名前で絞り直す
     groups = [
       all.filter(x=>x.business_type === 'restaurant' && !isChain(x.name)),
-      all.filter(x=>x.business_type === 'cafe' && !isChain(x.name)),
+      all.filter(x=>x.business_type === 'cafe'),
       parks.filter(x=>named(PARKS)(x) && !/店/.test(x.name)),
       sights.filter(x=>named(SIGHTS)(x) && !named(PARKS)(x) && !/店/.test(x.name))
     ].map(list=>list.filter(x=>!NOT_SPOT.test(x.name)));
@@ -279,7 +279,7 @@ async function loadNearby(st){
     box.appendChild(h);
     picks.forEach(x=>{
       const a = document.createElement('a');
-      a.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x.name + ' ' + (x.address || x.lat + ',' + x.lng))}`;
+      a.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x.name + ' ' + (x.address || st + '駅'))}`;
       a.target = '_blank'; a.rel = 'noopener';
       a.textContent = x.name;
       box.appendChild(a);
