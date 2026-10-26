@@ -1,6 +1,7 @@
 // 東京・大阪・名古屋の全駅ぶんの駅別シェアページ (/s, /en/s, /zh/s と /osaka/s, /nagoya/s 等) と、
 // 大阪・名古屋版のトップページ (/osaka/, /en/osaka/ …) を生成し、
 // sitemap.xml に未掲載のURLがあれば追記するスクリプト。
+// 駅別シェアページは独自の内容が少ないため noindex にし、sitemap にも載せない（AdSense の「有用性の低いコンテンツ」対策）。
 //
 // data/{city}.js の LINES/GUIDES/LINE_I18N を読み込んで生成する（駅名やガイド文を更新したときの再実行用）。
 // 大阪・名古屋のトップページは東京版 (index.html, en/index.html, zh/index.html) をテンプレートにする。
@@ -184,7 +185,7 @@ function page(lang, p) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 ${ANALYTICS}<title>${s.title}</title>
 <meta name="description" content="${s.description}">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, follow">
 <link rel="canonical" href="${pageUrl}">
 <link rel="alternate" hreflang="ja" href="https://metrandom.com/${path}s/${code}/">
 <link rel="alternate" hreflang="en" href="https://metrandom.com/en/${path}s/${code}/">
@@ -468,17 +469,15 @@ function urlBlock(loc) {
   return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>yearly</changefreq>\n    <priority>0.3</priority>\n  </url>\n`;
 }
 
-const allLocs = extraLocs.concat(stationsWritten.flatMap(p => [
-  `https://metrandom.com/${p.path}s/${p.code}/`,
-  `https://metrandom.com/en/${p.path}s/${p.code}/`,
-  `https://metrandom.com/zh/${p.path}s/${p.code}/`,
-]));
-const missingLocs = allLocs.filter(loc => !sitemap.includes(`<loc>${loc}</loc>`));
+// noindex の駅別シェアページ (/s/) は sitemap から除く
+const before = sitemap;
+sitemap = sitemap.replace(/  <url>\n    <loc>[^<]*\/s\/[^<]*<\/loc>[\s\S]*?<\/url>\n/g, '');
+const missingLocs = extraLocs.filter(loc => !sitemap.includes(`<loc>${loc}</loc>`));
+sitemap = sitemap.replace('</urlset>', missingLocs.map(urlBlock).join('') + '</urlset>');
 
-if (missingLocs.length === 0) {
-  console.log('sitemap.xml already contains all station URLs, nothing to append.');
+if (sitemap === before) {
+  console.log('sitemap.xml is up to date.');
 } else {
-  sitemap = sitemap.replace('</urlset>', missingLocs.map(urlBlock).join('') + '</urlset>');
   await writeFile(sitemapPath, sitemap, 'utf8');
-  console.log(`Appended ${missingLocs.length} URLs to sitemap.xml.`);
+  console.log(`Updated sitemap.xml (appended ${missingLocs.length} URLs, station pages excluded).`);
 }
