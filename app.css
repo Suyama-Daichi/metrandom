@@ -19,7 +19,7 @@ h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 4px; letter-spacing: .
 }
 .langs button.active { color: #1a2238; background: #ffd84d; border-color: #ffd84d; }
 
-/* 都市切替（東京 / 大阪 / 名古屋） */
+/* 都市切替（東京 / 大阪 / 名古屋 / 仙台） */
 .cities { display: flex; gap: 6px; margin-bottom: 14px; }
 .cities a {
   color: #9aa6c4; font-size: .75rem; font-weight: 700; text-decoration: none;

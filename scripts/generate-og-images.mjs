@@ -1,8 +1,8 @@
 // 駅別シェアページ用のOGP画像 (og/{CITY_PATH}{code}.jpg) と都市版トップのOGP画像 (og-image-{city}.png) を
 // ヘッドレス Chrome で生成するスクリプト（macOS 前提: Chrome と sips を使う。npm 依存なし）。
-// 東京版の画像は生成済みのため、既定では大阪・名古屋のみ生成する。
+// 東京版の画像は生成済みのため、既定では大阪・名古屋・仙台のみ生成する。
 //
-// 実行: node scripts/generate-og-images.mjs [osaka] [nagoya]
+// 実行: node scripts/generate-og-images.mjs [osaka] [nagoya] [sendai]
 import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -13,7 +13,7 @@ import { tmpdir } from 'node:os';
 const run = promisify(execFile);
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CHROME = process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const SITE = { osaka: ['大阪メトロ', '駅ガチャ'], nagoya: ['名古屋市営地下鉄', '駅ガチャ'] };
+const SITE = { osaka: ['大阪メトロ', '駅ガチャ'], nagoya: ['名古屋市営地下鉄', '駅ガチャ'], sendai: ['仙台市地下鉄', '駅ガチャ'] };
 const cities = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(SITE);
 
 const icon = (await readFile(join(ROOT, 'favicon.svg'), 'utf8')).replace(/<\?xml[^>]*>/, '');

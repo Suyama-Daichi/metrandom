@@ -1,5 +1,5 @@
-// 東京・大阪・名古屋の全駅ぶんの駅別シェアページ (/s, /en/s, /zh/s と /osaka/s, /nagoya/s 等) と、
-// 大阪・名古屋版のトップページ (/osaka/, /en/osaka/ …) を生成し、
+// 東京・大阪・名古屋・仙台の全駅ぶんの駅別シェアページ (/s, /en/s, /zh/s と /osaka/s, /nagoya/s 等) と、
+// 大阪・名古屋・仙台版のトップページ (/osaka/, /en/osaka/ …) を生成し、
 // sitemap.xml に未掲載のURLがあれば追記するスクリプト。
 // 駅別シェアページは独自の内容が少ないため noindex にし、sitemap にも載せない（AdSense の「有用性の低いコンテンツ」対策）。
 //
@@ -46,6 +46,14 @@ const CITIES = {
       disclaimer: 'This is an unofficial fan site and is not affiliated with the Transportation Bureau City of Nagoya.' },
     zh: { site: '名古屋市营地铁站扭蛋', city: '名古屋', area: '名古屋市营地铁', pool: (n, m) => `名古屋市营地铁全部${m}个车站`,
       disclaimer: '本网站为非官方粉丝网站，与名古屋市交通局无任何关联。' },
+  },
+  sendai: {
+    ja: { site: '仙台市地下鉄駅ガチャ', city: '仙台', area: '仙台市地下鉄', pool: (n, m) => `仙台市地下鉄全${n}路線・${m}駅`,
+      disclaimer: '本サイトは非公式のファンサイトであり、仙台市交通局とは一切関係ありません。' },
+    en: { site: 'Sendai City Subway Station Gacha', area: 'Sendai City Subway', city: 'Sendai', pool: (n, m) => `${m} Sendai City Subway stations`,
+      disclaimer: 'This is an unofficial fan site and is not affiliated with the Sendai City Transportation Bureau.' },
+    zh: { site: '仙台市地铁站扭蛋', city: '仙台', area: '仙台市地铁', pool: (n, m) => `仙台市地铁全部${m}个车站`,
+      disclaimer: '本网站为非官方粉丝网站，与仙台市交通局无任何关联。' },
   },
 };
 

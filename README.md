@@ -1,6 +1,6 @@
 # メトロ駅ガチャ
 
-東京メトロの全9路線と都営地下鉄の全4路線、あわせて13路線の中から、ボタンひとつでランダムに1駅を選ぶ Web アプリです。大阪メトロ版（[/osaka/](https://metrandom.com/osaka/)）と名古屋市営地下鉄版（[/nagoya/](https://metrandom.com/nagoya/)）もあります。行き先に迷ったときの途中下車、休日のお散歩コース選び、近場の小旅行、街歩きの目的地決めなどに使えます。
+東京メトロの全9路線と都営地下鉄の全4路線、あわせて13路線の中から、ボタンひとつでランダムに1駅を選ぶ Web アプリです。大阪メトロ版（[/osaka/](https://metrandom.com/osaka/)）、名古屋市営地下鉄版（[/nagoya/](https://metrandom.com/nagoya/)）、仙台市地下鉄版（[/sendai/](https://metrandom.com/sendai/)）もあります。行き先に迷ったときの途中下車、休日のお散歩コース選び、近場の小旅行、街歩きの目的地決めなどに使えます。
 
 🔗 公開URL: https://metrandom.com/
 
@@ -67,7 +67,14 @@
 | S | 桜通線 | `#C92F44` |
 | K | 上飯田線 | `#EC78B4` |
 
-都市版は東京版とは別の抽選プール・履歴を持ちます。上部の「東京 / 大阪 / 名古屋」で切り替えられます。
+### 仙台市地下鉄（2路線・30駅）— `/sendai/`
+
+| 記号 | 路線 | ラインカラー |
+| --- | --- | --- |
+| N | 南北線 | `#00A040` |
+| T | 東西線 | `#00A0E3` |
+
+都市版は東京版とは別の抽選プール・履歴を持ちます。上部の「東京 / 大阪 / 名古屋 / 仙台」で切り替えられます。
 
 ## 使い方
 
@@ -115,15 +122,15 @@ python3 -m http.server 8000
 .
 ├── index.html              # アプリ本体（日本語）
 ├── en/ , zh/               # 各言語版（同構成）
-├── osaka/ , nagoya/        # 都市版トップ（en/osaka/ 等も。東京版から自動生成）
+├── osaka/ , nagoya/ , sendai/ # 都市版トップ（en/osaka/ 等も。東京版から自動生成）
 ├── app.js / app.css        # 全都市・3言語共通のスクリプト・スタイル
-├── data/{tokyo,osaka,nagoya}.js # 都市ごとの路線・駅・ガイドデータ（app.js より先に読み込む）
+├── data/{tokyo,osaka,nagoya,sendai}.js # 都市ごとの路線・駅・ガイドデータ（app.js より先に読み込む）
 ├── station.css             # 駅別シェアページ共通のスタイル
 ├── s/ , en/s/ , zh/s/      # 駅別シェアページ（東京291駅 × 3言語。都市版は osaka/s/ 等）
-├── og/                     # 駅別OGP画像（都市版は og/osaka/ , og/nagoya/）
+├── og/                     # 駅別OGP画像（都市版は og/osaka/ , og/nagoya/ , og/sendai/）
 ├── scripts/
 │   ├── generate-station-pages.mjs # 駅別シェアページ・都市版トップの再生成
-│   └── generate-og-images.mjs     # 大阪・名古屋のOGP画像生成（ヘッドレスChrome）
+│   └── generate-og-images.mjs     # 大阪・名古屋・仙台のOGP画像生成（ヘッドレスChrome）
 ├── favicon.svg / favicon.png / apple-touch-icon.png / og-image.png
 ├── robots.txt / sitemap.xml
 └── README.md
@@ -133,15 +140,15 @@ python3 -m http.server 8000
 
 - 東京メトロ・都営地下鉄いずれの駅も、静的な結果ページ `/s/{駅コード}/`（例 `/s/G19/`、
   `/s/E23/`）を共有します。OGP画像は `og/{駅コード}.jpg`。
-- 大阪・名古屋版は `/osaka/s/M11/`、`/nagoya/s/H08/` のように都市パスが付きます。
+- 大阪・名古屋・仙台版は `/osaka/s/M11/`、`/nagoya/s/H08/`、`/sendai/s/N10/` のように都市パスが付きます。
 
 ## 技術構成
 
 - HTML / CSS / Vanilla JavaScript のみ（フレームワーク・ビルドツールなし）
-- 駅データは `data/{都市}.js`（東京・大阪・名古屋）
+- 駅データは `data/{都市}.js`（東京・大阪・名古屋・仙台）
 - ホスティング: Cloudflare Pages（GitHub 連携で自動デプロイ）
 - SEO 対応: メタ情報・OGP・Twitter カード・JSON-LD（`WebApplication`）・robots.txt・sitemap.xml
 
 ## 備考
 
-駅名・路線データは制作時点の情報に基づきます。実際の運行情報は[東京メトロ公式サイト](https://www.tokyometro.jp/)、[東京都交通局公式サイト](https://www.kotsu.metro.tokyo.jp/)、[Osaka Metro公式サイト](https://subway.osakametro.co.jp/)、[名古屋市交通局公式サイト](https://www.kotsu.city.nagoya.jp/)をご確認ください。本アプリは非公式の個人制作物です。
+駅名・路線データは制作時点の情報に基づきます。実際の運行情報は[東京メトロ公式サイト](https://www.tokyometro.jp/)、[東京都交通局公式サイト](https://www.kotsu.metro.tokyo.jp/)、[Osaka Metro公式サイト](https://subway.osakametro.co.jp/)、[名古屋市交通局公式サイト](https://www.kotsu.city.nagoya.jp/)、[仙台市交通局公式サイト](https://www.kotsu.city.sendai.jp/)をご確認ください。本アプリは非公式の個人制作物です。
