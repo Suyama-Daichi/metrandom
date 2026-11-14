@@ -58,7 +58,7 @@ const CITIES = {
 };
 
 // app.js の stationCode と同じ駅ナンバリング
-const stationCode = (line, i) => line.key + String(i + (line.numStart || 1)).padStart(2, '0');
+const stationCode = (line, i) => line.stations[i][2] || line.key + String(i + (line.numStart || 1)).padStart(2, '0');
 
 // 言語ごとの出力先ディレクトリ
 const DIR = { ja: '', en: 'en/', zh: 'zh/' };

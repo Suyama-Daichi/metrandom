@@ -37,8 +37,8 @@ const T = {
 const lang = document.documentElement.lang.slice(0, 2);
 
 function t(key){ return T[lang][key]; }
-// 駅ナンバリング（例: G01）。大阪メトロのように 01 始まりでない路線は numStart で指定する。
-function stationCode(line, i){ return line.key + String(i + (line.numStart || 1)).padStart(2,'0'); }
+// 駅ナンバリング（例: G01）。大阪メトロのように 01 始まりでない路線は numStart で、丸ノ内線支線（Mb03 等）のような例外は駅の3番目の要素で指定する。
+function stationCode(line, i){ return line.stations[i][2] || line.key + String(i + (line.numStart || 1)).padStart(2,'0'); }
 function lineName(line){ return lang === 'ja' ? line.name : LINE_I18N[line.key][lang]; }
 function opName(op){ return lang === 'ja' ? op.name : OP_I18N[op.key][lang]; }
 // ---------- /i18n ----------
